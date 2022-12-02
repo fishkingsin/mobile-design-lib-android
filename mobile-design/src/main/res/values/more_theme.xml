@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.MORE.DayNight" />
+    <style name="Theme.MORE" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/more_primaryMain</item>
+    </style>
+    <style name="Theme.MORE.Dark" parent="Theme.MORE">
+
+    </style>
+</resources>

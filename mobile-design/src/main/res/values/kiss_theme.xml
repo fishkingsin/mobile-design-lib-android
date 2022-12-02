@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.KISS.DayNight" />
+    <style name="Theme.KISS" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/kiss_primaryMain</item>
+    </style>
+    <style name="Theme.KISS.Dark" parent="Theme.KISS">
+
+    </style>
+</resources>

@@ -1,0 +1,56 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!--<style name="AppTheme" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorMobileDesignPrimary">@color/textPrimary</item>
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/darker_gray
+        </item>
+    </style>
+
+    <style name="Theme1" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#30E57E</item>
+    </style>
+
+    <style name="Theme2" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#F10000</item>
+        <item name="colorPrimaryDark">#6E0000</item>
+        <item name="colorAccent">#F10000</item>
+    </style>
+
+    <style name="Theme3" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#79008E</item>
+        <item name="colorPrimaryDark">#5C006C</item>
+        <item name="colorAccent">#79008E</item>
+    </style>
+
+    <style name="Theme4" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#009688</item>
+        <item name="colorPrimaryDark">#00655C</item>
+        <item name="colorAccent">#009688</item>
+    </style>
+
+    <style name="Theme5" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#777777</item>
+        <item name="colorPrimaryDark">#303030</item>
+        <item name="colorAccent">#777777</item>
+    </style>
+
+    <style name="Theme6" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryDark">#D53300</item>
+        <item name="colorAccent">#FF784D</item>
+        <item name="textColorPrimary">#0000000</item>
+    </style>
+
+    <style name="Theme7" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">#E91E63</item>
+        <item name="colorPrimaryDark">#C80145</item>
+        <item name="colorAccent">#FF3C7F</item>
+    </style>-->
+</resources>

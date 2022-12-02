@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Common-->
+    <color name="Common_Neutral_Gray_90">#1A1A1A</color>
+    <color name="Common_Neutral_Gray_80">#333333</color>
+    <color name="Common_Neutral_Gray_70">#4D4D4D</color>
+    <color name="Common_Neutral_Gray_60">#666666</color>
+    <color name="Common_Neutral_Gray_50">#808080</color>
+    <color name="Common_Neutral_Gray_40">#999999</color>
+    <color name="Common_Neutral_Gray_30">#B3B3B3</color>
+    <color name="Common_Neutral_Gray_20">#CCCCCC</color>
+    <color name="Common_Neutral_Gray_10">#E5E5E5</color>
+    <color name="Common_Neutral_Gray_5">#F2F2F2</color>
+    <color name="Alert">#DD4E4E</color>
+    <color name="Success">#42D1B0</color>
+    <color name="Black">#000000</color>
+    <color name="White">#FFFFFF</color>
+    <!--ED-->
+    <color name="ed_primaryMain">#1E37A6</color>
+    <!--WW-->
+    <color name="ww_primaryMain">#F29600</color>
+    <!--MORE-->
+    <color name="more_primaryMain">#EBA2A9</color>
+    <!--KISS-->
+    <color name="kiss_primaryMain">#E29098</color>
+    <!--gotrip-->
+    <color name="gotrip_primaryMain">#4FC2F1</color>
+    <!--NM-->
+    <color name="nm_primaryMain">#000000</color>
+    <!--OS-->
+    <color name="os_primaryMain">#A61F3F</color>
+    <!--OH-->
+    <color name="oh_primaryMain">#4FC2F1</color>
+</resources>

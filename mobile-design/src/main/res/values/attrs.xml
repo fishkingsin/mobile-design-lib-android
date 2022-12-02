@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="commonNeutralGray90" format="color" />
+    <attr name="commonNeutralGray80" format="color" />
+    <attr name="commonNeutralGray70" format="color" />
+    <attr name="commonNeutralGray60" format="color" />
+    <attr name="commonNeutralGray50" format="color" />
+    <attr name="commonNeutralGray40" format="color" />
+    <attr name="commonNeutralGray30" format="color" />
+    <attr name="commonNeutralGray20" format="color" />
+    <attr name="commonNeutralGray10" format="color" />
+    <attr name="commonNeutralGray5" format="color" />
+    <attr name="primaryMain" format="color" />
+    <attr name="success" format="color" />
+    <attr name="alert" format="color" />
+    <attr name="black" format="color" />
+    <attr name="white" format="color" />
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ed"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/ed_primaryMain"
+            android:gravity="center"
+            android:text="ed"
+            android:textColor="#00000000" />
+
+        <TextView
+            android:id="@+id/ww"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/ww_primaryMain"
+            android:gravity="center"
+            android:text="ww"
+            android:textColor="#00000000" />
+
+        <TextView
+            android:id="@+id/more"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/more_primaryMain"
+            android:gravity="center"
+            android:text="more"
+            android:textColor="#00000000" />
+
+        <TextView
+            android:id="@+id/kiss"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/kiss_primaryMain"
+            android:gravity="center"
+            android:text="kiss"
+            android:textColor="#00000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/nm"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/nm_primaryMain"
+            android:gravity="center"
+            android:text="nm"
+            android:textColor="#00000000" />
+
+        <TextView
+            android:id="@+id/os"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/os_primaryMain"
+            android:gravity="center"
+            android:text="os"
+            android:textColor="#00000000" />
+
+        <TextView
+            android:id="@+id/gotrip"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/gotrip_primaryMain"
+            android:gravity="center"
+            android:text="gotrip"
+            android:textColor="#00000000" />
+
+        <TextView
+            android:id="@+id/oh"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@color/oh_primaryMain"
+            android:gravity="center"
+            android:text="oh"
+            android:textColor="#00000000" />
+    </LinearLayout>
+</LinearLayout>

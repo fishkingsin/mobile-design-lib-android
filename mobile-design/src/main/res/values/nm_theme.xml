@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.NM.DayNight" />
+    <style name="Theme.NM" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/nm_primaryMain</item>
+    </style>
+    <style name="Theme.NM.Dark" parent="Theme.NM">
+
+    </style>
+</resources>

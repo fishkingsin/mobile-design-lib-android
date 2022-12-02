@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="WW" parent="Theme.WW" />
+
+    <style name="ED" parent="Theme.ED" />
+
+    <style name="MORE" parent="Theme.MORE" />
+
+    <style name="KISS" parent="Theme.KISS" />
+
+    <style name="GOTRIP" parent="Theme.GOTRIP" />
+
+    <style name="OS" parent="Theme.OS" />
+
+    <style name="NM" parent="Theme.NM" />
+
+    <style name="OH" parent="Theme.OH" />
+</resources>

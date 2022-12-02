@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/success"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?success"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/alert"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?alert"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/black"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?black"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?white"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/CommonNeutralGray90"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray90"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/CommonNeutralGray80"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray80"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/CommonNeutralGray70"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray70"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/CommonNeutralGray60"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray60"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/CommonNeutralGray50"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray50"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/CommonNeutralGray40"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray40"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+
+    </LinearLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:id="@+id/CommonNeutralGray30"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray30"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+        <View
+            android:id="@+id/CommonNeutralGray20"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray20"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+        <View
+            android:id="@+id/CommonNeutralGray10"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray10"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+
+        <View
+            android:id="@+id/CommonNeutralGray5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="?commonNeutralGray5"
+            android:gravity="center"
+            android:shadowRadius="10"
+
+            android:textColor="#00000000" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

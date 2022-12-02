@@ -1,0 +1,141 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'shot'
+}
+
+ext.enableShot = gradle.startParameter.taskNames.size() > 0 && gradle.startParameter.taskNames.get(0) == "connectedDebugAndroidTest"
+
+def appId = "com.nmg.mobile.design.gallery"
+
+android {
+    namespace appId
+    compileSdk 33
+
+    defaultConfig {
+        applicationId appId
+        testApplicationId "com.nmg.mobile.design.gallery.test"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+        testInstrumentationRunner "com.karumi.shot.ShotTestRunner"
+
+        if (project.ext.enableShot == true) {
+            testInstrumentationRunnerArguments shot: 'true'
+        }
+    }
+
+    testOptions {
+        if (project.ext.enableShot == false) {
+            if (!isIdeBuild) {
+                execution 'ANDROIDX_TEST_ORCHESTRATOR'
+            }
+        }
+        animationsDisabled = true
+    }
+
+    adbOptions {
+        installOptions '-g', '-r'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.2"
+    }
+
+}
+
+
+shot {
+    tolerance = 1.1 //1.1%
+    showOnlyFailingTestsInReports = false
+}
+
+
+apply from: '../dependencies.gradle'
+
+dependencies {
+
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation project(path: ':mobile-design')
+    implementation project.ext.androidX.values()
+
+    implementation project.ext.compose.values()
+
+
+    testImplementation project.ext.test.values()
+    // AndroidTests
+    androidTestUtil 'androidx.test:orchestrator:1.4.1'
+
+    androidTestImplementation project.ext.androidTest.values()
+
+    androidTestImplementation project.ext.composeTest.values()
+
+    debugImplementation project.ext.debugImplementation.values()
+
+    androidTestImplementation "com.facebook.testing.screenshot:layout-hierarchy-common:0.14.0"
+}
+
+apply from: '../ktlint.gradle'
+check.dependsOn ktlint
+
+
+
+def projectScreenshotsDirectory = "$projectDir/screenshots"
+def deviceScreenshotsDirectory = '/sdcard/Pictures/' + appId + '/debug/screenshots'
+
+def clearScreenshotsTask = task('clearScreenshots', type: Exec) {
+    println deviceScreenshotsDirectory
+    executable "${android.getAdbExe().toString()}"
+    args 'shell', 'rm', '-r', deviceScreenshotsDirectory
+}
+
+def createScreenshotDirectoryTask = task('createScreenshotDirectory', type: Exec, group: 'reporting') {
+    executable "${android.getAdbExe().toString()}"
+    args 'shell', 'mkdir', '-p', deviceScreenshotsDirectory
+}
+
+def fetchScreenshotsTask = task('fetchScreenshots', type: Exec, group: 'reporting') {
+    executable "${android.getAdbExe().toString()}"
+    args 'pull', deviceScreenshotsDirectory + '/.', projectScreenshotsDirectory
+    finalizedBy {
+        clearScreenshotsTask
+    }
+
+    dependsOn {
+        createScreenshotDirectoryTask
+    }
+
+    doFirst {
+        new File(projectScreenshotsDirectory).mkdirs()
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'connectedDebugAndroidTest') {
+        task.finalizedBy {
+            fetchScreenshotsTask
+        }
+    }
+}

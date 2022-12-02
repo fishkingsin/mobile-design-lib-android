@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="Theme.OS.DayNight" />
+
+    <style name="Theme.OS" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/os_primaryMain</item>
+    </style>
+
+    <style name="Theme.OS.Dark" parent="Theme.OS">
+
+    </style>
+</resources>

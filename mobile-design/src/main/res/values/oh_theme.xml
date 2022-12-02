@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.OH.DayNight" />
+    <style name="Theme.OH" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/oh_primaryMain</item>
+    </style>
+    <style name="Theme.OH.Dark" parent="Theme.OH">
+
+    </style>
+</resources>

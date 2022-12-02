@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.ED.DayNight" />
+    <style name="Theme.ED" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/ed_primaryMain</item>
+    </style>
+    <style name="Theme.ED.Dark" parent="Theme.ED">
+
+    </style>
+</resources>

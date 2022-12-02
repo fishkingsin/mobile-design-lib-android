@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MDL_Base_Theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- design colours -->
+        <item name="commonNeutralGray90">@color/Common_Neutral_Gray_90</item>
+        <item name="commonNeutralGray80">@color/Common_Neutral_Gray_80</item>
+        <item name="commonNeutralGray70">@color/Common_Neutral_Gray_70</item>
+        <item name="commonNeutralGray60">@color/Common_Neutral_Gray_60</item>
+        <item name="commonNeutralGray50">@color/Common_Neutral_Gray_50</item>
+        <item name="commonNeutralGray40">@color/Common_Neutral_Gray_40</item>
+        <item name="commonNeutralGray30">@color/Common_Neutral_Gray_30</item>
+        <item name="commonNeutralGray20">@color/Common_Neutral_Gray_20</item>
+        <item name="commonNeutralGray10">@color/Common_Neutral_Gray_10</item>
+        <item name="commonNeutralGray5">@color/Common_Neutral_Gray_5</item>
+        <item name="white">@color/White</item>
+        <item name="black">@color/Black</item>
+        <item name="success">@color/Success</item>
+        <item name="alert">@color/Alert</item>
+        <item name="primaryMain">#FF0000</item>
+    </style>
+</resources>

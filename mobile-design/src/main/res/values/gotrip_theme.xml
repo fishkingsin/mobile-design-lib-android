@@ -1,0 +1,9 @@
+<resources>
+    <style name="Theme.GOTRIP.DayNight" />
+    <style name="Theme.GOTRIP" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/gotrip_primaryMain</item>
+    </style>
+    <style name="Theme.GOTRIP.Dark" parent="Theme.GOTRIP">
+
+    </style>
+</resources>

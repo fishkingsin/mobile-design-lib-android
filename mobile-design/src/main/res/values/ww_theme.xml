@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="Theme.WW.DayNight" />
+
+    <style name="Theme.WW" parent="Theme.MDL_Base_Theme">
+        <item name="primaryMain">@color/ww_primaryMain</item>
+    </style>
+
+    <style name="Theme.WW.Dark" parent="Theme.WW">
+
+    </style>
+</resources>
