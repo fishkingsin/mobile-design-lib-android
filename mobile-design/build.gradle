@@ -39,20 +39,22 @@ publishing {
         }
     }
 
+    /* TODO: Add this back in when we have a maven repo
     repositories {
         maven {
             name = "mobile-design-lib-android"
 
             url = uri("https://api.bitbucket.org/2.0/repositories/$REPOSITORY_OWNER/$REPOSITORY_NAME/raw/releases")
-//            credentials {
-//                username "$mavenUser"
-//                password "$mavenPassword"
-//            }
+            credentials {
+                username "$mavenUser"
+                password "$mavenPassword"
+            }
             authentication {
                 basic(BasicAuthentication)
             }
         }
     }
+    */
 }
 
 
