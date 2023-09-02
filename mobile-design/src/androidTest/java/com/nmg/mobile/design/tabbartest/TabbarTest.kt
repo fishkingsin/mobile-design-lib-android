@@ -11,7 +11,7 @@ import org.junit.Rule
 import org.junit.Test
 
 
-class TabbarTest : ScreenshotTest {
+class TabbarTest: ScreenshotTest {
 
     @get:Rule
     val composeRule = createComposeRule()

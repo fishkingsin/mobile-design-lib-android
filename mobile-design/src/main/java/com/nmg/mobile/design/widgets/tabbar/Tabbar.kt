@@ -25,7 +25,11 @@ fun Tabbar() {
                 selected = tabIndex == index,
                 onClick = { tabIndex = index },
                 text = { selected ->
-                    Text(color = if(selected) { tabBackground } else { tabSelectedBackground} , modifier = Modifier.padding(4.dp), text = tabs[index])
+                    Text(
+                        color = if(selected) { tabBackground } else { tabSelectedBackground},
+                        modifier = Modifier
+                            .padding(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                        text = tabs[index])
                 }
             )
         }

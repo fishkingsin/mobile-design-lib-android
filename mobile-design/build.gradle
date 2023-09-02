@@ -7,7 +7,7 @@ plugins {
 
 ext.enableShot = gradle.startParameter.taskNames.size() > 0 && gradle.startParameter.taskNames.get(0) == "connectedDebugAndroidTest"
 
-def appId = "com.nmg.mobiledeaignlibrary"
+def appId = "com.nmg.mobile.design"
 // def githubProperties = new Properties()
 // githubProperties.load(new FileInputStream(rootProject.file("github.properties"))) //Set env variable GPR_USER & GPR_API_KEY if not adding a properties file
 
@@ -70,16 +70,29 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 33
-        testApplicationId "com.nmg.mobiledesignlibrary.test"
+        testApplicationId "com.nmg.mobile.design.test"
 
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
         testInstrumentationRunner "com.karumi.shot.ShotTestRunner"
         consumerProguardFiles "consumer-rules.pro"
 
         if (project.ext.enableShot == true) {
             testInstrumentationRunnerArguments shot: 'true'
         }
+    }
+
+    testOptions {
+        if (project.ext.enableShot == false) {
+            if (!isIdeBuild) {
+                execution 'ANDROIDX_TEST_ORCHESTRATOR'
+            }
+        }
+        animationsDisabled = true
+    }
+
+    adbOptions {
+        installOptions '-g', '-r'
     }
 
     buildTypes {
@@ -135,8 +148,13 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
 
+    androidTestUtil 'androidx.test:orchestrator:1.4.2'
+
     androidTestImplementation project.ext.androidTest.values()
+
     androidTestImplementation project.ext.composeTest.values()
+
+    debugImplementation project.ext.debugImplementation.values()
 }
 
 apply from: '../ktlint.gradle'

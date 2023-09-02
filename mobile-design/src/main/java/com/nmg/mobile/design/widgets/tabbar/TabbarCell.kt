@@ -20,15 +20,10 @@ fun TabCell(text: @Composable (selected: Boolean) -> Unit, selected: Boolean, on
     val tabSelectedBackground = colors.tabSelectedBackground
     Box(
         modifier = Modifier
-            .fillMaxWidth(0.8f)
-            .height(40.dp)
             .background(color = tabBackground, shape = shape)
             .conditional(selected, modifier = { background(color = tabSelectedBackground, shape = shape) })
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
