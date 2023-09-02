@@ -8,9 +8,12 @@ import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.CardView
 import com.nmg.mobile.design.widgets.tabbar.Tabbar
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.lang.Thread.sleep
 
 
 class CardViewTest: ScreenshotTest {
@@ -42,6 +45,7 @@ class CardViewTest: ScreenshotTest {
                 )
             }
         }
+        sleep(1000)
         compareScreenshot(composeRule)
     }
 
