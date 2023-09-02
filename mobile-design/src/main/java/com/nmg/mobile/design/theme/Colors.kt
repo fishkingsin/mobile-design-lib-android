@@ -20,8 +20,11 @@ data class Colors(
     var commonNeutralGray5: Color,
     var commonNeutralGray2: Color,
     var primaryMain: Color,
+    val footnote: Color,
     /* ... */
-)
+) {
+
+}
 
 val LocalColors = staticCompositionLocalOf {
     Colors(
@@ -39,6 +42,7 @@ val LocalColors = staticCompositionLocalOf {
         commonNeutralGray5 = Color.Unspecified,
         commonNeutralGray2 = Color.Unspecified,
         primaryMain = Color.Unspecified,
+        footnote = Color.Unspecified,
         /* ... */
     )
 }
