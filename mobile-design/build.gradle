@@ -143,6 +143,7 @@ dependencies {
 
     implementation project.ext.compose.values()
 
+    implementation project.ext.coil.values()
 
     implementation 'com.google.android.material:material:1.7.0'
 
@@ -155,6 +156,7 @@ dependencies {
     androidTestImplementation project.ext.composeTest.values()
 
     debugImplementation project.ext.debugImplementation.values()
+
 }
 
 apply from: '../ktlint.gradle'
