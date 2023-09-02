@@ -1,27 +1,33 @@
 package com.nmg.mobile.design.widgets.tabbar
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Tab
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
 fun Tabbar() {
     var tabIndex by remember { mutableStateOf(0) }
-
-    val tabs = listOf("Home", "About", "Settings")
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        TabRow(selectedTabIndex = tabIndex) {
-            tabs.forEachIndexed { index, title ->
-                Tab(text = { Text(title) },
-                    selected = tabIndex == index,
-                    onClick = { tabIndex = index }
-                )
-            }
+    val tabBackground = NMGTheme.colors.tabBackground
+    val tabSelectedBackground = NMGTheme.colors.tabSelectedBackground
+    val tabs = listOf("Home", "About", "Settings", "Profile", "Help", "Contact", "Privacy", "Terms", "FAQ", "Support", "Logout")
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        items(tabs.size) { index ->
+            TabCell(
+                selected = tabIndex == index,
+                onClick = { tabIndex = index },
+                text = { selected ->
+                    Text(color = if(selected) { tabBackground } else { tabSelectedBackground} , modifier = Modifier.padding(4.dp), text = tabs[index])
+                }
+            )
         }
     }
 }
@@ -30,5 +36,7 @@ fun Tabbar() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun Tabbar_Preview() {
-    Tabbar()
+    NMGTheme() {
+        Tabbar()
+    }
 }
