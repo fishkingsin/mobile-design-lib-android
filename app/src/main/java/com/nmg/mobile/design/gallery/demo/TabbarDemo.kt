@@ -6,6 +6,6 @@ import com.nmg.mobile.design.widgets.tabbar.Tabbar
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun Tabbar_Preview() {
+fun Tabbar_Demo_Preview() {
     Tabbar()
 }

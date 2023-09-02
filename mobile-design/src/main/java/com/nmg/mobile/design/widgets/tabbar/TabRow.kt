@@ -22,4 +22,6 @@ fun TabRow(
         TabRowDefaults.Divider()
     },
     tabs: @Composable @UiComposable () -> Unit
-): Unit {}
+): Unit {
+
+}
