@@ -16,8 +16,8 @@ fun Gallery(navigationController: NavController) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         // Add a single item
         item {
-            Button(onClick = { navigationController.navigate("Colors") }) {
-                Text(text = "Colors")
+            Button(onClick = { navigationController.navigate("ColorPalette") }) {
+                Text(text = "ColorPalette")
             }
         }
         item {

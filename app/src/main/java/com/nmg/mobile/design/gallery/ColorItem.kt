@@ -1,6 +1,7 @@
 package com.nmg.mobile.design.gallery
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,17 +24,19 @@ private fun Color.toHexCode(): String {
 @Composable
 fun ColorItem(colorName: String = "", color: Color) {
 
-    Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(colorName)
+    Column(
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(colorName, style = NMGTheme.typography.caption)
         Box(
             modifier = Modifier
                 .defaultMinSize(50.dp, 50.dp)
                 .clip(RectangleShape)
+
                 .background(color)
-        )
-
-        Text(color.toHexCode())
-
+                .border(1.dp, Color.Black, RectangleShape)
+        ) {
+            Text(color.toHexCode())
+        }
     }
 }
 

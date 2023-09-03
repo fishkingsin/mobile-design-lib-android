@@ -41,14 +41,14 @@ fun <Data : CardDataAbstract> CardView(data: Data) {
         Text(
             text = data.headline,
             maxLines = 2,
-            style = NMGTheme.textStyles.headline,
+            style = NMGTheme.typography.headline,
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             val color = NMGTheme.colors.footnote
-            val style = NMGTheme.textStyles.caption
+            val style = NMGTheme.typography.caption
 
             Text(text = data.leadingFootnote, color = color, style = style)
             Text(text = data.secondFootnote, color = color, style = style)

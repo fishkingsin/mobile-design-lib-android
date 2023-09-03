@@ -29,7 +29,7 @@ object NMGTheme {
     val colors: ThemeableColors
         @Composable
         get() = LocalColors.current
-    val textStyles: ThemeableTypography
+    val typography: ThemeableTypography
         @Composable
         get() = LocalTypography.current
     val customSystem: CustomSystem
