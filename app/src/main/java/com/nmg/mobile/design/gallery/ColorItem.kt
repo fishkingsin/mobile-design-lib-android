@@ -35,8 +35,9 @@ fun ColorItem(colorName: String = "", color: Color) {
                 .background(color)
                 .border(1.dp, Color.Black, RectangleShape)
         ) {
-            Text(color.toHexCode())
+
         }
+        Text(color.toHexCode())
     }
 }
 

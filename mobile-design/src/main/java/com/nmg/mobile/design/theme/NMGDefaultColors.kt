@@ -84,6 +84,8 @@ data class NMGDefaultColors(val context: Context): ThemeableColors {
 
     override val primaryMain: Color = Color(context.themeColor(R.attr.primaryMain))
 
+    override val primary: Color = primaryMain
+
     override val footnote: Color
         get() = commonNeutralGray30
 }

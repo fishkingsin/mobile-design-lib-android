@@ -14,14 +14,15 @@ fun NMGTheme(
     content: @Composable () -> Unit
 ) {
 
-    /* ... */
-    CompositionLocalProvider(
-        LocalColors provides colors,
-        LocalTypography provides typography,
-        LocalCustomSystem provides customSystem,
         /* ... */
-        content = content
-    )
+        CompositionLocalProvider(
+            LocalColors provides colors,
+            LocalTypography provides typography,
+            LocalCustomSystem provides customSystem,
+            /* ... */
+            content = content
+        )
+
 }
 
 

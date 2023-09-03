@@ -18,4 +18,5 @@ public interface ThemeableColors {
     val commonNeutralGray2: Color
     val primaryMain: Color
     val footnote: Color
+    val primary: Color
 }

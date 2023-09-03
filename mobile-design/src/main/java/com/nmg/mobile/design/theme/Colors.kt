@@ -23,6 +23,7 @@ public data class Colors(
     override val tabBackground: Color = commonNeutralGray5
     override val footnote: Color = commonNeutralGray30
     override val primaryMain: Color = Color(0xFFF29600)
+    override val primary: Color = primaryMain
 }
 
 val LocalColors = staticCompositionLocalOf<ThemeableColors> {

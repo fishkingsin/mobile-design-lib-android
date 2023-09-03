@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.nmg.mobile.design.ThemeManager
 import com.nmg.mobile.design.gallery.CommonColorItems
+import com.nmg.mobile.design.theme.EDDefaultColors
 import com.nmg.mobile.design.theme.NMGDefaultColors
 import com.nmg.mobile.design.theme.NMGTheme
 
@@ -36,8 +37,8 @@ fun ColorPalette() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ColorPalettePreview() {
-    NMGTheme() {
+fun ColorPalettePreview_EDTheme() {
+    NMGTheme(colors = EDDefaultColors()) {
         ColorPalette()
     }
 }
