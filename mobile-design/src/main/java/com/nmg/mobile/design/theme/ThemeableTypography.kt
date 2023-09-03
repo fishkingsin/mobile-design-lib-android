@@ -6,6 +6,7 @@ interface ThemeableTypography {
     val largeTitleEmphasize: TextStyle
     val titleEmphasize: TextStyle
     val title1: TextStyle
+    val title1Medium: TextStyle
     val title2: TextStyle
     val title3: TextStyle
     val title4: TextStyle

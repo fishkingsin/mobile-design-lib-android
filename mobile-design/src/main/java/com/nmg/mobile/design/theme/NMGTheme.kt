@@ -9,7 +9,7 @@ fun NMGTheme(
     typography: ThemeableTypography = defaultTypography,
     customSystem: CustomSystem = CustomSystem(
         value1 = 1000,
-        value2 = "Custom system"
+        value2 = "Custom system",
     ),
     content: @Composable () -> Unit
 ) {

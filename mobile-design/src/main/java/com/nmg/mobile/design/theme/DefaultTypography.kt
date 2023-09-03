@@ -17,6 +17,12 @@ public val defaultTypography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 24.sp
     ),
+    title1Medium = TextStyle(
+        fontSize = 14.sp,
+        lineHeight = 22.sp,
+        fontWeight = FontWeight(500),
+        letterSpacing = 0.35.sp,
+    ),
     title2 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp

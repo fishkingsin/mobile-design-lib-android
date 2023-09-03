@@ -3,6 +3,7 @@ package com.nmg.mobile.design.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.sp
@@ -12,6 +13,7 @@ data class Typography(
     override val largeTitleEmphasize: TextStyle,
     override val titleEmphasize: TextStyle,
     override val title1: TextStyle,
+    override val title1Medium: TextStyle,
     override val title2: TextStyle,
     override val title3: TextStyle,
     override val title4: TextStyle,
@@ -42,6 +44,12 @@ val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
         title1 = TextStyle(
             fontWeight = Normal,
             fontSize = 24.sp),
+        title1Medium = TextStyle(
+            fontSize = 14.sp,
+            lineHeight = 22.sp,
+            fontWeight = FontWeight(500),
+            letterSpacing = 0.35.sp,
+        ),
         title2 = TextStyle(
             fontWeight = Normal,
             fontSize = 18.sp),
