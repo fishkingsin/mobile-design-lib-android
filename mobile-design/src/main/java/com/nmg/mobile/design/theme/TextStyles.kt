@@ -9,29 +9,29 @@ import androidx.compose.ui.unit.sp
 
 @Immutable
 data class TextStyles(
-    var largeTitleEmphasize: TextStyle,
-    var titleEmphasize: TextStyle,
-    var title1: TextStyle,
-    var title2: TextStyle,
-    var title3: TextStyle,
-    var title4: TextStyle,
-    var title2Emphasize: TextStyle,
-    var title3Emphasize: TextStyle,
-    var title4Emphasize: TextStyle,
-    var title5: TextStyle,
-    var headline: TextStyle,
-    var headlineEmphasize: TextStyle,
-    var primaryButton: TextStyle,
-    var captionEmphasize: TextStyle,
-    var caption: TextStyle,
-    var caption2: TextStyle,
-    var caption3Emphasize: TextStyle,
-    var naviTitle: TextStyle,
-    var body: TextStyle,
-    var bodyEmphasize: TextStyle
-)
+    override var largeTitleEmphasize: TextStyle,
+    override var titleEmphasize: TextStyle,
+    override var title1: TextStyle,
+    override var title2: TextStyle,
+    override var title3: TextStyle,
+    override var title4: TextStyle,
+    override var title2Emphasize: TextStyle,
+    override var title3Emphasize: TextStyle,
+    override var title4Emphasize: TextStyle,
+    override var title5: TextStyle,
+    override var headline: TextStyle,
+    override var headlineEmphasize: TextStyle,
+    override var primaryButton: TextStyle,
+    override var captionEmphasize: TextStyle,
+    override var caption: TextStyle,
+    override var caption2: TextStyle,
+    override var caption3Emphasize: TextStyle,
+    override var naviTitle: TextStyle,
+    override var body: TextStyle,
+    override var bodyEmphasize: TextStyle
+): ThemeableTextStyles
 
-val LocalTextStyles = staticCompositionLocalOf {
+val LocalTextStyles = staticCompositionLocalOf<ThemeableTextStyles> {
     TextStyles(
         largeTitleEmphasize = TextStyle(
             fontWeight = Bold,

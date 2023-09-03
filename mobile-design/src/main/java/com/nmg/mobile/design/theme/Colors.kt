@@ -5,44 +5,26 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class Colors(
-    val tabSelectedBackground: Color,
-    val tabBackground: Color,
-    var commonNeutralGray90: Color,
-    var commonNeutralGray80: Color,
-    var commonNeutralGray70: Color,
-    var commonNeutralGray60: Color,
-    var commonNeutralGray50: Color,
-    var commonNeutralGray40: Color,
-    var commonNeutralGray30: Color,
-    var commonNeutralGray20: Color,
-    var commonNeutralGray10: Color,
-    var commonNeutralGray5: Color,
-    var commonNeutralGray2: Color,
-    var primaryMain: Color,
-    val footnote: Color,
+public data class Colors(
+    override var commonNeutralGray90: Color,
+    override var commonNeutralGray80: Color,
+    override var commonNeutralGray70: Color,
+    override var commonNeutralGray60: Color,
+    override var commonNeutralGray50: Color,
+    override var commonNeutralGray40: Color,
+    override var commonNeutralGray30: Color,
+    override var commonNeutralGray20: Color,
+    override var commonNeutralGray10: Color,
+    override var commonNeutralGray5: Color,
+    override var commonNeutralGray2: Color,
     /* ... */
-) {
-
+) : ThemeableColors {
+    override val tabSelectedBackground: Color = commonNeutralGray90
+    override val tabBackground: Color = commonNeutralGray5
+    override val footnote: Color = commonNeutralGray30
+    override var primaryMain: Color = Color(0xFFF29600)
 }
 
-val LocalColors = staticCompositionLocalOf {
-    Colors(
-        tabSelectedBackground = Color.Unspecified,
-        tabBackground = Color.Unspecified,
-        commonNeutralGray90 = Color.Unspecified,
-        commonNeutralGray80 = Color.Unspecified,
-        commonNeutralGray70 = Color.Unspecified,
-        commonNeutralGray60 = Color.Unspecified,
-        commonNeutralGray50 = Color.Unspecified,
-        commonNeutralGray40 = Color.Unspecified,
-        commonNeutralGray30 = Color.Unspecified,
-        commonNeutralGray20 = Color.Unspecified,
-        commonNeutralGray10 = Color.Unspecified,
-        commonNeutralGray5 = Color.Unspecified,
-        commonNeutralGray2 = Color.Unspecified,
-        primaryMain = Color.Unspecified,
-        footnote = Color.Unspecified,
-        /* ... */
-    )
+val LocalColors = staticCompositionLocalOf<ThemeableColors> {
+    defaultThemeColors
 }

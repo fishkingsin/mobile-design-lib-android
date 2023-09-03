@@ -1,8 +1,10 @@
-package com.nmg.mobile.design
+package com.nmg.mobile.design.theme
 
-import android.graphics.Color
+import androidx.compose.ui.graphics.Color
 
-interface NMGThemeableColors {
+public interface ThemeableColors {
+    val tabSelectedBackground: Color
+    val tabBackground: Color
     var commonNeutralGray90: Color
     var commonNeutralGray80: Color
     var commonNeutralGray70: Color
@@ -13,11 +15,7 @@ interface NMGThemeableColors {
     var commonNeutralGray20: Color
     var commonNeutralGray10: Color
     var commonNeutralGray5: Color
-    var secondaryHightlight: Color
-    var secondaryElementbg2: Color
-    var secondaryElementbg5: Color
-    var secondaryElementbg10: Color
-    var secondaryUnactivated: Color
+    var commonNeutralGray2: Color
     var primaryMain: Color
+    val footnote: Color
 }
-

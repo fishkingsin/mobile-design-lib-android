@@ -11,6 +11,7 @@
     <color name="Common_Neutral_Gray_20">#CCCCCC</color>
     <color name="Common_Neutral_Gray_10">#E5E5E5</color>
     <color name="Common_Neutral_Gray_5">#F2F2F2</color>
+    <color name="Common_Neutral_Gray_2">#FFFAFAFA</color>
     <color name="Alert">#DD4E4E</color>
     <color name="Success">#42D1B0</color>
     <color name="Black">#000000</color>
