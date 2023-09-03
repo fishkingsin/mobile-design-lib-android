@@ -14,6 +14,7 @@ fun GalleryApp(
     NavHost(navController = navController, startDestination = "Gallery") {
         composable("Gallery") { Gallery(navController) }
         composable("ColorPalette") { ColorPalette(/*...*/) }
+        composable("CardDemo") { CardDemo(/*...*/) }
         composable("TypographyDemo") { TypographyDemo(/*...*/) }
         composable("SimpleComposeLayout") { SimpleComposeLayout(/*...*/) }
 

@@ -19,12 +19,17 @@ fun Gallery(navigationController: NavController) {
         // Add a single item
         item {
             Button(onClick = { navigationController.navigate("ColorPalette") }) {
-                Text(text = "ColorPalette")
+                Text(text = "Color")
+            }
+        }
+        item {
+            Button(onClick = { navigationController.navigate("CardDemo")}) {
+                Text(text = "Card")
             }
         }
         item {
             Button(onClick = { navigationController.navigate("TypographyDemo")}) {
-                Text(text = "TypographyDemo")
+                Text(text = "Typography")
             }
         }
         item {

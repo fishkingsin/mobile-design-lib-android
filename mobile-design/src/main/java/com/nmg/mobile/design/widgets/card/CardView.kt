@@ -22,7 +22,7 @@ import com.nmg.mobile.design.theme.NMGTheme
 fun <Data : CardDataAbstract> CardView(data: Data) {
     val shape = RoundedCornerShape(4.dp)
     Column(
-        modifier = Modifier.background(color = Color.White).padding(12.dp),
+        modifier = Modifier.background(color = Color.White),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         AsyncImage(
