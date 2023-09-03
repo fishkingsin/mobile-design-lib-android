@@ -8,6 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.R
+import com.nmg.mobile.design.extensions.colorResource
+import com.nmg.mobile.design.theme.NMGTheme
 
 
 @Composable
@@ -29,9 +31,10 @@ fun CommonColorItems(colors: List<Pair<String, Color>>) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun CommonColorItems_Preview() {
-    AppTheme {
+    NMGTheme {
         CommonColorItems(
             listOf(
+                Pair("Primary", NMGTheme.colors.primaryMain),
                 Pair("Common_Neutral_Gray_5", colorResource(id = R.color.Common_Neutral_Gray_5)),
                 Pair("Common_Neutral_Gray_90", colorResource(id = R.color.Common_Neutral_Gray_90)),
                 Pair("Common_Neutral_Gray_80", colorResource(id = R.color.Common_Neutral_Gray_80)),

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 
 @Immutable
-data class CustomSystem(
+public data class CustomSystem(
     val value1: Int,
     val value2: String
     /* ... */

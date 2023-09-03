@@ -2,7 +2,7 @@ package com.nmg.mobile.design.theme
 
 import androidx.compose.ui.graphics.Color
 
-val defaultThemeColors = Colors(
+public val defaultThemeColors = Colors(
     commonNeutralGray90 = Color(0xFF1A1A1A),
     commonNeutralGray80 = Color(0xFF333333),
     commonNeutralGray70 = Color(0xFF4D4D4D),

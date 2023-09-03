@@ -1,4 +1,4 @@
-package com.nmg.mobile.design.gallery
+package com.nmg.mobile.design.extensions
 
 import android.content.Context
 import android.os.Build
@@ -20,7 +20,7 @@ private object ColorResourceHelper {
 
 @Composable
 @ReadOnlyComposable
-fun colorResource(@ColorRes id: Int): Color {
+public fun colorResource(@ColorRes id: Int): Color {
     val context = LocalContext.current
     return if (Build.VERSION.SDK_INT >= 23) {
         ColorResourceHelper.getColor(context, id)

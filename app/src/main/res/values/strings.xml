@@ -3,4 +3,8 @@
     <string name="choosecolor">Choose Color</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">Title</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="body">"Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.  "</string>
+    <string name="confirm">Confirm</string>
 </resources>

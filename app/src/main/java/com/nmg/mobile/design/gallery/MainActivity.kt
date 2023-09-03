@@ -2,6 +2,7 @@ package com.nmg.mobile.design.gallery
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.nmg.mobile.design.gallery.demo.ComposeDemoFragment
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -9,8 +10,11 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
+        supportFragmentManager.beginTransaction()
+            .replace(android.R.id.content, ComposeDemoFragment())
+            .commit()
+        // legacy
+//        setContentView(R.layout.activity_main)
 
     }
 }

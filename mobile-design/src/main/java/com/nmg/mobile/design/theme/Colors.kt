@@ -6,23 +6,23 @@ import androidx.compose.ui.graphics.Color
 
 @Immutable
 public data class Colors(
-    override var commonNeutralGray90: Color,
-    override var commonNeutralGray80: Color,
-    override var commonNeutralGray70: Color,
-    override var commonNeutralGray60: Color,
-    override var commonNeutralGray50: Color,
-    override var commonNeutralGray40: Color,
-    override var commonNeutralGray30: Color,
-    override var commonNeutralGray20: Color,
-    override var commonNeutralGray10: Color,
-    override var commonNeutralGray5: Color,
-    override var commonNeutralGray2: Color,
+    override val commonNeutralGray90: Color,
+    override val commonNeutralGray80: Color,
+    override val commonNeutralGray70: Color,
+    override val commonNeutralGray60: Color,
+    override val commonNeutralGray50: Color,
+    override val commonNeutralGray40: Color,
+    override val commonNeutralGray30: Color,
+    override val commonNeutralGray20: Color,
+    override val commonNeutralGray10: Color,
+    override val commonNeutralGray5: Color,
+    override val commonNeutralGray2: Color,
     /* ... */
 ) : ThemeableColors {
     override val tabSelectedBackground: Color = commonNeutralGray90
     override val tabBackground: Color = commonNeutralGray5
     override val footnote: Color = commonNeutralGray30
-    override var primaryMain: Color = Color(0xFFF29600)
+    override val primaryMain: Color = Color(0xFFF29600)
 }
 
 val LocalColors = staticCompositionLocalOf<ThemeableColors> {

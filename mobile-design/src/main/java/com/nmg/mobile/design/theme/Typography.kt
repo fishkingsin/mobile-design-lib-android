@@ -8,31 +8,31 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.sp
 
 @Immutable
-data class TextStyles(
-    override var largeTitleEmphasize: TextStyle,
-    override var titleEmphasize: TextStyle,
-    override var title1: TextStyle,
-    override var title2: TextStyle,
-    override var title3: TextStyle,
-    override var title4: TextStyle,
-    override var title2Emphasize: TextStyle,
-    override var title3Emphasize: TextStyle,
-    override var title4Emphasize: TextStyle,
-    override var title5: TextStyle,
-    override var headline: TextStyle,
-    override var headlineEmphasize: TextStyle,
-    override var primaryButton: TextStyle,
-    override var captionEmphasize: TextStyle,
-    override var caption: TextStyle,
-    override var caption2: TextStyle,
-    override var caption3Emphasize: TextStyle,
-    override var naviTitle: TextStyle,
-    override var body: TextStyle,
-    override var bodyEmphasize: TextStyle
-): ThemeableTextStyles
+data class Typography(
+    override val largeTitleEmphasize: TextStyle,
+    override val titleEmphasize: TextStyle,
+    override val title1: TextStyle,
+    override val title2: TextStyle,
+    override val title3: TextStyle,
+    override val title4: TextStyle,
+    override val title2Emphasize: TextStyle,
+    override val title3Emphasize: TextStyle,
+    override val title4Emphasize: TextStyle,
+    override val title5: TextStyle,
+    override val headline: TextStyle,
+    override val headlineEmphasize: TextStyle,
+    override val primaryButton: TextStyle,
+    override val captionEmphasize: TextStyle,
+    override val caption: TextStyle,
+    override val caption2: TextStyle,
+    override val caption3Emphasize: TextStyle,
+    override val naviTitle: TextStyle,
+    override val body: TextStyle,
+    override val bodyEmphasize: TextStyle
+): ThemeableTypography
 
-val LocalTextStyles = staticCompositionLocalOf<ThemeableTextStyles> {
-    TextStyles(
+val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
+    Typography(
         largeTitleEmphasize = TextStyle(
             fontWeight = Bold,
             fontSize = 45.sp),

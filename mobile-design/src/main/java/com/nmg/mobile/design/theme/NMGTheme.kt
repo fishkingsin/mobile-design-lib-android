@@ -6,7 +6,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 @Composable
 fun NMGTheme(
     colors: ThemeableColors = defaultThemeColors,
-    textStyles: ThemeableTextStyles = defaultTextStyles,
+    typography: ThemeableTypography = defaultTypography,
     customSystem: CustomSystem = CustomSystem(
         value1 = 1000,
         value2 = "Custom system"
@@ -17,7 +17,7 @@ fun NMGTheme(
     /* ... */
     CompositionLocalProvider(
         LocalColors provides colors,
-        LocalTextStyles provides textStyles,
+        LocalTypography provides typography,
         LocalCustomSystem provides customSystem,
         /* ... */
         content = content
@@ -29,9 +29,9 @@ object NMGTheme {
     val colors: ThemeableColors
         @Composable
         get() = LocalColors.current
-    val textStyles: ThemeableTextStyles
+    val textStyles: ThemeableTypography
         @Composable
-        get() = LocalTextStyles.current
+        get() = LocalTypography.current
     val customSystem: CustomSystem
         @Composable
         get() = LocalCustomSystem.current

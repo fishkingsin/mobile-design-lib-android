@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.nmg.mobile.design.theme.NMGTheme
 
 private fun Color.toHexCode(): String {
     val red = this.red * 255
@@ -39,8 +40,8 @@ fun ColorItem(colorName: String = "", color: Color) {
 @Preview
 @Composable
 fun ColorItem_Preview() {
-    AppTheme {
-        ColorItem(color = Color.Red)
+    NMGTheme {
+        ColorItem(NMGTheme.colors.primaryMain.toHexCode(), NMGTheme.colors.primaryMain)
     }
 
 }
