@@ -5,13 +5,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.nmg.mobile.design.widgets.card.CardViewTimeCodeOverlay
 
 @Composable
 fun ReelCardOverlay(message: String, boxScope: BoxScope) {
-    boxScope.apply {
-        Text(
-            modifier = Modifier.align(Alignment.BottomCenter),
-            text = message
-        )
-    }
+    CardViewTimeCodeOverlay(timecode = message, boxScope = boxScope)
 }

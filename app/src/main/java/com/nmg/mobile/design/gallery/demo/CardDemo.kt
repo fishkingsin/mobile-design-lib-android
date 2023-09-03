@@ -40,7 +40,7 @@ fun CardDemo() {
                                 ),
                                 overlay = { boxscope ->
                                     ReelCardOverlay(
-                                        message = "#hashtag",
+                                        message = "22:22",
                                         boxScope = boxscope
                                     )
                                 }
