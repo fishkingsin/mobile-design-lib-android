@@ -13,6 +13,7 @@ import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.VideoCardView
 import com.nmg.mobile.design.widgets.reel.ReelCard
+import com.nmg.mobile.design.widgets.reel.ReelCardOverlay
 
 @Composable
 fun CardDemo() {
@@ -28,7 +29,7 @@ fun CardDemo() {
                 ) {
                     Text("最新的連續短片", style = NMGTheme.typography.title1Medium)
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)) {
-                        items(10) {
+                        items(10) { it ->
                             ReelCard(
                                 data = CardData(
                                     imageURL = "https://placehold.co/124x224/png?text=$it",
@@ -36,7 +37,13 @@ fun CardDemo() {
                                     leadingFootnote = "4小時前",
                                     secondFootnote = "經人觀點",
                                     _timecode = "22:22"
-                                )
+                                ),
+                                overlay = { boxscope ->
+                                    ReelCardOverlay(
+                                        message = "#hashtag",
+                                        boxScope = boxscope
+                                    )
+                                }
                             )
                         }
                     }
