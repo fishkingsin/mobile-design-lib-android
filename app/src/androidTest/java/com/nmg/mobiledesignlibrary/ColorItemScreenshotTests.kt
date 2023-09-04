@@ -2,7 +2,6 @@ package com.nmg.mobiledesignlibrary
 
 import android.content.Context
 import androidx.annotation.ColorRes
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -10,9 +9,10 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.R
+import com.nmg.mobile.design.extensions.colorResource
 import com.nmg.mobile.design.gallery.ColorItem
 import com.nmg.mobile.design.gallery.CommonColorItems
-import com.nmg.mobile.design.gallery.colorResource
+import com.nmg.mobile.design.theme.NMGTheme
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,8 +34,8 @@ class ColorItemScreenshotTests : ScreenshotTest {
     @Test
     fun test_color_common() {
         composeRule.setContent {
-            MaterialTheme {
-                Surface(color = MaterialTheme.colors.background) {
+            NMGTheme {
+                Surface(color = Color.White) {
                     CommonColorItems(
                         listOf(
                             Pair(
@@ -176,8 +176,8 @@ class ColorItemScreenshotTests : ScreenshotTest {
 
     @Composable
     private fun colorItemComponent(color: Color) {
-        MaterialTheme {
-            Surface(color = MaterialTheme.colors.background) {
+        NMGTheme {
+            Surface(color = Color.White) {
                 ColorItem(color = color)
             }
         }
@@ -185,8 +185,8 @@ class ColorItemScreenshotTests : ScreenshotTest {
 
     @Composable
     private fun colorItemComponent(@ColorRes id: Int) {
-        MaterialTheme {
-            Surface(color = MaterialTheme.colors.background) {
+        NMGTheme {
+            Surface(color = Color.White) {
                 
                 ColorItem(color = colorResource(id = id))
             }

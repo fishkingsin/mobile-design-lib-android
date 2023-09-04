@@ -1,4 +1,4 @@
-package com.nmg.mobile.design.gallery
+package com.nmg.mobile.design
 
 import android.content.Context
 import com.nmg.mobile.design.R

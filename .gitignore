@@ -69,4 +69,4 @@ local.properties
 .vscode
 .idea
 .idea
-publish.sh
+publish.gradle
