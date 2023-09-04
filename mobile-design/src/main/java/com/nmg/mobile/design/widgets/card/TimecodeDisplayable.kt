@@ -1,5 +1,5 @@
 package com.nmg.mobile.design.widgets.card
 
-interface TimecodeDisplayable {
-    val timecode: String
+public interface TimecodeDisplayable {
+    public val timecode: String
 }

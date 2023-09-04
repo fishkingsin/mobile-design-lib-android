@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.res.ResourcesCompat
 import com.nmg.mobile.design.R
 
-data class NMGDefaultColors(val context: Context): ThemeableColors {
+public data class NMGDefaultColors(val context: Context): ThemeableColors {
     override val tabSelectedBackground: Color
         get() = commonNeutralGray90
     override val tabBackground: Color

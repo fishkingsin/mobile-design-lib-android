@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun <Data : CardDataAbstract> VideoCardView(data: Data) {
+public fun <Data : CardDataAbstract> VideoCardView(data: Data) {
     TopImageCardView(data.imageURL, overlay = {
         CardViewTimeCodeOverlay(data.timecode, it)
     }) {

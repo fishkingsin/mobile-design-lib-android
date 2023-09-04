@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun <Data : CardDataAbstract> CardViewHeadline(data: Data) {
+public fun <Data : CardDataAbstract> CardViewHeadline(data: Data) {
     Text(
         text = data.headline,
         maxLines = 2,
