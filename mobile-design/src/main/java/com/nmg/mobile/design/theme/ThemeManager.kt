@@ -1,4 +1,4 @@
-package com.nmg.mobile.design
+package com.nmg.mobile.design.theme
 
 import android.content.Context
 import com.nmg.mobile.design.R
