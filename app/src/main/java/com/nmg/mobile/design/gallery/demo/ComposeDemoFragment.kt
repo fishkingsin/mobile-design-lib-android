@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.navigation.compose.rememberNavController
-import com.nmg.mobile.design.ThemeManager
+import com.nmg.mobile.design.theme.ThemeManager
 import com.nmg.mobile.design.theme.NMGDefaultColors
 import com.nmg.mobile.design.theme.NMGTheme
 

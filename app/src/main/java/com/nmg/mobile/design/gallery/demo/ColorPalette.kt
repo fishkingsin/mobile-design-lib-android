@@ -1,15 +1,9 @@
 package com.nmg.mobile.design.gallery.demo
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import com.nmg.mobile.design.ThemeManager
 import com.nmg.mobile.design.gallery.CommonColorItems
 import com.nmg.mobile.design.theme.EDDefaultColors
-import com.nmg.mobile.design.theme.NMGDefaultColors
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
