@@ -1,6 +1,6 @@
 package com.nmg.mobile.design.widgets.card
 
-abstract class CardDataAbstract(
+public abstract class CardDataAbstract(
     override val imageURL: String,
     override val headline: String,
     override val leadingFootnote: String,
@@ -11,7 +11,7 @@ abstract class CardDataAbstract(
         get() = _timecode ?: "--:--"
 }
 
-data class CardData(
+public data class CardData(
     override val imageURL: String,
     override val headline: String,
     override val leadingFootnote: String,

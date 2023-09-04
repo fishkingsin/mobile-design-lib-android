@@ -17,7 +17,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun TopImageCardView(
+public fun TopImageCardView(
     imageURL: String,
     overlay: @Composable ((BoxScope) -> Unit)? = null,
     content: @Composable () -> Unit

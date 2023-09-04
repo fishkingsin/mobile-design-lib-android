@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 @Composable
-fun NMGTheme(
+public fun NMGTheme(
     colors: ThemeableColors = defaultThemeColors,
     typography: ThemeableTypography = defaultTypography,
     customSystem: CustomSystem = CustomSystem(
@@ -26,14 +26,14 @@ fun NMGTheme(
 }
 
 
-object NMGTheme {
-    val colors: ThemeableColors
+public object NMGTheme {
+    public val colors: ThemeableColors
         @Composable
         get() = LocalColors.current
-    val typography: ThemeableTypography
+    public val typography: ThemeableTypography
         @Composable
         get() = LocalTypography.current
-    val customSystem: CustomSystem
+    public val customSystem: CustomSystem
         @Composable
         get() = LocalCustomSystem.current
     /* ... */

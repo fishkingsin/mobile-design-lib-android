@@ -17,7 +17,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun <Data : CardDataAbstract> CardView(data: Data) {
+public fun <Data : CardDataAbstract> CardView(data: Data) {
     TopImageCardView(data.imageURL) {
         CardViewHeadline(data)
         CardViewFootnote(data)

@@ -14,7 +14,7 @@ import com.nmg.mobile.design.conditional
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun TabCell(text: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
+public fun TabCell(text: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
     val shape = RoundedCornerShape(60.dp)
     val tabBackground = colors.tabBackground
     val tabSelectedBackground = colors.tabSelectedBackground

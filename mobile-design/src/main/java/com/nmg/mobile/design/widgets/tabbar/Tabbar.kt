@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun Tabbar() {
+public fun Tabbar() {
     var tabIndex by remember { mutableStateOf(0) }
     val tabBackground = NMGTheme.colors.tabBackground
     val tabSelectedBackground = NMGTheme.colors.tabSelectedBackground

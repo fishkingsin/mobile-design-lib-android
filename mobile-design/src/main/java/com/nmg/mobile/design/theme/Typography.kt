@@ -9,28 +9,28 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.sp
 
 @Immutable
-data class Typography(
-    override val largeTitleEmphasize: TextStyle,
-    override val titleEmphasize: TextStyle,
-    override val title1: TextStyle,
-    override val title1Medium: TextStyle,
-    override val title2: TextStyle,
-    override val title3: TextStyle,
-    override val title4: TextStyle,
-    override val title2Emphasize: TextStyle,
-    override val title3Emphasize: TextStyle,
-    override val title4Emphasize: TextStyle,
-    override val title5: TextStyle,
-    override val headline: TextStyle,
-    override val headlineEmphasize: TextStyle,
-    override val primaryButton: TextStyle,
-    override val captionEmphasize: TextStyle,
-    override val caption: TextStyle,
-    override val caption2: TextStyle,
-    override val caption3Emphasize: TextStyle,
-    override val naviTitle: TextStyle,
-    override val body: TextStyle,
-    override val bodyEmphasize: TextStyle
+public data class Typography(
+    public override val largeTitleEmphasize: TextStyle,
+    public override val titleEmphasize: TextStyle,
+    public override val title1: TextStyle,
+    public override val title1Medium: TextStyle,
+    public override val title2: TextStyle,
+    public override val title3: TextStyle,
+    public override val title4: TextStyle,
+    public override val title2Emphasize: TextStyle,
+    public override val title3Emphasize: TextStyle,
+    public override val title4Emphasize: TextStyle,
+    public override val title5: TextStyle,
+    public override val headline: TextStyle,
+    public override val headlineEmphasize: TextStyle,
+    public override val primaryButton: TextStyle,
+    public override val captionEmphasize: TextStyle,
+    public override val caption: TextStyle,
+    public override val caption2: TextStyle,
+    public override val caption3Emphasize: TextStyle,
+    public override val naviTitle: TextStyle,
+    public override val body: TextStyle,
+    public override val bodyEmphasize: TextStyle
 ): ThemeableTypography
 
 val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
