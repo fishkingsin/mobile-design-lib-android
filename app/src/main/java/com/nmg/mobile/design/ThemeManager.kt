@@ -3,8 +3,8 @@ package com.nmg.mobile.design
 import android.content.Context
 import com.nmg.mobile.design.R
 
-object ThemeManager {
-    fun setCustomizedThemes(context: Context, theme: String?) {
+public object ThemeManager {
+    public fun setCustomizedThemes(context: Context, theme: String?) {
         when (theme) {
             "ww" -> context.setTheme(R.style.WW)
             "ed" -> context.setTheme(R.style.ED)

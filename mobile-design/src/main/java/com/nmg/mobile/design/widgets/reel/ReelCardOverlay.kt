@@ -8,6 +8,6 @@ import androidx.compose.ui.Modifier
 import com.nmg.mobile.design.widgets.card.CardViewTimeCodeOverlay
 
 @Composable
-fun ReelCardOverlay(message: String, boxScope: BoxScope) {
+public fun ReelCardOverlay(message: String, boxScope: BoxScope) {
     CardViewTimeCodeOverlay(timecode = message, boxScope = boxScope)
 }

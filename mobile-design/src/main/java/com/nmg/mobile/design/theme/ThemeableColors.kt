@@ -3,20 +3,20 @@ package com.nmg.mobile.design.theme
 import androidx.compose.ui.graphics.Color
 
 public interface ThemeableColors {
-    val tabSelectedBackground: Color
-    val tabBackground: Color
-    val commonNeutralGray90: Color
-    val commonNeutralGray80: Color
-    val commonNeutralGray70: Color
-    val commonNeutralGray60: Color
-    val commonNeutralGray50: Color
-    val commonNeutralGray40: Color
-    val commonNeutralGray30: Color
-    val commonNeutralGray20: Color
-    val commonNeutralGray10: Color
-    val commonNeutralGray5: Color
-    val commonNeutralGray2: Color
-    val primaryMain: Color
-    val footnote: Color
-    val primary: Color
+    public val tabSelectedBackground: Color
+    public val tabBackground: Color
+    public val commonNeutralGray90: Color
+    public val commonNeutralGray80: Color
+    public val commonNeutralGray70: Color
+    public val commonNeutralGray60: Color
+    public val commonNeutralGray50: Color
+    public val commonNeutralGray40: Color
+    public val commonNeutralGray30: Color
+    public val commonNeutralGray20: Color
+    public val commonNeutralGray10: Color
+    public val commonNeutralGray5: Color
+    public val commonNeutralGray2: Color
+    public val primaryMain: Color
+    public val footnote: Color
+    public val primary: Color
 }

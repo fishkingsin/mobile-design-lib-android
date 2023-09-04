@@ -16,7 +16,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
+public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
     boxScope.apply {
         Row(
             modifier = Modifier

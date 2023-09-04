@@ -2,7 +2,7 @@ package com.nmg.mobile.design.theme
 
 import androidx.compose.ui.graphics.Color
 
-data class EDDefaultColors(
+public data class EDDefaultColors(
     val defaultColor: ThemeableColors = defaultThemeColors,
     override val tabSelectedBackground: Color = defaultColor.tabSelectedBackground,
     override val tabBackground: Color = defaultColor.tabBackground,
