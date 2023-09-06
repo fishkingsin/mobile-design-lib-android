@@ -16,6 +16,7 @@ fun GalleryApp(
         composable("ColorPalette") { ColorPalette(/*...*/) }
         composable("CardDemo") { CardDemo(/*...*/) }
         composable("TypographyDemo") { TypographyDemo(/*...*/) }
+        composable("IconDemo") { IconDemo(/*...*/) }
         composable("SimpleComposeLayout") { SimpleComposeLayout(/*...*/) }
 
         /*...*/

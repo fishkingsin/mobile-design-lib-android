@@ -23,6 +23,11 @@ fun Gallery(navigationController: NavController) {
             }
         }
         item {
+            Button(onClick = { navigationController.navigate("IconDemo") }) {
+                Text(text = "IconDemo")
+            }
+        }
+        item {
             Button(onClick = { navigationController.navigate("CardDemo")}) {
                 Text(text = "Card")
             }
