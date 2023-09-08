@@ -1,4 +1,4 @@
-package com.nmg.mobile.design.widgets.tabbar
+package com.nmg.mobile.design.widgets.chip
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import com.nmg.mobile.design.conditional
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun TabCell(text: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
+public fun Chip(text: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
     val shape = RoundedCornerShape(60.dp)
     val tabBackground = colors.tabBackground
     val tabSelectedBackground = colors.tabSelectedBackground
@@ -35,7 +35,7 @@ public fun TabCell(text: @Composable (selected: Boolean) -> Unit, selected: Bool
 @Composable
 fun TabCell_Preview() {
     NMGTheme {
-        TabCell(
+        Chip(
             text = { Text("123")},
             selected = false,
             onClick = { }

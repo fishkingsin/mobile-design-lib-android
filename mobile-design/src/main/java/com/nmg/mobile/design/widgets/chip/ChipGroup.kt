@@ -1,7 +1,6 @@
-package com.nmg.mobile.design.widgets.tabbar
+package com.nmg.mobile.design.widgets.chip
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Text
@@ -12,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun Tabbar() {
+public fun ChipGroup() {
     var tabIndex by remember { mutableStateOf(0) }
     val tabBackground = NMGTheme.colors.tabBackground
     val tabSelectedBackground = NMGTheme.colors.tabSelectedBackground
@@ -21,7 +20,7 @@ public fun Tabbar() {
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         items(tabs.size) { index ->
-            TabCell(
+            Chip(
                 selected = tabIndex == index,
                 onClick = { tabIndex = index },
                 text = { selected ->
@@ -41,6 +40,6 @@ public fun Tabbar() {
 @Composable
 fun Tabbar_Preview() {
     NMGTheme() {
-        Tabbar()
+        ChipGroup()
     }
 }
