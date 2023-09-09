@@ -2,6 +2,23 @@
 
 ## Getting Started
 
+### create you emulator
+
+```
+sdkmanager --install "system-images;android-33;google_apis;x86_64"
+
+avdmanager create avd -n Pixel_API_33 -k "system-images;android-33;google_apis;x86_64" -d 23
+
+```
+
+### start you emulator 
+
+```emulator @Pixel_API_33```
+
+### record your snapshot test case
+
+```./gradlew mobile-design:debugExecuteScreenshotTests -Precord```
+
 
 # Snapshot testing
 | | | | | | | | | | | |
@@ -45,7 +62,7 @@
 
 |component| |
 |-|-|
-|tabbar|![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.tabbartest.TabbarTest_test_Tabbar.png)|
+|tabbar|![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.tabbartest.ChipGroupTest_test_ChipGroup.png)|
 |card|![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)|
 
 

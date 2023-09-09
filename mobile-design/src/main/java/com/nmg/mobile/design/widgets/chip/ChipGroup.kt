@@ -37,7 +37,7 @@ public fun <Items: List<ChipData>> ChipGroup(items: Items) {
     }
 }
 
-private data class DemoChipData(override val title: String): ChipData
+data class DemoChipData(override val title: String): ChipData
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
