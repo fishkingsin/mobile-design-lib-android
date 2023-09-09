@@ -16,7 +16,7 @@ import com.nmg.mobile.design.theme.NMGTheme
 
 
 @Composable
-fun CommonColorItems(colors: List<Pair<String, Color>>) {
+public fun CommonColorItems(colors: List<Pair<String, Color>>) {
 
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 128.dp),

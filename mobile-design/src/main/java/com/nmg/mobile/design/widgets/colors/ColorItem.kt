@@ -22,7 +22,7 @@ private fun Color.toHexCode(): String {
 }
 
 @Composable
-fun ColorItem(colorName: String = "", color: Color) {
+public fun ColorItem(colorName: String = "", color: Color) {
 
     Column(
         verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
