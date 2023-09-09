@@ -44,7 +44,9 @@ class ChipGroupTest: ScreenshotTest {
                         DemoChipData("Support"),
                         DemoChipData("Logout"),
                     )
-                )
+                ) {
+
+                }
             }
         }
         compareScreenshot(composeRule)

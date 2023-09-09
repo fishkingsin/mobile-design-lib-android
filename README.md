@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-### create you emulator
+### create your emulator
 
 ```
 sdkmanager --install "system-images;android-33;google_apis;x86_64"
@@ -11,7 +11,7 @@ avdmanager create avd -n Pixel_API_33 -k "system-images;android-33;google_apis;x
 
 ```
 
-### start you emulator 
+### start your emulator 
 
 ```emulator @Pixel_API_33```
 
@@ -29,7 +29,7 @@ avdmanager create avd -n Pixel_API_33 -k "system-images;android-33;google_apis;x
 | ED Light |![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_ED_snapshot.png)| | | | | | | | | | |
 | KISS Light |![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_KISS_snapshot.png)| | | | | | | | | | |
 | NM Light |![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_NM_snapshot.png)| | | | | | | | | | |
-| OS Light |![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_OS_snapshot.png)| | | | | | | | | | |
+| OS Light |![](app/screenshots/debug/com.nmg.mobiledesignlflutteibrary.ColorItemScreenshotTests_test_color_OS_snapshot.png)| | | | | | | | | | |
 | GOTRIP Light |![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_GOTRIP_snapshot.png)| | | | | | | | | | |
 
 | | |

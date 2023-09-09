@@ -13,7 +13,7 @@ public interface ChipData {
     val title: String
 }
 @Composable
-public fun <Items: List<ChipData>> ChipGroup(items: Items) {
+public fun <Items: List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> Unit) {
     var tabIndex by remember { mutableStateOf(0) }
     val tabBackground = NMGTheme.colors.tabBackground
     val tabSelectedBackground = NMGTheme.colors.tabSelectedBackground
@@ -24,7 +24,10 @@ public fun <Items: List<ChipData>> ChipGroup(items: Items) {
         items(items.size) { index ->
             Chip(
                 selected = tabIndex == index,
-                onClick = { tabIndex = index },
+                onClick = {
+                    tabIndex = index
+                    onTapChip(index)
+                          },
                 text = { selected ->
                     Text(
                         color = if(selected) { tabBackground } else { tabSelectedBackground},
@@ -56,6 +59,8 @@ fun ChipGroup_Preview() {
             DemoChipData("Support"),
             DemoChipData("Logout"),
         )
-        )
+        ) {
+
+        }
     }
 }

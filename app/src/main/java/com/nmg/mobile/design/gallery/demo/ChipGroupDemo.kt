@@ -20,5 +20,7 @@ fun ChipGroup_Demo_Preview() {
         DemoChipData("FAQ"),
         DemoChipData("Support"),
         DemoChipData("Logout"),
-    ))
+    )) {
+
+    }
 }
