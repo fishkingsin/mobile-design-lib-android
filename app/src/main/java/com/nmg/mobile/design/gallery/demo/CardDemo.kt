@@ -42,7 +42,7 @@ fun CardDemo() {
                         DemoChipData("Support"),
                         DemoChipData("Logout"),
                     )) {
-                        
+
                     }
                     Text("最新的連續短片", style = NMGTheme.typography.title1Medium)
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)) {
