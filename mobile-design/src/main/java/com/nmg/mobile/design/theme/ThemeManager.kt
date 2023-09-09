@@ -1,9 +1,14 @@
 package com.nmg.mobile.design.theme
 
 import android.content.Context
+import android.content.res.Resources
 import com.nmg.mobile.design.R
 
 public object ThemeManager {
+    fun getThem(context: Context): Resources.Theme {
+        return context.theme
+    }
+
     public fun setCustomizedThemes(context: Context, theme: String?) {
         when (theme) {
             "ww" -> context.setTheme(R.style.WW)

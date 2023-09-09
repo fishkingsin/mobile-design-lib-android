@@ -2,10 +2,11 @@ package com.nmg.mobile.design.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 public fun NMGTheme(
-    colors: ThemeableColors = defaultThemeColors,
+    colors: ThemeableColors = NMGDefaultColors(LocalContext.current),
     typography: ThemeableTypography = defaultTypography,
     customSystem: CustomSystem = CustomSystem(
         value1 = 1000,
