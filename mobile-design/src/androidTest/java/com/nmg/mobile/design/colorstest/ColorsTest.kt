@@ -1,7 +1,6 @@
 package com.nmg.mobile.design.colorstest
 
 import android.content.Context
-import android.content.res.Resources.Theme
 import androidx.annotation.ColorRes
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -13,13 +12,12 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.extensions.colorResource
 import com.nmg.mobile.design.gallery.ColorItem
 import com.nmg.mobile.design.gallery.CommonColorItems
-import com.nmg.mobile.design.theme.NMGTheme
-import com.nmg.mobile.design.theme.ThemeManager
+import com.nmg.mobile.design.theme.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class ColorsTest: ScreenshotTest {
+class ColorsTest : ScreenshotTest {
     @get:Rule
     val composeRule = createComposeRule()
 
@@ -91,58 +89,63 @@ class ColorsTest: ScreenshotTest {
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Test
     fun test_color_WW_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "ww")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = WWDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Test
     fun test_color_ED_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "ed")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = EDDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Test
     fun test_color_kiss_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "kiss")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = KissDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Test
     fun test_color_more_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "more")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = MoreDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
 
@@ -150,39 +153,42 @@ class ColorsTest: ScreenshotTest {
     fun test_color_nm_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "nm")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = NMDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Test
     fun test_color_os_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "os")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = OSDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Test
     fun test_color_gotrip_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "gotrip")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = GotripDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
 
@@ -190,31 +196,28 @@ class ColorsTest: ScreenshotTest {
     fun test_color_oh_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "oh")
         composeRule.setContent {
-            NMGTheme {
+            NMGTheme(colors = OHDefaultColors()) {
                 Surface(color = Color.White) {
 
                     ColorItem(color = NMGTheme.colors.primaryMain)
                 }
             }
         }
+        compareScreenshot(composeRule)
     }
 
     @Composable
     fun colorItemComponent(color: Color) {
-        NMGTheme {
-            Surface(color = Color.White) {
-                ColorItem(color = color)
-            }
+        Surface(color = Color.White) {
+            ColorItem(color = color)
         }
     }
 
     @Composable
     fun colorItemComponent(@ColorRes id: Int) {
-        NMGTheme {
-            Surface(color = Color.White) {
+        Surface(color = Color.White) {
 
-                ColorItem(color = colorResource(id = id))
-            }
+            ColorItem(color = colorResource(id = id))
         }
     }
 

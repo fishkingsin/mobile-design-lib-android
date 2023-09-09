@@ -21,4 +21,20 @@ public object ThemeManager {
             "oh" -> context.setTheme(R.style.OH)
         }
     }
+
+    public fun getColor(theme: String?): ThemeableColors {
+        return when (theme) {
+            "ww" -> WWDefaultColors()
+            "ed" -> EDDefaultColors()
+            "more" -> MoreDefaultColors()
+            "kiss" -> KissDefaultColors()
+            "nm" -> NMDefaultColors()
+            "gotrip" -> GotripDefaultColors()
+            "os" -> OSDefaultColors()
+            "oh" -> OHDefaultColors()
+            else -> {
+                WWDefaultColors()
+            }
+        }
+    }
 }

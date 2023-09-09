@@ -42,7 +42,7 @@ class CardViewTest: ScreenshotTest {
                 )
             }
         }
-        sleep(1000)
+        sleep(5000)
         compareScreenshot(composeRule)
     }
 
