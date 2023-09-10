@@ -3,8 +3,8 @@ package com.nmg.mobile.design.theme
 import androidx.compose.ui.graphics.Color
 
 public interface ThemeableColors {
-    public val tabSelectedBackground: Color
-    public val tabBackground: Color
+    public val chipSelectedBackground: Color
+    public val chipBackground: Color
     public val commonNeutralGray90: Color
     public val commonNeutralGray80: Color
     public val commonNeutralGray70: Color

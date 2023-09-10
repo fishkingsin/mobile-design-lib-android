@@ -4,8 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 public data class NMDefaultColors(
     val defaultColor: ThemeableColors = defaultThemeColors,
-    override val tabSelectedBackground: Color = defaultColor.tabSelectedBackground,
-    override val tabBackground: Color = defaultColor.tabBackground,
+    override val chipSelectedBackground: Color = defaultColor.chipSelectedBackground,
+    override val chipBackground: Color = defaultColor.chipBackground,
     override val commonNeutralGray90: Color = defaultColor.commonNeutralGray90,
     override val commonNeutralGray80: Color = defaultColor.commonNeutralGray80,
     override val commonNeutralGray70: Color = defaultColor.commonNeutralGray70,

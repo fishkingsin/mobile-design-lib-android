@@ -14,20 +14,20 @@ import com.nmg.mobile.design.conditional
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun Chip(text: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
+public fun Chip(content: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
     val shape = RoundedCornerShape(60.dp)
-    val tabBackground = colors.tabBackground
-    val tabSelectedBackground = colors.tabSelectedBackground
+    val chipBackground = colors.chipBackground
+    val chipSelectedBackground = colors.chipSelectedBackground
     Box(
         modifier = Modifier
-            .background(color = tabBackground, shape = shape)
-            .conditional(selected, modifier = { background(color = tabSelectedBackground, shape = shape) })
+            .background(color = chipBackground, shape = shape)
+            .conditional(selected, modifier = { background(color = chipSelectedBackground, shape = shape) })
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
-            text(selected)
+            content(selected)
         }
     }
 }
@@ -36,7 +36,7 @@ public fun Chip(text: @Composable (selected: Boolean) -> Unit, selected: Boolean
 fun TabCell_Preview() {
     NMGTheme {
         Chip(
-            text = { Text("123")},
+            content = { Text("123") },
             selected = false,
             onClick = { }
         )

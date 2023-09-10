@@ -15,8 +15,8 @@ public interface ChipData {
 @Composable
 public fun <Items: List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> Unit) {
     var tabIndex by remember { mutableStateOf(0) }
-    val tabBackground = NMGTheme.colors.tabBackground
-    val tabSelectedBackground = NMGTheme.colors.tabSelectedBackground
+    val chipBackground = NMGTheme.colors.chipBackground
+    val tabSelectedBackground = NMGTheme.colors.chipSelectedBackground
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -28,9 +28,9 @@ public fun <Items: List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> U
                     tabIndex = index
                     onTapChip(index)
                           },
-                text = { selected ->
+                content = { selected ->
                     Text(
-                        color = if(selected) { tabBackground } else { tabSelectedBackground},
+                        color = if(selected) { chipBackground } else { tabSelectedBackground},
                         modifier = Modifier
                             .padding(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
                         text = items[index].title)

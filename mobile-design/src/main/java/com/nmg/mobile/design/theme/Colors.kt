@@ -19,8 +19,8 @@ public data class Colors(
     override val commonNeutralGray2: Color,
     /* ... */
 ) : ThemeableColors {
-    override val tabSelectedBackground: Color = commonNeutralGray90
-    override val tabBackground: Color = commonNeutralGray5
+    override val chipSelectedBackground: Color = commonNeutralGray90
+    override val chipBackground: Color = commonNeutralGray5
     override val footnote: Color = commonNeutralGray30
     override val primaryMain: Color = Color(0xFFF29600)
     override val primary: Color = primaryMain

@@ -11,8 +11,8 @@ fun ColorPalette() {
     CommonColorItems(
         listOf(
             Pair("Primary", NMGTheme.colors.primaryMain),
-            Pair("tabSelectedBackground", NMGTheme.colors.tabSelectedBackground),
-            Pair("tabBackground", NMGTheme.colors.tabBackground),
+            Pair("tabSelectedBackground", NMGTheme.colors.chipSelectedBackground),
+            Pair("chipBackground", NMGTheme.colors.chipBackground),
             Pair("commonNeutralGray90", NMGTheme.colors.commonNeutralGray90),
             Pair("commonNeutralGray80", NMGTheme.colors.commonNeutralGray80),
             Pair("commonNeutralGray70", NMGTheme.colors.commonNeutralGray70),
