@@ -17,6 +17,8 @@ avdmanager create avd -n Pixel_API_33 -k "system-images;android-33;google_apis;x
 
 `emulator @Pixel_API_33`
 
+read more: [Installing and creating Emulators with AVDMANAGER (For Continuous Integration Server or Local Use)](https://gist.github.com/mrk-han/66ac1a724456cadf1c93f4218c6060ae?permalink_comment_id=3648957)
+
 ### record your snapshot test case
 
 `./gradlew mobile-design:debugExecuteScreenshotTests -Precord`
