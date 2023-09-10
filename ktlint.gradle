@@ -3,6 +3,7 @@ configurations {
     ktlint
 }
 
+
 dependencies {
     ktlint "com.pinterest:ktlint:0.45.2"
 }
@@ -11,12 +12,12 @@ task ktlint(type: JavaExec, group: "verification") {
     description = "Check Kotlin code style."
     classpath = configurations.ktlint
     main = "com.pinterest.ktlint.Main"
-    args "src/**/*.kt --editorconfig=./.editorconfig"
+    args "src/**/*.kt", "--editorconfig=$rootProject.projectDir/.editorconfig --baseline=$rootProject.projectDir/ktlint-baseline.xml"
 }
 
 task ktlintFormat(type: JavaExec, group: "formatting") {
     description = "Fix Kotlin code style deviations."
     classpath = configurations.ktlint
     main = "com.pinterest.ktlint.Main"
-    args "-F", "src/**/*.kt --editorconfig=./.editorconfig"
+    args "-F", "src/**/*.kt", "--editorconfig=$rootProject.projectDir/.editorconfig --baseline=$rootProject.projectDir/ktlint-baseline.xml"
 }

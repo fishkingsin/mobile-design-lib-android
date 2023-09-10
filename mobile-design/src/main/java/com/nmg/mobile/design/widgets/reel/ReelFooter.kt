@@ -9,11 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun<Reel: ReelInterface> ReelFooter(reel: Reel) {
+fun<Reel : ReelInterface> ReelFooter(reel: Reel) {
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(start = 18.dp, bottom = 18.dp), verticalAlignment = Alignment.Bottom
+            .padding(start = 18.dp, bottom = 18.dp),
+        verticalAlignment = Alignment.Bottom
     ) {
         FooterUserData(
             reel = reel,

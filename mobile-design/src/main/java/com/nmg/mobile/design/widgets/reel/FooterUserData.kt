@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun <Reel: ReelInterface>FooterUserData(reel: Reel, modifier: Modifier) {
+fun <Reel : ReelInterface>FooterUserData(reel: Reel, modifier: Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center
@@ -60,7 +60,6 @@ fun <Reel: ReelInterface>FooterUserData(reel: Reel, modifier: Modifier) {
         Spacer(modifier = Modifier.height(horizontalPadding))
         Text(text = reel.comment, color = Color.White)
         Spacer(modifier = Modifier.height(horizontalPadding))
-
 
         // Audio
         Row(

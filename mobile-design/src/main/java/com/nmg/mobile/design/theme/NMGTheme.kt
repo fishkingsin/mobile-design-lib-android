@@ -15,17 +15,15 @@ public fun NMGTheme(
     content: @Composable () -> Unit
 ) {
 
+    /* ... */
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalTypography provides typography,
+        LocalCustomSystem provides customSystem,
         /* ... */
-        CompositionLocalProvider(
-            LocalColors provides colors,
-            LocalTypography provides typography,
-            LocalCustomSystem provides customSystem,
-            /* ... */
-            content = content
-        )
-
+        content = content
+    )
 }
-
 
 public object NMGTheme {
     public val colors: ThemeableColors
@@ -39,4 +37,3 @@ public object NMGTheme {
         get() = LocalCustomSystem.current
     /* ... */
 }
-

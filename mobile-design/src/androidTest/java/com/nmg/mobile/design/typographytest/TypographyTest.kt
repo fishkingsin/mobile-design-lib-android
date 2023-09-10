@@ -16,8 +16,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
-class TypographyTest: ScreenshotTest {
+class TypographyTest : ScreenshotTest {
 
     @get:Rule
     val composeRule = createComposeRule()
@@ -50,7 +49,6 @@ class TypographyTest: ScreenshotTest {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
 
-
     @Test
     fun test_typographies() {
         composeRule.setContent {
@@ -71,7 +69,6 @@ class TypographyTest: ScreenshotTest {
 
         compareScreenshot(composeRule)
     }
-
 
     @Test
     fun test_largeTitleEmphasize() {
@@ -293,7 +290,4 @@ class TypographyTest: ScreenshotTest {
 
         compareScreenshot(composeRule)
     }
-
-
-
 }

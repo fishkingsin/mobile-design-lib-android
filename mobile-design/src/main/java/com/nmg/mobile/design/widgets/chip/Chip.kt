@@ -9,9 +9,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nmg.mobile.design.theme.NMGTheme.colors
 import com.nmg.mobile.design.conditional
 import com.nmg.mobile.design.theme.NMGTheme
+import com.nmg.mobile.design.theme.NMGTheme.colors
 import com.nmg.mobile.design.theme.WWDefaultColors
 
 @Composable
@@ -42,7 +42,6 @@ fun TabCell_Preview() {
             onClick = { }
         )
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -55,5 +54,4 @@ fun TabCell_Preview2() {
             onClick = { }
         )
     }
-
 }

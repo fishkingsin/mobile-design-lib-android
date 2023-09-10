@@ -19,7 +19,7 @@ import com.nmg.mobile.design.R
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-public fun <Reel: ReelInterface> FooterUserAction(reel: Reel, modifier: Modifier) {
+public fun <Reel : ReelInterface> FooterUserAction(reel: Reel, modifier: Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier

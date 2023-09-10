@@ -16,7 +16,7 @@ public interface ChipData {
     val title: String
 }
 @Composable
-public fun <Items: List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> Unit) {
+public fun <Items : List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> Unit) {
     var tabIndex by remember { mutableStateOf(0) }
     val chipSelectedForeground = NMGTheme.colors.chipSelectedForeground
     val chipForeground = NMGTheme.colors.chipForeground
@@ -30,40 +30,41 @@ public fun <Items: List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> U
                 onClick = {
                     tabIndex = index
                     onTapChip(index)
-                          },
+                },
                 content = { selected ->
                     Text(
-                        color = if(selected) { chipSelectedForeground } else { chipForeground },
+                        color = if (selected) { chipSelectedForeground } else { chipForeground },
                         modifier = Modifier
                             .padding(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
-                        text = items[index].title)
+                        text = items[index].title
+                    )
                 }
             )
         }
     }
 }
 
-data class DemoChipData(override val title: String): ChipData
+data class DemoChipData(override val title: String) : ChipData
 
 @Preview(showBackground = true)
 @Composable
 fun ChipGroup_WW_Theme_Preview() {
     NMGTheme(WWDefaultColors()) {
-        ChipGroup(items = listOf(
-            DemoChipData("Home"),
-            DemoChipData("About"),
-            DemoChipData("Settings"),
-            DemoChipData("Profile"),
-            DemoChipData("Help"),
-            DemoChipData("Contact"),
-            DemoChipData("Privacy"),
-            DemoChipData("Terms"),
-            DemoChipData("FAQ"),
-            DemoChipData("Support"),
-            DemoChipData("Logout"),
-        )
+        ChipGroup(
+            items = listOf(
+                DemoChipData("Home"),
+                DemoChipData("About"),
+                DemoChipData("Settings"),
+                DemoChipData("Profile"),
+                DemoChipData("Help"),
+                DemoChipData("Contact"),
+                DemoChipData("Privacy"),
+                DemoChipData("Terms"),
+                DemoChipData("FAQ"),
+                DemoChipData("Support"),
+                DemoChipData("Logout"),
+            )
         ) {
-
         }
     }
 }
@@ -72,21 +73,21 @@ fun ChipGroup_WW_Theme_Preview() {
 @Composable
 fun ChipGroup_ED_Theme_Preview() {
     NMGTheme(EDDefaultColors()) {
-        ChipGroup(items = listOf(
-            DemoChipData("Home"),
-            DemoChipData("About"),
-            DemoChipData("Settings"),
-            DemoChipData("Profile"),
-            DemoChipData("Help"),
-            DemoChipData("Contact"),
-            DemoChipData("Privacy"),
-            DemoChipData("Terms"),
-            DemoChipData("FAQ"),
-            DemoChipData("Support"),
-            DemoChipData("Logout"),
-        )
+        ChipGroup(
+            items = listOf(
+                DemoChipData("Home"),
+                DemoChipData("About"),
+                DemoChipData("Settings"),
+                DemoChipData("Profile"),
+                DemoChipData("Help"),
+                DemoChipData("Contact"),
+                DemoChipData("Privacy"),
+                DemoChipData("Terms"),
+                DemoChipData("FAQ"),
+                DemoChipData("Support"),
+                DemoChipData("Logout"),
+            )
         ) {
-
         }
     }
 }

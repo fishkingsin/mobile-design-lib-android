@@ -1,19 +1,16 @@
 package com.nmg.mobile.design.gallery
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.extensions.colorResource
 import com.nmg.mobile.design.theme.NMGTheme
-
 
 @Composable
 public fun CommonColorItems(colors: List<Pair<String, Color>>) {
@@ -27,10 +24,8 @@ public fun CommonColorItems(colors: List<Pair<String, Color>>) {
         items(colors) { color ->
 
             ColorItem(color.first, color = color.second)
-
         }
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -58,5 +53,4 @@ fun CommonColorItems_Preview() {
             )
         )
     }
-
 }

@@ -20,8 +20,7 @@ public data class EDDefaultColors(
     override val footnote: Color = defaultColor.footnote,
     override val chipSelectedForeground: Color = defaultColor.chipSelectedForeground,
     override val chipForeground: Color = defaultColor.chipForeground,
-): ThemeableColors {
+) : ThemeableColors {
     override val primaryMain: Color = Color(0xFF1E37A6)
     override val primary: Color = primaryMain
-
 }

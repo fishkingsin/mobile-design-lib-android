@@ -14,9 +14,7 @@ public data class CustomSystem(
     val roudnCorner: Dp = 4.dp,
     val cardMinHeight: Dp = 120.dp,
     val cardMaxHeight: Dp = 200.dp,
-) {
-}
-
+)
 
 val LocalCustomSystem = staticCompositionLocalOf {
     CustomSystem(

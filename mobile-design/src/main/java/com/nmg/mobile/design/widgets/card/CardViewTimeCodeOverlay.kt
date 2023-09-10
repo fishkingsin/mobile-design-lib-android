@@ -28,7 +28,7 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
 
-            ) {
+        ) {
             Icon(
                 modifier = Modifier.padding(1.dp),
                 tint = Color.White,
@@ -41,7 +41,6 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
                 modifier = Modifier
                     .padding(2.dp),
             )
-
         }
     }
 }

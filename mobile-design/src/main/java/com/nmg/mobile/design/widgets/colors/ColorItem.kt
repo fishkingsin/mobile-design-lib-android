@@ -25,17 +25,16 @@ private fun Color.toHexCode(): String {
 public fun ColorItem(colorName: String = "", color: Color) {
 
     Column(
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(colorName, style = NMGTheme.typography.caption)
         Box(
             modifier = Modifier
                 .defaultMinSize(50.dp, 50.dp)
                 .clip(RectangleShape)
-
                 .background(color)
                 .border(1.dp, Color.Black, RectangleShape)
         ) {
-
         }
         Text(color.toHexCode())
     }
@@ -47,5 +46,4 @@ fun ColorItem_Preview() {
     NMGTheme {
         ColorItem(NMGTheme.colors.primaryMain.toHexCode(), NMGTheme.colors.primaryMain)
     }
-
 }

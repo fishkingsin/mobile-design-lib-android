@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
         // legacy
 //        setContentView(R.layout.activity_main)
-
     }
 }
 

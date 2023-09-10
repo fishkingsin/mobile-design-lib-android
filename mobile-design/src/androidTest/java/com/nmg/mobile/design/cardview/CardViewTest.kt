@@ -12,8 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.lang.Thread.sleep
 
-
-class CardViewTest: ScreenshotTest {
+class CardViewTest : ScreenshotTest {
 
     @get:Rule
     val composeRule = createComposeRule()
@@ -24,7 +23,6 @@ class CardViewTest: ScreenshotTest {
     fun setup() {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
-
 
     @Test
     fun test_CardView() {
@@ -45,6 +43,4 @@ class CardViewTest: ScreenshotTest {
         sleep(5000)
         compareScreenshot(composeRule)
     }
-
-
 }

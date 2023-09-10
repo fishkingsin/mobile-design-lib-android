@@ -11,10 +11,9 @@ data class Reel(
     override val likesCount: Int,
     override val comment: String,
     override val commentsCount: Int
-): ReelInterface {
+) : ReelInterface {
 
     override fun getVideoUrl(): Uri {
-        return Uri.parse("asset:///${video}")
+        return Uri.parse("asset:///$video")
     }
-
 }

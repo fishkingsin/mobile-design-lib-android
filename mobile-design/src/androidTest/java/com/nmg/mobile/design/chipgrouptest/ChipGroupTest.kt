@@ -11,8 +11,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
-class ChipGroupTest: ScreenshotTest {
+class ChipGroupTest : ScreenshotTest {
 
     @get:Rule
     val composeRule = createComposeRule()
@@ -23,7 +22,6 @@ class ChipGroupTest: ScreenshotTest {
     fun setup() {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
-
 
     @Test
     fun test_ChipGroup() {
@@ -45,12 +43,9 @@ class ChipGroupTest: ScreenshotTest {
                         DemoChipData("Logout"),
                     )
                 ) {
-
                 }
             }
         }
         compareScreenshot(composeRule)
     }
-
-
 }

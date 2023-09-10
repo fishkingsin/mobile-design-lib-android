@@ -31,19 +31,22 @@ public data class Typography(
     public override val naviTitle: TextStyle,
     public override val body: TextStyle,
     public override val bodyEmphasize: TextStyle
-): ThemeableTypography
+) : ThemeableTypography
 
 val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
     Typography(
         largeTitleEmphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 45.sp),
+            fontSize = 45.sp
+        ),
         titleEmphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 24.sp),
+            fontSize = 24.sp
+        ),
         title1 = TextStyle(
             fontWeight = Normal,
-            fontSize = 24.sp),
+            fontSize = 24.sp
+        ),
         title1Medium = TextStyle(
             fontSize = 14.sp,
             lineHeight = 22.sp,
@@ -52,25 +55,32 @@ val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
         ),
         title2 = TextStyle(
             fontWeight = Normal,
-            fontSize = 18.sp),
+            fontSize = 18.sp
+        ),
         title3 = TextStyle(
             fontWeight = Normal,
-            fontSize = 17.sp),
+            fontSize = 17.sp
+        ),
         title4 = TextStyle(
             fontWeight = Normal,
-            fontSize = 20.sp),
+            fontSize = 20.sp
+        ),
         title2Emphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 18.sp),
+            fontSize = 18.sp
+        ),
         title3Emphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 17.sp),
+            fontSize = 17.sp
+        ),
         title4Emphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 20.sp),
+            fontSize = 20.sp
+        ),
         title5 = TextStyle(
             fontWeight = Normal,
-            fontSize = 22.sp),
+            fontSize = 22.sp
+        ),
         headline = TextStyle(
             fontSize = 16.sp,
             lineHeight = 22.sp,
@@ -79,30 +89,39 @@ val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
         ),
         headlineEmphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 16.sp),
+            fontSize = 16.sp
+        ),
         primaryButton = TextStyle(
             fontWeight = Normal,
-            fontSize = 14.sp),
+            fontSize = 14.sp
+        ),
         captionEmphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 12.sp),
+            fontSize = 12.sp
+        ),
         caption = TextStyle(
             fontWeight = Normal,
-            fontSize = 12.sp),
+            fontSize = 12.sp
+        ),
         caption2 = TextStyle(
             fontWeight = Normal,
-            fontSize = 10.sp),
+            fontSize = 10.sp
+        ),
         caption3Emphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 8.sp),
+            fontSize = 8.sp
+        ),
         naviTitle = TextStyle(
             fontWeight = Normal,
-            fontSize = 14.sp),
+            fontSize = 14.sp
+        ),
         body = TextStyle(
             fontWeight = Normal,
-            fontSize = 14.sp),
+            fontSize = 14.sp
+        ),
         bodyEmphasize = TextStyle(
             fontWeight = Bold,
-            fontSize = 14.sp)
+            fontSize = 14.sp
+        )
     )
 }

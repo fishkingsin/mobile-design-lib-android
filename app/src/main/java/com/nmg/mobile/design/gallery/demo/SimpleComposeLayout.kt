@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,7 +21,7 @@ fun SimpleComposeLayout(message: String = "Hello from Compose!") {
         )
         Text(
             text = stringResource(R.string.subtitle),
-            style =  NMGTheme.typography.headlineEmphasize
+            style = NMGTheme.typography.headlineEmphasize
         )
         Text(
             text = message,

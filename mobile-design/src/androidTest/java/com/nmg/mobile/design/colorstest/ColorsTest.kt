@@ -12,7 +12,6 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.extensions.colorResource
 import com.nmg.mobile.design.gallery.ColorItem
 import com.nmg.mobile.design.gallery.CommonColorItems
-import com.nmg.mobile.design.theme.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,7 +26,6 @@ class ColorsTest : ScreenshotTest {
     fun setup() {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
-
 
     @Test
     fun test_color_common() {
@@ -148,7 +146,6 @@ class ColorsTest : ScreenshotTest {
         compareScreenshot(composeRule)
     }
 
-
     @Test
     fun test_color_nm_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "nm")
@@ -191,7 +188,6 @@ class ColorsTest : ScreenshotTest {
         compareScreenshot(composeRule)
     }
 
-
     @Test
     fun test_color_oh_snapshot() {
         ThemeManager.setCustomizedThemes(instrumentationContext, "oh")
@@ -233,4 +229,3 @@ class ColorsTest : ScreenshotTest {
         }
     }
 }
-

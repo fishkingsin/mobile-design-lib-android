@@ -28,12 +28,12 @@ fun Gallery(navigationController: NavController) {
             }
         }
         item {
-            Button(onClick = { navigationController.navigate("CardDemo")}) {
+            Button(onClick = { navigationController.navigate("CardDemo") }) {
                 Text(text = "Card")
             }
         }
         item {
-            Button(onClick = { navigationController.navigate("TypographyDemo")}) {
+            Button(onClick = { navigationController.navigate("TypographyDemo") }) {
                 Text(text = "Typography")
             }
         }
@@ -43,7 +43,6 @@ fun Gallery(navigationController: NavController) {
             }
         }
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)

@@ -17,7 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
 class ColorItemScreenshotTests : ScreenshotTest {
 
     @get:Rule
@@ -29,7 +28,6 @@ class ColorItemScreenshotTests : ScreenshotTest {
     fun setup() {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
-
 
     @Test
     fun test_color_common() {
@@ -187,7 +185,7 @@ class ColorItemScreenshotTests : ScreenshotTest {
     private fun colorItemComponent(@ColorRes id: Int) {
         NMGTheme {
             Surface(color = Color.White) {
-                
+
                 ColorItem(color = colorResource(id = id))
             }
         }
@@ -204,5 +202,4 @@ class ColorItemScreenshotTests : ScreenshotTest {
             colorItemComponent(color)
         }
     }
-
 }

@@ -29,20 +29,21 @@ fun CardDemo() {
                     modifier = Modifier.padding(vertical = NMGTheme.customSystem.padding),
                     verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
                 ) {
-                    ChipGroup(items = listOf(
-                        DemoChipData("Home"),
-                        DemoChipData("About"),
-                        DemoChipData("Settings"),
-                        DemoChipData("Profile"),
-                        DemoChipData("Help"),
-                        DemoChipData("Contact"),
-                        DemoChipData("Privacy"),
-                        DemoChipData("Terms"),
-                        DemoChipData("FAQ"),
-                        DemoChipData("Support"),
-                        DemoChipData("Logout"),
-                    )) {
-
+                    ChipGroup(
+                        items = listOf(
+                            DemoChipData("Home"),
+                            DemoChipData("About"),
+                            DemoChipData("Settings"),
+                            DemoChipData("Profile"),
+                            DemoChipData("Help"),
+                            DemoChipData("Contact"),
+                            DemoChipData("Privacy"),
+                            DemoChipData("Terms"),
+                            DemoChipData("FAQ"),
+                            DemoChipData("Support"),
+                            DemoChipData("Logout"),
+                        )
+                    ) {
                     }
                     Text("最新的連續短片", style = NMGTheme.typography.title1Medium)
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)) {

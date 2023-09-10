@@ -16,7 +16,7 @@ class MainActivityTest : ScreenshotTest {
     @Test
     fun activityTest() {
         val activity = launchActivity()
-        activityScenarioRule.scenario.use{
+        activityScenarioRule.scenario.use {
             compareScreenshot(it.waitForActivity())
         }
     }

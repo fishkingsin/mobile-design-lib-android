@@ -16,7 +16,7 @@ public data class WWDefaultColors(
     override val commonNeutralGray5: Color = defaultColor.commonNeutralGray5,
     override val commonNeutralGray2: Color = defaultColor.commonNeutralGray2,
     override val footnote: Color = defaultColor.footnote,
-): ThemeableColors {
+) : ThemeableColors {
     override val primaryMain: Color = Color(0xFFF29600)
     override val primary: Color = primaryMain
     // demo only
@@ -24,5 +24,4 @@ public data class WWDefaultColors(
     override val chipBackground: Color = primaryMain.copy(alpha = 0.1f)
     override val chipSelectedForeground: Color = commonNeutralGray2
     override val chipForeground: Color = commonNeutralGray90
-
 }

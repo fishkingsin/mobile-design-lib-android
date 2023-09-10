@@ -21,7 +21,7 @@ fun IconDemo() {
         modifier = Modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
+    ) {
         items(
             listOf(
                 R.drawable.ic_outlined_camera,
@@ -39,7 +39,6 @@ fun IconDemo() {
         }
     }
 }
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

@@ -19,7 +19,7 @@ import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.CardDataAbstract
 
 @Composable
-public fun <Data: CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (BoxScope) -> Unit)? = null) {
+public fun <Data : CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (BoxScope) -> Unit)? = null) {
     Box(
         modifier = Modifier
             .aspectRatio(126f / 224f)
@@ -48,14 +48,16 @@ public fun <Data: CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (B
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ReelCardPreview() {
-    ReelCard(data = CardData(
-        imageURL = "https://placehold.co/124x224/png",
-        headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
-        leadingFootnote = "4小時前",
-        secondFootnote = "經人觀點",
-        _timecode = "22:22"
-    ), overlay = {
-        ReelCardOverlay("#hashtag", it)
-    })
+    ReelCard(
+        data = CardData(
+            imageURL = "https://placehold.co/124x224/png",
+            headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
+            leadingFootnote = "4小時前",
+            secondFootnote = "經人觀點",
+            _timecode = "22:22"
+        ),
+        overlay = {
+            ReelCardOverlay("#hashtag", it)
+        }
+    )
 }
-
