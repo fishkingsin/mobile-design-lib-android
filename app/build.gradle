@@ -106,7 +106,7 @@ def projectScreenshotsDirectory = "$projectDir/screenshots"
 def deviceScreenshotsDirectory = '/sdcard/Pictures/' + appId + '/debug/screenshots'
 
 def clearScreenshotsTask = task('clearScreenshots', type: Exec) {
-    println deviceScreenshotsDirectory
+    println "clearScreenshotsTask $deviceScreenshotsDirectory"
     executable "${android.getAdbExe().toString()}"
     args 'shell', 'rm', '-r', deviceScreenshotsDirectory
 }
