@@ -11,9 +11,9 @@ val verticalPadding = 12.dp
 val horizontalPadding = 10.dp
 
 @Composable
-fun ReelsView() {
+public fun ReelsView(reels: List<ReelInterface> = DummyData.reels) {
     Box(Modifier.background(color = Color.Black)) {
-        ReelsList(DummyData.reels)
+        ReelsList(reels)
 
         ReelsHeader()
     }

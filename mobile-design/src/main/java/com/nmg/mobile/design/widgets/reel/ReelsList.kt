@@ -33,7 +33,7 @@ fun ReelsListPreview() {
 }
 
 object DummyData {
-    val reels = listOf<Reel>(
+    val reels = listOf<ReelInterface>(
         Reel(
             id = 1,
             video = "lake.mp4",
