@@ -4,7 +4,9 @@ import androidx.compose.ui.graphics.Color
 
 public interface ThemeableColors {
     public val chipSelectedBackground: Color
+    public val chipSelectedForeground: Color
     public val chipBackground: Color
+    public val chipForeground: Color
     public val commonNeutralGray90: Color
     public val commonNeutralGray80: Color
     public val commonNeutralGray70: Color

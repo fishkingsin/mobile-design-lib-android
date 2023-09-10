@@ -17,7 +17,9 @@ public data class EDDefaultColors(
     override val commonNeutralGray10: Color = defaultColor.commonNeutralGray10,
     override val commonNeutralGray5: Color = defaultColor.commonNeutralGray5,
     override val commonNeutralGray2: Color = defaultColor.commonNeutralGray2,
-    override val footnote: Color = defaultColor.footnote
+    override val footnote: Color = defaultColor.footnote,
+    override val chipSelectedForeground: Color = defaultColor.chipSelectedForeground,
+    override val chipForeground: Color = defaultColor.chipForeground,
 ): ThemeableColors {
     override val primaryMain: Color = Color(0xFF1E37A6)
     override val primary: Color = primaryMain

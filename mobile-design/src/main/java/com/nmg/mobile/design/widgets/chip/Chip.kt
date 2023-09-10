@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme.colors
 import com.nmg.mobile.design.conditional
 import com.nmg.mobile.design.theme.NMGTheme
+import com.nmg.mobile.design.theme.WWDefaultColors
 
 @Composable
 public fun Chip(content: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
@@ -34,10 +35,23 @@ public fun Chip(content: @Composable (selected: Boolean) -> Unit, selected: Bool
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TabCell_Preview() {
-    NMGTheme {
+    NMGTheme(WWDefaultColors()) {
         Chip(
             content = { Text("123") },
             selected = false,
+            onClick = { }
+        )
+    }
+
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun TabCell_Preview2() {
+    NMGTheme(WWDefaultColors()) {
+        Chip(
+            content = { Text("123") },
+            selected = true,
             onClick = { }
         )
     }

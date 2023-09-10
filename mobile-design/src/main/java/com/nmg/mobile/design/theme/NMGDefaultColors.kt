@@ -12,8 +12,12 @@ import com.nmg.mobile.design.R
 public data class NMGDefaultColors(val context: Context): ThemeableColors {
     override val chipSelectedBackground: Color
         get() = commonNeutralGray90
+    override val chipSelectedForeground: Color
+        get() = commonNeutralGray2
     override val chipBackground: Color
         get() = commonNeutralGray5
+    override val chipForeground: Color
+        get() = commonNeutralGray90
     override val commonNeutralGray90: Color = Color(ResourcesCompat.getColor(
         context.resources,
         R.color.Common_Neutral_Gray_90,
