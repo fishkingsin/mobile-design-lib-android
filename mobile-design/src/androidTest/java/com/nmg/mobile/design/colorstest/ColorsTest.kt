@@ -12,6 +12,16 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.extensions.colorResource
 import com.nmg.mobile.design.gallery.ColorItem
 import com.nmg.mobile.design.gallery.CommonColorItems
+import com.nmg.mobile.design.theme.EDDefaultColors
+import com.nmg.mobile.design.theme.GotripDefaultColors
+import com.nmg.mobile.design.theme.KissDefaultColors
+import com.nmg.mobile.design.theme.MoreDefaultColors
+import com.nmg.mobile.design.theme.NMDefaultColors
+import com.nmg.mobile.design.theme.NMGTheme
+import com.nmg.mobile.design.theme.OHDefaultColors
+import com.nmg.mobile.design.theme.OSDefaultColors
+import com.nmg.mobile.design.theme.ThemeManager
+import com.nmg.mobile.design.theme.WWDefaultColors
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -65,10 +65,11 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 | title5              | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.typographytest.TypographyTest_test_title5.png)              |
 | titleEmphasize      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.typographytest.TypographyTest_test_titleEmphasize.png)      |
 
-| component |                                                                                                                |
-| --------- | -------------------------------------------------------------------------------------------------------------- |
-| chip group   | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png) |
-| card      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)     |
+| component |                                                                                                                                                    |
+| --------- |----------------------------------------------------------------------------------------------------------------------------------------------------|
+| chip group   | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png)                                  |
+| card      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)                                         |
+| UpcomingVideoView      | ![UpcomingVideoView.png](mobile-design/screenshots/debug/com.nmg.mobile.design.upcomingvideoview.UpcomingVideoViewTest_test_UpcomingVideoView.png) |
 
 ## target
 
