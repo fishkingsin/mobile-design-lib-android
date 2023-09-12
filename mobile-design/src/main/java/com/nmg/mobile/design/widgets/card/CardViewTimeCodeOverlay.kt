@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
@@ -30,7 +31,7 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
 
         ) {
             Icon(
-                modifier = Modifier.padding(1.dp),
+                modifier = Modifier.padding(start = 4.dp),
                 tint = Color.White,
                 painter = painterResource(id = R.drawable.play),
                 contentDescription = "image description",
@@ -38,6 +39,7 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
             Text(
                 text = timecode,
                 color = Color.White,
+                fontSize = 12.sp,
                 modifier = Modifier
                     .padding(2.dp),
             )
