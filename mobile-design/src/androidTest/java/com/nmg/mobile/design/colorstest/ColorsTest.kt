@@ -12,6 +12,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.extensions.colorResource
 import com.nmg.mobile.design.gallery.ColorItem
 import com.nmg.mobile.design.gallery.CommonColorItems
+import com.nmg.mobile.design.theme.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
