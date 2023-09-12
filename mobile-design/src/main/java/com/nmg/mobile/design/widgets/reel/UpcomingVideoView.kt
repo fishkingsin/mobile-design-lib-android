@@ -38,13 +38,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun UpcomingVideoView(
-    imageURL: String,
-    headline: String,
-    timeCode: String,
-    onClickCancel: () -> Unit,
-    onClickPlay: () -> Unit,
-) {
+public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -63,7 +57,7 @@ public fun UpcomingVideoView(
                 style = style
             )
             Text(
-                text = "10",
+                text = item.secCountDown.toString(),
                 style = TextStyle(
                     fontSize = 14.sp,
                     color = NMGTheme.colors.commonNeutralGray2,
@@ -71,7 +65,7 @@ public fun UpcomingVideoView(
                 modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
             )
             Text(
-                text = "後播放",
+                text = "秒後播放",
                 style = style
             )
         }
@@ -80,7 +74,7 @@ public fun UpcomingVideoView(
                 val shape = RoundedCornerShape(4.dp)
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(imageURL)
+                        .data(item.imageURL)
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -94,7 +88,7 @@ public fun UpcomingVideoView(
                         .clip(shape)
                 )
                 Text(
-                    text = timeCode,
+                    text = item.timeCode,
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.White,
@@ -111,7 +105,7 @@ public fun UpcomingVideoView(
             }
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = headline,
+                text = item.headline,
                 style = TextStyle(
                     fontSize = 16.sp,
                     color = NMGTheme.colors.commonNeutralGray2,
@@ -139,7 +133,7 @@ public fun UpcomingVideoView(
                     .background(color = Color.Transparent)
                     .padding(top = 9.dp, bottom = 9.dp)
                     .clickable(true, onClick = {
-                        onClickCancel
+                        item.onClickCancel
                     }),
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -156,7 +150,7 @@ public fun UpcomingVideoView(
                     .background(color = Color.White)
                     .padding(top = 9.dp, bottom = 9.dp)
                     .clickable(true, onClick = {
-                        onClickPlay
+                        item.onClickPlay
                     }),
             )
         }
@@ -166,12 +160,27 @@ public fun UpcomingVideoView(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun UpcomingVideoViewPreview() {
-    UpcomingVideoView(
-        imageURL = "https://placehold.co/144x75/png",
-        headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
-        timeCode = "22:22",
-        onClickCancel = { },
-        onClickPlay = { },
+    UpcomingVideoView(object : UpcomingItem {
+        override var imageURL: String
+            get() = "https://placehold.co/144x75/png"
+            set(value) {}
+        override var headline: String
+            get() = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
+            set(value) {}
+        override var timeCode: String
+            get() = "22:22"
+            set(value) {}
+        override var secCountDown: Int
+            get() = 10
+            set(value) {}
+        override var onClickCancel: () -> Unit
+            get() = {}
+            set(value) {}
+        override var onClickPlay: () -> Unit
+            get() = {}
+            set(value) {}
+
+    }
     )
 }
 
