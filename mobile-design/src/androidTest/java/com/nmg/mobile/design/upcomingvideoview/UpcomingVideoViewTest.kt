@@ -9,6 +9,7 @@ import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.CardView
 import com.nmg.mobile.design.widgets.reel.UpcomingItem
 import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -40,8 +41,8 @@ class UpcomingVideoViewTest : ScreenshotTest {
                     override var timeCode: String
                         get() = "22:22"
                         set(value) {}
-                    override var secCountDown: Int
-                        get() = 10
+                    override var secCountDown: MutableStateFlow<Int>
+                        get() = MutableStateFlow(10)
                         set(value) {}
                     override var onClickCancel: () -> Unit
                         get() = {}

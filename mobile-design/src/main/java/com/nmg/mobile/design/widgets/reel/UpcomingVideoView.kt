@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +37,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
@@ -57,7 +59,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
                 style = style
             )
             Text(
-                text = item.secCountDown.toString(),
+                text = "${item.secCountDown.collectAsState(initial = 0).value}",
                 style = TextStyle(
                     fontSize = 14.sp,
                     color = NMGTheme.colors.commonNeutralGray2,
@@ -170,8 +172,8 @@ fun UpcomingVideoViewPreview() {
         override var timeCode: String
             get() = "22:22"
             set(value) {}
-        override var secCountDown: Int
-            get() = 10
+        override var secCountDown: MutableStateFlow<Int>
+            get() = MutableStateFlow(10)
             set(value) {}
         override var onClickCancel: () -> Unit
             get() = {}
