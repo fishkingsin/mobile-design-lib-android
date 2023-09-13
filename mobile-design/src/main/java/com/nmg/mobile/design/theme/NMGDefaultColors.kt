@@ -1,11 +1,7 @@
 package com.nmg.mobile.design.theme
 
-import android.annotation.SuppressLint
 import android.content.Context
-import androidx.annotation.AttrRes
-import androidx.annotation.ColorInt
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.res.ResourcesCompat
 import com.nmg.mobile.design.R
 
@@ -104,22 +100,14 @@ public data class NMGDefaultColors(val context: Context) : ThemeableColors {
         )
     )
 
-    override val primaryMain: Color = Color(context.themeColor(R.attr.primaryMain))
+    override val primaryMain: Color = Color(
+        ResourcesCompat.getColor(
+            context.resources, R.color.primaryMain, context.theme
+        )
+    )
 
     override val primary: Color = primaryMain
 
     override val footnote: Color
         get() = commonNeutralGray30
-}
-
-@ColorInt
-@SuppressLint("Recycle")
-public fun Context.themeColor(
-    @AttrRes themeAttrId: Int
-): Int {
-    return obtainStyledAttributes(
-        intArrayOf(themeAttrId)
-    ).use {
-        it.getColor(0, Color.Black.toArgb())
-    }
 }
