@@ -32,27 +32,11 @@ class UpcomingVideoViewTest : ScreenshotTest {
 
             NMGTheme() {
                 UpcomingVideoView(object : UpcomingItem {
-                    override var imageURL: String
-                        get() = "https://placehold.co/144x75/png"
-                        set(value) {}
-                    override var headline: String
-                        get() = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
-                        set(value) {}
-                    override var timeCode: String
-                        get() = "22:22"
-                        set(value) {}
-                    override var secCountDown: MutableStateFlow<Int>
-                        get() = MutableStateFlow(10)
-                        set(value) {}
-                    override var onClickCancel: () -> Unit
-                        get() = {}
-                        set(value) {}
-                    override var onClickPlay: () -> Unit
-                        get() = {}
-                        set(value) {}
-
-                }
-                )
+                    override var imageURL: String = "https://placehold.co/144x75/png"
+                    override var headline: String = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
+                    override var timeCode: String = "22:22"
+                    override var secCountDown: Int = 10
+                }, null)
             }
         }
         Thread.sleep(1000)

@@ -19,6 +19,9 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,7 +43,8 @@ import com.nmg.mobile.design.theme.NMGTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
+public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVideoViewEvent?) {
+    val secCountDown by remember { mutableStateOf(10) }
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -59,7 +63,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
                 style = style
             )
             Text(
-                text = "${item.secCountDown.collectAsState(initial = 0).value}",
+                text = "$secCountDown",
                 style = TextStyle(
                     fontSize = 14.sp,
                     color = NMGTheme.colors.commonNeutralGray2,
@@ -135,7 +139,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
                     .background(color = Color.Transparent)
                     .padding(top = 9.dp, bottom = 9.dp)
                     .clickable(true, onClick = {
-                        item.onClickCancel
+                        event?.onClickCancel()
                     }),
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -152,7 +156,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
                     .background(color = Color.White)
                     .padding(top = 9.dp, bottom = 9.dp)
                     .clickable(true, onClick = {
-                        item.onClickPlay
+                        event?.onClickPlay()
                     }),
             )
         }
@@ -163,26 +167,10 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item) {
 @Composable
 fun UpcomingVideoViewPreview() {
     UpcomingVideoView(object : UpcomingItem {
-        override var imageURL: String
-            get() = "https://placehold.co/144x75/png"
-            set(value) {}
-        override var headline: String
-            get() = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
-            set(value) {}
-        override var timeCode: String
-            get() = "22:22"
-            set(value) {}
-        override var secCountDown: MutableStateFlow<Int>
-            get() = MutableStateFlow(10)
-            set(value) {}
-        override var onClickCancel: () -> Unit
-            get() = {}
-            set(value) {}
-        override var onClickPlay: () -> Unit
-            get() = {}
-            set(value) {}
-
-    }
-    )
+        override var imageURL: String = "https://placehold.co/144x75/png"
+        override var headline: String = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
+        override var timeCode: String = "22:22"
+        override var secCountDown: Int = 10
+    }, null)
 }
 

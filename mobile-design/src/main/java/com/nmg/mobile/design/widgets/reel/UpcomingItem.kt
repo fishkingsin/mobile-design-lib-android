@@ -6,7 +6,5 @@ public interface UpcomingItem {
     var imageURL: String
     var headline: String
     var timeCode: String
-    var secCountDown: MutableStateFlow<Int>
-    var onClickCancel: () -> Unit
-    var onClickPlay: () -> Unit
+    var secCountDown: Int
 }
