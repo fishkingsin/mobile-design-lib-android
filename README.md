@@ -13,6 +13,58 @@ avdmanager create avd -n Pixel_API_33 -k "system-images;android-33;google_apis;x
 
 ```
 
+# Update Config.ini
+
+<path to>/.android/avd/Pixel_API_33.avd/config.ini
+
+```
+AvdId=Pixel_API_33
+PlayStore.enabled=false
+abi.type=x86_64
+avd.ini.displayname=Pixel API 33
+avd.ini.encoding=UTF-8
+disk.dataPartition.size=6G
+fastboot.chosenSnapshotFile=
+fastboot.forceChosenSnapshotBoot=no
+fastboot.forceColdBoot=yes
+fastboot.forceFastBoot=no
+hw.accelerometer=yes
+hw.arc=false
+hw.audioInput=yes
+hw.battery=yes
+hw.camera.back=emulated
+hw.camera.front=none
+hw.cpu.arch=x86_64
+hw.cpu.ncore=4
+hw.dPad=no
+hw.device.hash2=MD5:55acbc835978f326788ed66a5cd4c9a7
+hw.device.manufacturer=Google
+hw.device.name=pixel
+hw.gps=yes
+hw.gpu.enabled=yes
+hw.gpu.mode=host
+hw.initialOrientation=Portrait
+hw.keyboard=no
+hw.lcd.density=420
+hw.lcd.height=1920
+hw.lcd.width=1080
+hw.mainKeys=no
+hw.ramSize=1536
+hw.sdCard=yes
+hw.sensors.orientation=yes
+hw.sensors.proximity=yes
+hw.trackBall=no
+runtime.network.latency=none
+runtime.network.speed=full
+showDeviceFrame=yes
+skin.dynamic=yes
+skin.name=1080x1920
+skin.path=_no_skin
+tag.display=Google APIs
+tag.id=google_apis
+vm.heapSize=228
+```
+
 ### start your emulator
 
 `emulator @Pixel_API_33`
