@@ -1,147 +1,159 @@
 ---
-format_version: "13"
+format_version: '13'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: android
 workflows:
   build_apk:
-    summary:
-      Run your Android unit tests and create an APK file to install your app
+    summary: Run your Android unit tests and create an APK file to install your app
       on a device or share it with your team.
-    description:
-      The workflow will first clone your Git repository, install Android
+    description: The workflow will first clone your Git repository, install Android
       tools, set the project's version code based on the build number, run Android
       lint and unit tests, build the project's APK file and save it.
     steps:
-      - activate-ssh-key@4: {}
-      - git-clone@8: {}
-      - install-missing-android-tools@3:
-          inputs:
-            - gradlew_path: "$PROJECT_LOCATION/gradlew"
-      - change-android-versioncode-and-versionname@1:
-          inputs:
-            - build_gradle_path: "$PROJECT_LOCATION/$MODULE/build.gradle"
-      - android-lint@0:
-          inputs:
-            - project_location: "$PROJECT_LOCATION"
-            - variant: "$VARIANT"
-            - cache_level: none
-      - android-unit-test@1:
-          inputs:
-            - project_location: "$PROJECT_LOCATION"
-            - variant: "$VARIANT"
-            - cache_level: none
-      - android-build@1:
-          inputs:
-            - project_location: "$PROJECT_LOCATION"
-            - module: "$MODULE"
-            - variant: "$VARIANT"
-            - cache_level: none
-      - sign-apk@1:
-          run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
-      - deploy-to-bitrise-io@2: {}
+    - activate-ssh-key@4: {}
+    - git-clone@8: {}
+    - install-missing-android-tools@3:
+        inputs:
+        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+    - change-android-versioncode-and-versionname@1:
+        inputs:
+        - build_gradle_path: "$PROJECT_LOCATION/$MODULE/build.gradle"
+    - android-lint@0:
+        inputs:
+        - project_location: "$PROJECT_LOCATION"
+        - variant: "$VARIANT"
+        - cache_level: none
+    - android-unit-test@1:
+        inputs:
+        - project_location: "$PROJECT_LOCATION"
+        - variant: "$VARIANT"
+        - cache_level: none
+    - android-build@1:
+        inputs:
+        - project_location: "$PROJECT_LOCATION"
+        - module: "$MODULE"
+        - variant: "$VARIANT"
+        - cache_level: none
+    - sign-apk@1:
+        run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
+    - deploy-to-bitrise-io@2: {}
   run_tests:
     summary: Run your Android unit tests and get the test report.
-    description:
-      The workflow will first clone your Git repository, cache your Gradle
+    description: The workflow will first clone your Git repository, cache your Gradle
       dependencies, install Android tools, run your Android unit tests and save the
       test report.
     steps:
-      - activate-ssh-key@4: {}
-      - git-clone@8: {}
-      - restore-gradle-cache@1: {}
-      - install-missing-android-tools@3:
-          inputs:
-            - gradlew_path: "$PROJECT_LOCATION/gradlew"
-          is_always_run: true
-      # - android-build-for-ui-testing@0.1.7:
-      #     inputs:
-      #       - module: "$MODULE"
-      #       - arguments: "--no-build-cache"
-      #       - variant: "$VARIANT"
-      - gradle-runner@2:
-          inputs:
-            - gradlew_path: "$PROJECT_LOCATION/gradlew"
-            - gradle_file: "$PROJECT_LOCATION/build.gradle"
-            - gradle_task: "$MODULE:assembleDebug"
-      - git::https://github.com/stepstone-tech/steps-avd-manager.git@core:
-          inputs:
-            - version: "33"
-            - verbose_mode: "true"
-            - custom_hw_config: |-
-                disk.dataPartition.size=1024M
-                hw.camera.back=emulated
-                hw.camera.front=emulated
-                hw.keyboard=yes
-                hw.gpu.enabled=true
-                hw.gpu.mode=swiftshader_indirect
-                hw.ramSize=2048
-                hw.lcd.width = 1440
-                hw.lcd.height = 2960
-                runtime.network.latency=none
-                runtime.network.speed=full
-                showDeviceFrame=no
-                skin.dynamic=yes
-                skin.path=_no_skin
-                skin.path.backup=_no_skin
-                vm.heapSize=256
-            - custom_command_flags: "-no-window -no-audio -debug-init -no-boot-anim -no-snapshot"
-            - boot_wait_time: "300"
-            - emulator_channel: "0"
-          title: Create & start emulator
-      - wait-for-android-emulator@1: {}
-      - script@1.1.5:
-          timeout: 3000
-          inputs:
-            - content: |-
-                #!/usr/bin/env bash
-                # fail if any commands fails
-                # set -e
-                # debug log
-                set -x
-                echo "Disabling animations"
-                adb shell settings put global window_animation_scale 0
-                adb shell settings put global transition_animation_scale 0
-                adb shell settings put global animator_duration_scale 0
-                echo "Saving logcat logs to file"
-                ( adb logcat -v threadtime & echo $! >&3 ) 3>app/build/logcat.pid | tee app/build/adb_logcat.log 2>&1 > /dev/null
-                echo "Starting Android tests!"
-                local gradleExitStatus="0"
-                ./gradlew ${MODULE}:debugExecuteScreenshots --info --stacktrace --no-build-cache 
-                gradleExitStatus=${PIPESTATUS[0]}
-                kill -9 $(cat app/build/logcat.pid) | true
-                if [[ ${gradleExitStatus} -gt 0 ]]; then
-                  echo "Build failed for some reason, please check the logs."
-                  exit 1
-                fi
-          title: Run UI tests
-      - custom-test-results-export@1.0:
-          inputs:
-            - search_pattern: "*.xml"
-            - base_path: "$BITRISE_SOURCE_DIR/app/build/outputs/androidTest-results"
-            - test_name: Emulator tests
-      - deploy-to-bitrise-io@2: {}
-      - save-gradle-cache@1: {}
-      - deploy-to-bitrise-io@2: {}
+    - activate-ssh-key@4: {}
+    - git-clone@8: {}
+    - restore-gradle-cache@1: {}
+    - install-missing-android-tools@3:
+        inputs:
+        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+        is_always_run: true
+    - gradle-runner@2:
+        inputs:
+        - gradlew_path: "$PROJECT_LOCATION/gradlew"
+        - gradle_file: "$PROJECT_LOCATION/build.gradle"
+        - gradle_task: ":$MODULE:assembleDebug"
+    - git::https://github.com/stepstone-tech/steps-avd-manager.git@core:
+        inputs:
+        - version: '28'
+        - verbose_mode: 'true'
+        - custom_hw_config: |-
+            AvdId=Pixel_API_28
+            PlayStore.enabled=false
+            abi.type=x86_64
+            avd.ini.displayname=Pixel API 28
+            avd.ini.encoding=UTF-8
+            disk.dataPartition.size=6G
+            fastboot.chosenSnapshotFile=
+            fastboot.forceChosenSnapshotBoot=no
+            fastboot.forceColdBoot=yes
+            fastboot.forceFastBoot=no
+            hw.accelerometer=yes
+            hw.arc=false
+            hw.audioInput=yes
+            hw.battery=yes
+            hw.camera.back=emulated
+            hw.camera.front=none
+            hw.cpu.arch=x86_64
+            hw.cpu.ncore=4
+            hw.dPad=no
+            hw.device.hash2=MD5:55acbc835978f326788ed66a5cd4c9a7
+            hw.device.manufacturer=Google
+            hw.device.name=pixel
+            hw.gps=yes
+            hw.gpu.enabled=yes
+            hw.gpu.mode=host
+            hw.initialOrientation=Portrait
+            hw.keyboard=no
+            hw.lcd.density=420
+            hw.lcd.height=1920
+            hw.lcd.width=1080
+            hw.mainKeys=no
+            hw.ramSize=1536
+            hw.sdCard=yes
+            hw.sensors.orientation=yes
+            hw.sensors.proximity=yes
+            hw.trackBall=no
+            runtime.network.latency=none
+            runtime.network.speed=full
+            showDeviceFrame=yes
+            skin.dynamic=yes
+            skin.name=1080x1920
+            skin.path=_no_skin
+            tag.display=Google APIs
+            tag.id=google_apis
+            vm.heapSize=228
+        - custom_command_flags: "-no-window -no-audio -debug-init -no-boot-anim -no-snapshot"
+        - boot_wait_time: '300'
+        - profile: pixel
+        - emulator_channel: '0'
+        title: Create & start emulator
+    - wait-for-android-emulator@1: {}
+    - script@1.2:
+        timeout: 3000
+        inputs:
+        - content: "#!/usr/bin/env bash\n# fail if any commands fails\n# set -e\n#
+            debug log\nset -x\necho \"Disabling animations\"\nadb shell settings put
+            global window_animation_scale 0\nadb shell settings put global transition_animation_scale
+            0\nadb shell settings put global animator_duration_scale 0\necho \"Saving
+            logcat logs to file\"\n( adb logcat -v threadtime & echo $! >&3 ) 3>app/build/logcat.pid
+            | tee app/build/adb_logcat.log 2>&1 > /dev/null\necho \"Starting Android
+            tests!\"\nlocal gradleExitStatus=\"0\"\n./gradlew ${UI_TEST_TARGET} --info
+            --stacktrace --no-build-cache \ngradleExitStatus=${PIPESTATUS[0]}\nkill
+            -9 $(cat app/build/logcat.pid) | true\nif [[ ${gradleExitStatus} -gt 0
+            ]]; then\n  echo \"Build failed for some reason, please check the logs.\"\n
+            \ exit 1\nfi"
+        title: Run UI tests
+    - custom-test-results-export@1.0:
+        inputs:
+        - search_pattern: "*.xml"
+        - base_path: "$BITRISE_SOURCE_DIR/$MODULE/build/outputs/androidTest-results"
+        - test_name: Emulator tests
+    - deploy-to-bitrise-io@2: {}
+    - save-gradle-cache@1: {}
+    - deploy-to-bitrise-io@2: {}
 meta:
   bitrise.io:
     stack: linux-docker-android-20.04
     machine_type_id: standard
 app:
   envs:
-    - opts:
-        is_expand: false
-      PROJECT_LOCATION: "."
-    - opts:
-        is_expand: false
-      MODULE: mobile-design
-    - opts:
-        is_expand: false
-      VARIANT: ""
-    - opts:
-        is_expand: false
-      UI_TEST_TARGET: ":mobile-design:debugExecuteScreenshotTests"
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: "."
+  - opts:
+      is_expand: false
+    MODULE: mobile-design
+  - opts:
+      is_expand: false
+    VARIANT: debug
+  - opts:
+      is_expand: false
+    UI_TEST_TARGET: ":mobile-design:debugExecuteScreenshotTests"
 trigger_map:
-  - push_branch: develop
-    workflow: run_tests
-  - pull_request_source_branch: "*"
-    workflow: run_tests
+- push_branch: develop
+  workflow: run_tests
+- pull_request_source_branch: "*"
+  workflow: run_tests

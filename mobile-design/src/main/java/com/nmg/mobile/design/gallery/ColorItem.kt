@@ -30,7 +30,7 @@ public fun ColorItem(colorName: String = "", color: Color) {
         Text(colorName, style = NMGTheme.typography.caption)
         Box(
             modifier = Modifier
-                .defaultMinSize(50.dp, 50.dp)
+                .size(100.dp)
                 .clip(RectangleShape)
                 .background(color)
                 .border(1.dp, Color.Black, RectangleShape)
