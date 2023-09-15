@@ -78,9 +78,8 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 `./gradlew mobile-design:debugExecuteScreenshotTests -Precord`
 
 # Snapshot testing
-
-|              |                                                                                                                 |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |
-| ------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --- | --- | --- | --- | --- | --- | --- |
+| | | | | | | |
+|-|-|-|-|-|-|-|
 | common       | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Alert_snapshot.png)   | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Black_snapshot.png) | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Success_snapshot.png) | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_White_snapshot.png) |
 | WW Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_ww_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
 | MORE Light   | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_more_snapshot.png)   |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
@@ -123,6 +122,7 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 | ---------- | ----------------------------------------------------------------------------------------------------------------- |
 | chip group | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png) |
 | card       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)        |
+| UpcomingVideoView      | ![UpcomingVideoView.png](mobile-design/screenshots/debug/com.nmg.mobile.design.upcomingvideoview.UpcomingVideoViewTest_test_UpcomingVideoView.png) |
 
 ## target
 
