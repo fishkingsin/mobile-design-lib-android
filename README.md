@@ -7,21 +7,21 @@ Read it first https://github.com/pedrovgs/Shot
 ### create your emulator
 
 ```
-sdkmanager --install "system-images;android-33;google_apis;x86_64"
+sdkmanager --install "system-images;android-28;google_apis;x86"
 
-avdmanager create avd -n Pixel_API_33 -k "system-images;android-33;google_apis;x86_64" -d 23
+avdmanager create avd -n Pixel_API_28 -k "system-images;android-28;google_apis;x86" -d 23
 
 ```
 
 # Update Config.ini
 
-<path to>/.android/avd/Pixel_API_33.avd/config.ini
+<path to>/.android/avd/Pixel_API_28.avd/config.ini
 
 ```
-AvdId=Pixel_API_33
+AvdId=Pixel_API_28
 PlayStore.enabled=false
 abi.type=x86_64
-avd.ini.displayname=Pixel API 33
+avd.ini.displayname=Pixel API 28
 avd.ini.encoding=UTF-8
 disk.dataPartition.size=6G
 fastboot.chosenSnapshotFile=
@@ -67,7 +67,7 @@ vm.heapSize=228
 
 ### start your emulator
 
-`emulator @Pixel_API_33`
+`emulator @Pixel_API_28`
 
 read more: [Installing and creating Emulators with AVDMANAGER (For Continuous Integration Server or Local Use)](https://gist.github.com/mrk-han/66ac1a724456cadf1c93f4218c6060ae?permalink_comment_id=3648957)
 
@@ -77,20 +77,20 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 
 # Snapshot testing
 
-| | | | | | | |
-|-|-|-|-|-|-|-|
-| common       | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Alert_snapshot.png)    | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Black_snapshot.png) | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Success_snapshot.png) | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_White_snapshot.png) |
-| WW Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_ww_snapshot.png)       |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| MORE Light   | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_more_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| ED Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_ed_snapshot.png)       |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| KISS Light   | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_kiss_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| NM Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_nm_snapshot.png)       |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| OS Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_os_snapshot.png) |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| GOTRIP Light  | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_gotrip_snapshot.png)   |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
-| OH Light  | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_oh_snapshot.png)   |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+|              |                                                                                                                 |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |
+| ------------ | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | --- | --- | --- | --- | --- | --- | --- |
+| common       | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Alert_snapshot.png)   | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Black_snapshot.png) | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_Success_snapshot.png) | ![](app/screenshots/debug/com.nmg.mobiledesignlibrary.ColorItemScreenshotTests_test_color_White_snapshot.png) |
+| WW Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_ww_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| MORE Light   | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_more_snapshot.png)   |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| ED Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_ed_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| KISS Light   | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_kiss_snapshot.png)   |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| NM Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_nm_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| OS Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_os_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| GOTRIP Light | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_gotrip_snapshot.png) |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
+| OH Light     | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_oh_snapshot.png)     |                                                                                                               |                                                                                                                 |                                                                                                               |     |     |     |     |     |     |     |
 
-|                    |                                                                                                       |
-| ------------------ | ----------------------------------------------------------------------------------------------------- |
+|                    |                                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------ |
 | commmon grey light | ![](mobile-design/screenshots/debug/com.nmg.mobile.design.colorstest.ColorsTest_test_color_common.png) |
 
 |                     |                                                                                                                               |
@@ -117,11 +117,11 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 | title5              | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.typographytest.TypographyTest_test_title5.png)              |
 | titleEmphasize      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.typographytest.TypographyTest_test_titleEmphasize.png)      |
 
-| component |                                                                                                                |
-| --------- | -------------------------------------------------------------------------------------------------------------- |
-| chip group   | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png) |
-| card      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)     |
+| component  |                                                                                                                   |
+| ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| chip group | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png) |
+| card       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)        |
 
 ## target
 
-- Pixel XL API 33
+- Pixel XL API 28
