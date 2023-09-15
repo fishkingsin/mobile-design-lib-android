@@ -52,6 +52,7 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
     onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
     event: VideoPlayerControlEvent?
 ) {
+    var sliderValue:Float by remember { mutableStateOf(data.sliderValue) }
     var playerState:VideoPlayerControlState by remember { mutableStateOf(data.playState) }
     var playerIcon = when(playerState) {
         VideoPlayerControlState.LOADING -> R.drawable.video_player_loading
@@ -222,7 +223,7 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                     .fillMaxWidth()
                     .height(3.dp)
                     .align(Alignment.BottomCenter),
-                value = 0.5f,
+                value = sliderValue,
                 onValueChange = { },
 //            valueRange = 0f..100f,
                 onValueChangeFinished = {
@@ -251,36 +252,42 @@ fun VideoPlayerControlPreview() {
                 override var playState: VideoPlayerControlState = VideoPlayerControlState.LOADING
                 override var imageURL: String = "https://placehold.co/390x219/png"
                 override var totalTime: String = "22:22"
+                override var sliderValue: Float = 0.5f
             }, null, null, null)
 
             VideoPlayerControl(object : VideoPlayerControlData {
                 override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING
                 override var imageURL: String = "https://placehold.co/390x219/png"
                 override var totalTime: String = "22:22"
+                override var sliderValue: Float = 0.5f
             }, null, null, null)
 
             VideoPlayerControl(object : VideoPlayerControlData {
                 override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING_TAB
                 override var imageURL: String = "https://placehold.co/390x219/png"
                 override var totalTime: String = "22:22"
+                override var sliderValue: Float = 0.5f
             }, null, null, null)
 
             VideoPlayerControl(object : VideoPlayerControlData {
                 override var playState: VideoPlayerControlState = VideoPlayerControlState.PAUSED
                 override var imageURL: String = "https://placehold.co/390x219/png"
                 override var totalTime: String = "22:22"
+                override var sliderValue: Float = 0.5f
             }, null, null, null)
 
             VideoPlayerControl(object : VideoPlayerControlData {
                 override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED
                 override var imageURL: String = "https://placehold.co/390x219/png"
                 override var totalTime: String = "22:22"
+                override var sliderValue: Float = 0.5f
             }, null, null, null)
 
             VideoPlayerControl(object : VideoPlayerControlData {
                 override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
                 override var imageURL: String = "https://placehold.co/390x219/png"
                 override var totalTime: String = "22:22"
+                override var sliderValue: Float = 0.5f
             }, null, null, null)
         }
     }

@@ -32,6 +32,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     override var playState: VideoPlayerControlState = VideoPlayerControlState.LOADING
                     override var imageURL: String = "https://placehold.co/390x219/png"
                     override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
                 }, null, null, null)
             }
         }
@@ -46,6 +47,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING
                     override var imageURL: String = "https://placehold.co/390x219/png"
                     override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
                 }, null, null, null)
             }
         }
@@ -60,6 +62,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING_TAB
                     override var imageURL: String = "https://placehold.co/390x219/png"
                     override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
                 }, null, null, null)
             }
         }
@@ -74,6 +77,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     override var playState: VideoPlayerControlState = VideoPlayerControlState.PAUSED
                     override var imageURL: String = "https://placehold.co/390x219/png"
                     override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
                 }, null, null, null)
             }
         }
@@ -88,6 +92,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED
                     override var imageURL: String = "https://placehold.co/390x219/png"
                     override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
                 }, null, null, null)
             }
         }
@@ -102,6 +107,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
                     override var imageURL: String = "https://placehold.co/390x219/png"
                     override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
                 }, null, null, null)
             }
         }

@@ -4,4 +4,5 @@ interface VideoPlayerControlData {
     var playState: VideoPlayerControlState
     var imageURL: String
     var totalTime: String
+    var sliderValue: Float
 }
