@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +17,22 @@ public fun ReelActionButtonGroup() {
     Column(
         verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
         horizontalAlignment = Alignment.CenterHorizontally
-//        horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
     ) {
-        ReelActionButton(vectorDrawableRes = R.drawable.reel_link)
-        ReelActionButton(vectorDrawableRes = R.drawable.reel_like_normal, vectorDrawableResSelected = R.drawable.reel_like_selected)
-        ReelActionButton(vectorDrawableRes = R.drawable.reel_share)
+        ReelActionButton(object : ReelActionButtonData {
+            override var vectorDrawableRes: Int = R.drawable.reel_link
+            override var vectorDrawableResSelected: Int? = null
+            override var isSelected: Boolean = false
+        })
+        ReelActionButton(object : ReelActionButtonData {
+            override var vectorDrawableRes: Int = R.drawable.reel_like_normal
+            override var vectorDrawableResSelected: Int? = R.drawable.reel_like_selected
+            override var isSelected: Boolean = false
+        })
+        ReelActionButton(object : ReelActionButtonData {
+            override var vectorDrawableRes: Int = R.drawable.reel_share
+            override var vectorDrawableResSelected: Int? = null
+            override var isSelected: Boolean = true
+        })
     }
 }
 
