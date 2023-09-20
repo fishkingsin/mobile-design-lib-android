@@ -14,6 +14,15 @@ public data class NMGDefaultColors(val context: Context) : ThemeableColors {
         get() = commonNeutralGray5
     override val chipForeground: Color
         get() = commonNeutralGray90
+
+    override val placeholder: Color = Color(
+        ResourcesCompat.getColor(
+            context.resources,
+            R.color.placeholder,
+            context.theme
+        )
+    )
+
     override val commonNeutralGray90: Color = Color(
         ResourcesCompat.getColor(
             context.resources,
