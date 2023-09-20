@@ -21,12 +21,11 @@ import com.nmg.mobile.design.widgets.reel.ReelCardOverlay
 fun CardDemo() {
     Column {
         LazyColumn(
-            modifier = Modifier.padding(horizontal = NMGTheme.customSystem.padding),
             verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
         ) {
             item {
                 Column(
-                    modifier = Modifier.padding(vertical = NMGTheme.customSystem.padding),
+                    modifier = Modifier.padding(horizontal = NMGTheme.customSystem.padding, vertical = NMGTheme.customSystem.padding),
                     verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
                 ) {
                     ChipGroup(

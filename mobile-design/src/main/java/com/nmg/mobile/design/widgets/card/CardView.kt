@@ -1,15 +1,25 @@
 package com.nmg.mobile.design.widgets.card
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
 public fun <Data : CardDataAbstract> CardView(data: Data) {
-    TopImageCardView(data.imageURL) {
-        CardViewHeadline(data)
-        CardViewFootnote(data)
+    Box(
+        modifier = Modifier
+            .background(Color.White)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+    ) {
+        TopImageCardView(data.imageURL) {
+            CardViewHeadline(data)
+            CardViewFootnote(data)
+        }
     }
 }
 
