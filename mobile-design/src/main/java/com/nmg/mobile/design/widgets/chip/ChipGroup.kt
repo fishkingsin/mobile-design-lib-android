@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.EDDefaultColors
+import com.nmg.mobile.design.theme.GotripDefaultColors
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.theme.WWDefaultColors
 
@@ -84,7 +85,7 @@ fun ChipGroup_WW_Theme_Preview() {
 @Preview(showBackground = true)
 @Composable
 fun ChipGroup_ED_Theme_Preview() {
-    NMGTheme(EDDefaultColors()) {
+    NMGTheme(GotripDefaultColors()) {
         ChipGroup(
             items = listOf(
                 DemoChipData("Home"),
