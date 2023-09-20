@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -37,6 +38,7 @@ public fun <Data : CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
                 .background(color = Color.Black, shape = shape)
+                .clip(shape)
                 .fillMaxSize()
         )
         overlay?.let {
@@ -50,7 +52,7 @@ public fun <Data : CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (
 fun ReelCardPreview() {
     ReelCard(
         data = CardData(
-            imageURL = "https://placehold.co/124x224/png",
+            imageURL = "https://placehold.co/126x224/png",
             headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
             leadingFootnote = "4小時前",
             secondFootnote = "經人觀點",
