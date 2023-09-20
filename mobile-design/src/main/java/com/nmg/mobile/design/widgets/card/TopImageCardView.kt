@@ -37,7 +37,7 @@ public fun TopImageCardView(
                 contentDescription = stringResource(R.string.description),
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier
-                    .background(color = Color.Black, shape = shape)
+                    .background(color = NMGTheme.colors.placeholder, shape = shape)
                     .clip(shape)
                     .fillMaxWidth()
                     .heightIn(
@@ -59,7 +59,7 @@ public fun TopImageCardView(
 fun TopImageCardView_Preview() {
     NMGTheme {
         TopImageCardView(
-            imageURL = "https://placehold.co/358x200/png",
+            imageURL = "https://placehold.co/358x100/png",
             overlay = {
                 CardViewTimeCodeOverlay("12:34", it)
             },
