@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
+import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.CardDataAbstract
 
@@ -37,7 +38,7 @@ public fun <Data : CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (
             contentDescription = stringResource(R.string.description),
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
-                .background(color = Color.Black, shape = shape)
+                .background(color = NMGTheme.colors.placeholder, shape = shape)
                 .clip(shape)
                 .fillMaxSize()
         )
