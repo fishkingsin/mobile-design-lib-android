@@ -8,6 +8,7 @@ public interface ThemeableTypography {
     public val title1: TextStyle
     public val title1Medium: TextStyle
     public val title2: TextStyle
+    public val title2Medium: TextStyle
     public val title3: TextStyle
     public val title4: TextStyle
     public val title2Emphasize: TextStyle

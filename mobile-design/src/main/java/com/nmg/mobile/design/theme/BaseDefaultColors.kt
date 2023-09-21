@@ -22,5 +22,7 @@ public abstract class BaseDefaultColors : ThemeableColors {
     override val footnote: Color = defaultColor.footnote
     override val chipSelectedForeground: Color = defaultColor.chipSelectedForeground
     override val chipForeground: Color = defaultColor.chipForeground
+    override val selectedTabContentColor: Color = defaultColor.selectedTabContentColor
+    override val unselectedTabContentColor: Color = defaultColor.unselectedTabContentColor
 
 }
