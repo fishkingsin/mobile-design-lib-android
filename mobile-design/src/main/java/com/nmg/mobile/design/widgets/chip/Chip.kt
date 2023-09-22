@@ -1,6 +1,7 @@
 package com.nmg.mobile.design.widgets.chip
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -23,6 +24,9 @@ public fun Chip(content: @Composable (selected: Boolean) -> Unit, selected: Bool
         modifier = Modifier
             .background(color = chipBackground, shape = shape)
             .conditional(selected, modifier = { background(color = chipSelectedBackground, shape = shape) })
+            .clickable {
+                onClick.invoke()
+            }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

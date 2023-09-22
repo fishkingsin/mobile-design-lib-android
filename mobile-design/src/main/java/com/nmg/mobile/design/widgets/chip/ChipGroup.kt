@@ -1,8 +1,11 @@
 package com.nmg.mobile.design.widgets.chip
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,11 +18,16 @@ import com.nmg.mobile.design.theme.WWDefaultColors
 public interface ChipData {
     val title: String
 }
+
 @Composable
-public fun <Items : List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> Unit) {
-    var tabIndex by remember { mutableStateOf(0) }
+public fun <Items : List<ChipData>> ChipGroup(items: Items, selectedTabIndex: Int = 0, onTapChip: (Int) -> Unit) {
+    var tabIndex by remember { mutableStateOf(selectedTabIndex) }
     val chipSelectedForeground = NMGTheme.colors.chipSelectedForeground
     val chipForeground = NMGTheme.colors.chipForeground
+
+    LaunchedEffect(selectedTabIndex) {
+        tabIndex = selectedTabIndex
+    }
 
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -33,7 +41,11 @@ public fun <Items : List<ChipData>> ChipGroup(items: Items, onTapChip: (Int) -> 
                 },
                 content = { selected ->
                     Text(
-                        color = if (selected) { chipSelectedForeground } else { chipForeground },
+                        color = if (selected) {
+                            chipSelectedForeground
+                        } else {
+                            chipForeground
+                        },
                         modifier = Modifier
                             .padding(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
                         text = items[index].title
@@ -88,6 +100,44 @@ fun ChipGroup_ED_Theme_Preview() {
                 DemoChipData("Logout"),
             )
         ) {
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ChipGroup_Selected_Tab_Preview() {
+    val items = listOf(
+        DemoChipData("Home"),
+        DemoChipData("About"),
+        DemoChipData("Settings"),
+        DemoChipData("Profile"),
+        DemoChipData("Help"),
+        DemoChipData("Contact"),
+        DemoChipData("Privacy"),
+        DemoChipData("Terms"),
+        DemoChipData("FAQ"),
+        DemoChipData("Support"),
+        DemoChipData("Logout"),
+    )
+    var selectedTabIndex by remember { mutableStateOf(0) }
+
+    Column {
+        Box {
+            ChipGroup(
+                items = items,
+                selectedTabIndex = selectedTabIndex
+            ) {
+                selectedTabIndex = it
+            }
+        }
+
+        Box {
+            Button(onClick = {
+                selectedTabIndex = (selectedTabIndex + 1) % items.size
+            }) {
+                Text(text = "Next")
+            }
         }
     }
 }
