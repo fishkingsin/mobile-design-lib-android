@@ -70,3 +70,6 @@ local.properties
 .idea
 .idea
 publish.gradle
+mobile-design/screenshots/debug/screenshots-compose-default
+mobile-design/screenshots/debug/screenshots-compose-default-orchestrated
+mobile-design/screenshots/debug/screenshots-default-orchestrated
