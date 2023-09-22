@@ -118,18 +118,19 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 | title5              | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.typographytest.TypographyTest_test_title5.png)              |
 | titleEmphasize      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.typographytest.TypographyTest_test_titleEmphasize.png)      |
 
-| component            |                                                                                                                                                                                                                                              |
-|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| chip group           | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png)                                                                                                                            |
-| card                 | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)                                                                                                                                   |
-| video player control | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_LOADING.png)                                                                                              |
-|  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PLAYING.png)                                                |
-|  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PLAYING_TAB.png) |
-|  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PAUSED.png)        |
-|  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_COMPLETED.png)          |
-|  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_COMPLETED_CANCEL_AUTOPLAY.png)        |
-| ReelActionButton | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelActionButtonGroupTest_test_ReelActionButton.png)         |
-| ReelActionButtonGroup | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelActionButtonGroupTest_test_ReelActionButtonGroup.png)         |
+| component             |                                                                                                                                                                                                                                             |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| chip group            | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.chipgrouptest.ChipGroupTest_test_ChipGroup.png)                                                                                                                           |
+| card                  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.cardview.CardViewTest_test_CardView.png)                                                                                                                                  |
+| video player control  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_LOADING.png)                                                                                               |
+|                       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PLAYING.png)                                                                                               |
+|                       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PLAYING_TAB.png)                                                                                           |
+|                       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PAUSED.png)                                                                                                |
+|                       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_COMPLETED.png)                                                                                             |
+|                       | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_COMPLETED_CANCEL_AUTOPLAY.png)                                                                             |
+| ReelActionButton      | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelActionButtonGroupTest_test_ReelActionButton.png)                                                                                                                 |
+| ReelActionButtonGroup | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelActionButtonGroupTest_test_ReelActionButtonGroup.png)                                                                                                            |
+| ReelPlayer            | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelPlayerTest_test_ReelPlayer.png)                                                                                                                                  |
 
 ## target
 

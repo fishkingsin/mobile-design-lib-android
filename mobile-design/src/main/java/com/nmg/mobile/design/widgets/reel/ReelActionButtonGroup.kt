@@ -13,7 +13,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun ReelActionButtonGroup(modifier: Modifier) {
+public fun ReelActionButtonGroup(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
