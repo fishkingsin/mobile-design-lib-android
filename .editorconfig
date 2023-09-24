@@ -6,6 +6,8 @@ ktlint_standard_function-naming = disabled # Disable all rules from the `standar
 [*.{kt,kts}]
 ktlint_custom-rule-set = enabled # Enable all rules in the `custom-rule-set` rule set (not provided by KtLint)
 [*.{kt,kts}]
+custom-rule-set=[twitter_compose]
+[*.{kt,kts}]
 twitter_compose_preview_public_only_if_params = false
 [*.{kt,kts}]
 twitter_compose-rule-set = enabled # Enable all rules in the `compose-rule-set` rule set (not provided by KtLint)
