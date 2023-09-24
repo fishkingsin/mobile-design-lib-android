@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -33,16 +34,19 @@ public fun <Item: ReelPlayerData> ReelPlayer(item: Item, playerView: @Composable
         }
         ConstraintLayout(modifier = Modifier.fillMaxWidth().fillMaxHeight()
             .align(Alignment.BottomEnd)
-            .fillMaxWidth()
         ) {
             val (titleContainer, reelActionButtonGroup, mask) = createRefs()
             Image(modifier = Modifier.constrainAs(mask) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
+                    top.linkTo(titleContainer.top)
+                    width = fillToConstraints
+                    height = fillToConstraints
                 },
                 painter = painterResource(id = R.drawable.reel_mask),
                 contentDescription = "",
+                contentScale = ContentScale.FillBounds
             )
             Column(
                 modifier = Modifier
