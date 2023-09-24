@@ -17,6 +17,7 @@ dependencies {
 }
 
 tasks.register("ktlintCheck", JavaExec) {
+    println "ktlintCheck..."
     group = "verification"
     description = "Check Kotlin code style."
     classpath = configurations.ktlint
@@ -31,6 +32,7 @@ tasks.named("check") {
 }
 
 tasks.register("ktlintFormat", JavaExec) {
+    println "ktlintFormat..."
     group = "formatting"
     description = "Fix Kotlin code style deviations."
     classpath = configurations.ktlint
