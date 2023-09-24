@@ -18,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class ColorItemScreenshotTests : ScreenshotTest {
-
     @get:Rule
     val composeRule = createComposeRule()
 
@@ -38,53 +37,53 @@ class ColorItemScreenshotTests : ScreenshotTest {
                         listOf(
                             Pair(
                                 "Common_Neutral_Gray_5",
-                                colorResource(id = R.color.Common_Neutral_Gray_5)
+                                colorResource(id = R.color.Common_Neutral_Gray_5),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_90",
-                                colorResource(id = R.color.Common_Neutral_Gray_90)
+                                colorResource(id = R.color.Common_Neutral_Gray_90),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_80",
-                                colorResource(id = R.color.Common_Neutral_Gray_80)
+                                colorResource(id = R.color.Common_Neutral_Gray_80),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_70",
-                                colorResource(id = R.color.Common_Neutral_Gray_70)
+                                colorResource(id = R.color.Common_Neutral_Gray_70),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_60",
-                                colorResource(id = R.color.Common_Neutral_Gray_60)
+                                colorResource(id = R.color.Common_Neutral_Gray_60),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_50",
-                                colorResource(id = R.color.Common_Neutral_Gray_50)
+                                colorResource(id = R.color.Common_Neutral_Gray_50),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_40",
-                                colorResource(id = R.color.Common_Neutral_Gray_40)
+                                colorResource(id = R.color.Common_Neutral_Gray_40),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_30",
-                                colorResource(id = R.color.Common_Neutral_Gray_30)
+                                colorResource(id = R.color.Common_Neutral_Gray_30),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_20",
-                                colorResource(id = R.color.Common_Neutral_Gray_20)
+                                colorResource(id = R.color.Common_Neutral_Gray_20),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_10",
-                                colorResource(id = R.color.Common_Neutral_Gray_10)
+                                colorResource(id = R.color.Common_Neutral_Gray_10),
                             ),
                             Pair(
                                 "Common_Neutral_Gray_5",
-                                colorResource(id = R.color.Common_Neutral_Gray_5)
+                                colorResource(id = R.color.Common_Neutral_Gray_5),
                             ),
                             Pair("Alert", colorResource(id = R.color.Alert)),
                             Pair("Success", colorResource(id = R.color.Success)),
                             Pair("Black", colorResource(id = R.color.Black)),
                             Pair("White", colorResource(id = R.color.White)),
-                        )
+                        ),
                     )
                 }
             }
@@ -182,16 +181,19 @@ class ColorItemScreenshotTests : ScreenshotTest {
     }
 
     @Composable
-    private fun colorItemComponent(@ColorRes id: Int) {
+    private fun colorItemComponent(
+        @ColorRes id: Int,
+    ) {
         NMGTheme {
             Surface(color = Color.White) {
-
                 ColorItem(color = colorResource(id = id))
             }
         }
     }
 
-    private fun renderComponent(@ColorRes id: Int) {
+    private fun renderComponent(
+        @ColorRes id: Int,
+    ) {
         composeRule.setContent {
             colorItemComponent(id)
         }

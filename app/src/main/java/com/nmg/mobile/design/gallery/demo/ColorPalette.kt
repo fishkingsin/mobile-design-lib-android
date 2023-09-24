@@ -25,7 +25,7 @@ fun ColorPalette() {
             Pair("commonNeutralGray5", NMGTheme.colors.commonNeutralGray5),
             Pair("commonNeutralGray2", NMGTheme.colors.commonNeutralGray2),
             Pair("footnote", NMGTheme.colors.footnote),
-        )
+        ),
     )
 }
 

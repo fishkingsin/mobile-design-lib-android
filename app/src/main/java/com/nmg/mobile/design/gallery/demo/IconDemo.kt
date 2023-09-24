@@ -28,13 +28,13 @@ fun IconDemo() {
                 R.drawable.ic_dm,
                 R.drawable.ic_outlined_favorite,
                 R.drawable.ic_outlined_comment,
-            )
+            ),
         ) { it ->
             Icon(
                 painter = painterResource(id = it),
                 tint = NMGTheme.colors.commonNeutralGray90,
                 modifier = Modifier.size(24.dp),
-                contentDescription = null
+                contentDescription = null,
             )
         }
     }
