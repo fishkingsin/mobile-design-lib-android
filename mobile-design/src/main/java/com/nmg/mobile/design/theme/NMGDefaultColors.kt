@@ -111,7 +111,9 @@ public data class NMGDefaultColors(val context: Context) : ThemeableColors {
 
     override val primaryMain: Color = Color(
         ResourcesCompat.getColor(
-            context.resources, R.color.primaryMain, context.theme
+            context.resources,
+            R.color.primaryMain,
+            context.theme
         )
     )
 

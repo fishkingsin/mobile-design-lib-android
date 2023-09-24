@@ -19,7 +19,10 @@ import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.CardDataAbstract
 
 @Composable
-public fun <Data : CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (BoxScope) -> Unit)? = null) {
+public fun <Data : CardDataAbstract> ReelCard(
+    data: Data,
+    overlay: (@Composable (BoxScope) -> Unit)? = null
+) {
     Box(
         modifier = Modifier
             .aspectRatio(126f / 224f)

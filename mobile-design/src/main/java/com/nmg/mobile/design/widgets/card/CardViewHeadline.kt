@@ -9,6 +9,6 @@ public fun <Data : CardDataAbstract> CardViewHeadline(data: Data) {
     Text(
         text = data.headline,
         maxLines = 2,
-        style = NMGTheme.typography.headline,
+        style = NMGTheme.typography.headline
     )
 }

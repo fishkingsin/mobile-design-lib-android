@@ -42,8 +42,9 @@ class TypographyTest : ScreenshotTest {
         Pair("caption3Emphasize", defaultTypography.caption3Emphasize),
         Pair("naviTitle", defaultTypography.naviTitle),
         Pair("body", defaultTypography.body),
-        Pair("bodyEmphasize", defaultTypography.bodyEmphasize),
+        Pair("bodyEmphasize", defaultTypography.bodyEmphasize)
     )
+
     @Before
     fun setup() {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
@@ -52,9 +53,7 @@ class TypographyTest : ScreenshotTest {
     @Test
     fun test_typographies() {
         composeRule.setContent {
-
-            NMGTheme() {
-
+            NMGTheme {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(300.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -73,217 +72,216 @@ class TypographyTest : ScreenshotTest {
     @Test
     fun test_largeTitleEmphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("largeTitleEmphasize", style = defaultTypography.largeTitleEmphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_titleEmphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("titleEmphasize", style = defaultTypography.titleEmphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title1() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title1", style = defaultTypography.title1)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title2() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title2", style = defaultTypography.title2)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title3() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title3", style = defaultTypography.title3)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title4() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title4", style = defaultTypography.title4)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title2Emphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title2Emphasize", style = defaultTypography.title2Emphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title3Emphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title3Emphasize", style = defaultTypography.title3Emphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title4Emphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title4Emphasize", style = defaultTypography.title4Emphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_title5() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("title5", style = defaultTypography.title5)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_headline() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("headline", style = defaultTypography.headline)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_headlineEmphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("headlineEmphasize", style = defaultTypography.headlineEmphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_primaryButton() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("primaryButton", style = defaultTypography.primaryButton)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_captionEmphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("captionEmphasize", style = defaultTypography.captionEmphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_caption() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("caption", style = defaultTypography.caption)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_caption2() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("caption2", style = defaultTypography.caption2)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_caption3Emphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("caption3Emphasize", style = defaultTypography.caption3Emphasize)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_naviTitle() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("naviTitle", style = defaultTypography.naviTitle)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_body() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("body", style = defaultTypography.body)
             }
         }
 
         compareScreenshot(composeRule)
     }
+
     @Test
     fun test_bodyEmphasize() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Text("bodyEmphasize", style = defaultTypography.bodyEmphasize)
             }
         }

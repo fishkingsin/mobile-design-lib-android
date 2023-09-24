@@ -26,11 +26,11 @@ class CardViewTimeCodeOverlayTest : ScreenshotTest {
     @Test
     fun test_CardViewTimeCodeOverlay() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 Box {
                     CardViewTimeCodeOverlay(
-                        timecode = "22:22", this
+                        timecode = "22:22",
+                        this
                     )
                 }
             }
@@ -38,5 +38,4 @@ class CardViewTimeCodeOverlayTest : ScreenshotTest {
         Thread.sleep(5000)
         compareScreenshot(composeRule)
     }
-
 }

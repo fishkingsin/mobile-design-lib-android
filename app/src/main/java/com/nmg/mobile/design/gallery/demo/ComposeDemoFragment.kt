@@ -17,7 +17,7 @@ class ComposeDemoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View {
         ThemeManager.setCustomizedThemes(this.requireContext(), "ww")
         return ComposeView(requireContext()).apply {

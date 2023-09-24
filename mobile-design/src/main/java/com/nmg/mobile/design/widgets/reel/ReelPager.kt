@@ -15,9 +15,11 @@ import com.nmg.mobile.design.theme.NMGTheme
 @Composable
 public fun ReelPager(list: MutableList<ReelPlayerData>) {
     // Display 10 items
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight()) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
 //        val nestedScrollConnection = object: NestedScrollConnection {
 //
 //        }
@@ -25,11 +27,11 @@ public fun ReelPager(list: MutableList<ReelPlayerData>) {
         val pagerState = rememberPagerState(initialPage = 0)
         VerticalPager(pageCount = 10, state = pagerState) {
             ReelPlayer(item = list[it]) {
-
             }
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 public fun ReelPagerPreview() {

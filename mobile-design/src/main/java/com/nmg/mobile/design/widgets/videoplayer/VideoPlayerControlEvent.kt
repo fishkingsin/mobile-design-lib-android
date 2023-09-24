@@ -1,11 +1,11 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
 interface VideoPlayerControlEvent {
-    fun onClickBack(): Unit {}
-    fun onClickPlay(): Unit {}
-    fun onClickPre(): Unit {}
-    fun onClickNext(): Unit {}
-    fun onClickPause(): Unit {}
-    fun onClickReplay(): Unit {}
-    fun onClickFullScreen(): Unit {}
+    fun onClickBack() {}
+    fun onClickPlay() {}
+    fun onClickPre() {}
+    fun onClickNext() {}
+    fun onClickPause() {}
+    fun onClickReplay() {}
+    fun onClickFullScreen() {}
 }

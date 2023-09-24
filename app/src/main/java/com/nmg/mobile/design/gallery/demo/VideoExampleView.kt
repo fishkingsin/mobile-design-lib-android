@@ -10,6 +10,6 @@ import com.nmg.mobile.design.widgets.videoplayer.VideoPlayer
 fun VideoExampleView() {
     VideoPlayer(
         uri = Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     )
 }

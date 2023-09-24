@@ -34,14 +34,15 @@ class EDThemeFragment : Fragment() {
 
     override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
         val inflater = super.onGetLayoutInflater(savedInstanceState)
-        val contextThemeWrapper: Context = ContextThemeWrapper(requireContext(), com.nmg.mobile.design.R.style.ED)
+        val contextThemeWrapper: Context =
+            ContextThemeWrapper(requireContext(), com.nmg.mobile.design.R.style.ED)
         return inflater.cloneInContext(contextThemeWrapper)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_theme_container, container, false)
@@ -60,10 +61,7 @@ class EDThemeFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(
-            param1: String,
-            param2: String,
-        ) = EDThemeFragment().apply {
+        fun newInstance(param1: String, param2: String) = EDThemeFragment().apply {
             arguments =
                 Bundle().apply {
                     putString(ARG_PARAM1, param1)

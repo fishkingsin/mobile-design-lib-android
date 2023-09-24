@@ -42,7 +42,7 @@ public fun <Reel : ReelInterface> FooterUserAction(reel: Reel, modifier: Modifie
             imageModel = reel.userImage,
             modifier = Modifier
                 .size(28.dp)
-                .background(color = Color.Gray, shape = RoundedCornerShape(6.dp),)
+                .background(color = Color.Gray, shape = RoundedCornerShape(6.dp))
                 .clip(RoundedCornerShape(6.dp)),
             contentDescription = null
         )

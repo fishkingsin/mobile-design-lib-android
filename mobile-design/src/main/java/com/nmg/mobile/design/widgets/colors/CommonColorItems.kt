@@ -9,18 +9,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.R
-import com.nmg.mobile.design.extensions.colorResource
+import com.nmg.mobile.design.extensions.ColorResource
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
 public fun CommonColorItems(colors: List<Pair<String, Color>>) {
-
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 128.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-
         items(colors) { color ->
 
             ColorItem(color.first, color = color.second)
@@ -35,21 +33,21 @@ fun CommonColorItems_Preview() {
         CommonColorItems(
             listOf(
                 Pair("Primary", NMGTheme.colors.primaryMain),
-                Pair("Common_Neutral_Gray_5", colorResource(id = R.color.Common_Neutral_Gray_5)),
-                Pair("Common_Neutral_Gray_90", colorResource(id = R.color.Common_Neutral_Gray_90)),
-                Pair("Common_Neutral_Gray_80", colorResource(id = R.color.Common_Neutral_Gray_80)),
-                Pair("Common_Neutral_Gray_70", colorResource(id = R.color.Common_Neutral_Gray_70)),
-                Pair("Common_Neutral_Gray_60", colorResource(id = R.color.Common_Neutral_Gray_60)),
-                Pair("Common_Neutral_Gray_50", colorResource(id = R.color.Common_Neutral_Gray_50)),
-                Pair("Common_Neutral_Gray_40", colorResource(id = R.color.Common_Neutral_Gray_40)),
-                Pair("Common_Neutral_Gray_30", colorResource(id = R.color.Common_Neutral_Gray_30)),
-                Pair("Common_Neutral_Gray_20", colorResource(id = R.color.Common_Neutral_Gray_20)),
-                Pair("Common_Neutral_Gray_10", colorResource(id = R.color.Common_Neutral_Gray_10)),
-                Pair("Common_Neutral_Gray_5", colorResource(id = R.color.Common_Neutral_Gray_5)),
-                Pair("Alert", colorResource(id = R.color.Alert)),
-                Pair("Success", colorResource(id = R.color.Success)),
-                Pair("Black", colorResource(id = R.color.Black)),
-                Pair("White", colorResource(id = R.color.White)),
+                Pair("Common_Neutral_Gray_5", ColorResource(id = R.color.Common_Neutral_Gray_5)),
+                Pair("Common_Neutral_Gray_90", ColorResource(id = R.color.Common_Neutral_Gray_90)),
+                Pair("Common_Neutral_Gray_80", ColorResource(id = R.color.Common_Neutral_Gray_80)),
+                Pair("Common_Neutral_Gray_70", ColorResource(id = R.color.Common_Neutral_Gray_70)),
+                Pair("Common_Neutral_Gray_60", ColorResource(id = R.color.Common_Neutral_Gray_60)),
+                Pair("Common_Neutral_Gray_50", ColorResource(id = R.color.Common_Neutral_Gray_50)),
+                Pair("Common_Neutral_Gray_40", ColorResource(id = R.color.Common_Neutral_Gray_40)),
+                Pair("Common_Neutral_Gray_30", ColorResource(id = R.color.Common_Neutral_Gray_30)),
+                Pair("Common_Neutral_Gray_20", ColorResource(id = R.color.Common_Neutral_Gray_20)),
+                Pair("Common_Neutral_Gray_10", ColorResource(id = R.color.Common_Neutral_Gray_10)),
+                Pair("Common_Neutral_Gray_5", ColorResource(id = R.color.Common_Neutral_Gray_5)),
+                Pair("Alert", ColorResource(id = R.color.Alert)),
+                Pair("Success", ColorResource(id = R.color.Success)),
+                Pair("Black", ColorResource(id = R.color.Black)),
+                Pair("White", ColorResource(id = R.color.White))
             )
         )
     }

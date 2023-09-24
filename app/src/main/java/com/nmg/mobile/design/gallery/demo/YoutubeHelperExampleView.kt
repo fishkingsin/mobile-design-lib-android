@@ -16,7 +16,7 @@ fun YoutubeHelperExampleView() {
     // Adds view to Compose
     Column {
         AndroidView(
-            modifier = Modifier.fillMaxSize(), // Occupy the max size in the Compose UI tree
+            modifier = Modifier.fillMaxSize(),
             factory = { context ->
                 // Creates view
                 YouTubePlayerView(context).apply {
@@ -35,60 +35,57 @@ fun YoutubeHelperExampleView() {
 
                             override fun onCurrentSecond(
                                 youTubePlayer: YouTubePlayer,
-                                second: Float,
+                                second: Float
                             ) {
                                 println("onCurrentSecond $second")
                             }
 
                             override fun onError(
                                 youTubePlayer: YouTubePlayer,
-                                error: PlayerConstants.PlayerError,
+                                error: PlayerConstants.PlayerError
                             ) {
                                 println("onError $error")
                             }
 
                             override fun onPlaybackQualityChange(
                                 youTubePlayer: YouTubePlayer,
-                                playbackQuality: PlayerConstants.PlaybackQuality,
+                                playbackQuality: PlayerConstants.PlaybackQuality
                             ) {
                                 println("onPlaybackQualityChange $playbackQuality")
                             }
 
                             override fun onPlaybackRateChange(
                                 youTubePlayer: YouTubePlayer,
-                                playbackRate: PlayerConstants.PlaybackRate,
+                                playbackRate: PlayerConstants.PlaybackRate
                             ) {
                                 println("onPlaybackRateChange $playbackRate")
                             }
 
                             override fun onStateChange(
                                 youTubePlayer: YouTubePlayer,
-                                state: PlayerConstants.PlayerState,
+                                state: PlayerConstants.PlayerState
                             ) {
                                 println("onStateChange $state")
                             }
 
                             override fun onVideoDuration(
                                 youTubePlayer: YouTubePlayer,
-                                duration: Float,
+                                duration: Float
                             ) {
                                 println("onVideoDuration $duration")
                             }
 
-                            override fun onVideoId(
-                                youTubePlayer: YouTubePlayer,
-                                videoId: String,
-                            ) {
+                            override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
                                 println("onVideoId $videoId")
                             }
 
                             override fun onVideoLoadedFraction(
                                 youTubePlayer: YouTubePlayer,
-                                loadedFraction: Float,
+                                loadedFraction: Float
                             ) {
                                 print("onVideoLoadedFraction $loadedFraction")
                             }
-                        },
+                        }
                     )
                 }
             },
@@ -99,7 +96,7 @@ fun YoutubeHelperExampleView() {
                 // As selectedItem is read here, AndroidView will recompose
                 // whenever the state changes
                 // Example of Compose -> View communication
-            },
+            }
         )
     }
 }

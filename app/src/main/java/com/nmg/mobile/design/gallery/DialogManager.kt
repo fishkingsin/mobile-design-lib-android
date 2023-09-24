@@ -5,10 +5,7 @@ import android.content.Context
 import android.widget.TextView
 
 object DialogManager {
-    fun showCustomAlertDialog(
-        context: Context,
-        callback: ColorDialogCallback,
-    ) {
+    fun showCustomAlertDialog(context: Context, callback: ColorDialogCallback) {
         val dialog = Dialog(context)
 
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

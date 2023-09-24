@@ -9,7 +9,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.R
-import com.nmg.mobile.design.extensions.colorResource
+import com.nmg.mobile.design.extensions.ColorResource
 import com.nmg.mobile.design.gallery.ColorItem
 import com.nmg.mobile.design.gallery.CommonColorItems
 import com.nmg.mobile.design.theme.NMGTheme
@@ -37,53 +37,53 @@ class ColorItemScreenshotTests : ScreenshotTest {
                         listOf(
                             Pair(
                                 "Common_Neutral_Gray_5",
-                                colorResource(id = R.color.Common_Neutral_Gray_5),
+                                ColorResource(id = R.color.Common_Neutral_Gray_5)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_90",
-                                colorResource(id = R.color.Common_Neutral_Gray_90),
+                                ColorResource(id = R.color.Common_Neutral_Gray_90)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_80",
-                                colorResource(id = R.color.Common_Neutral_Gray_80),
+                                ColorResource(id = R.color.Common_Neutral_Gray_80)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_70",
-                                colorResource(id = R.color.Common_Neutral_Gray_70),
+                                ColorResource(id = R.color.Common_Neutral_Gray_70)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_60",
-                                colorResource(id = R.color.Common_Neutral_Gray_60),
+                                ColorResource(id = R.color.Common_Neutral_Gray_60)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_50",
-                                colorResource(id = R.color.Common_Neutral_Gray_50),
+                                ColorResource(id = R.color.Common_Neutral_Gray_50)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_40",
-                                colorResource(id = R.color.Common_Neutral_Gray_40),
+                                ColorResource(id = R.color.Common_Neutral_Gray_40)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_30",
-                                colorResource(id = R.color.Common_Neutral_Gray_30),
+                                ColorResource(id = R.color.Common_Neutral_Gray_30)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_20",
-                                colorResource(id = R.color.Common_Neutral_Gray_20),
+                                ColorResource(id = R.color.Common_Neutral_Gray_20)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_10",
-                                colorResource(id = R.color.Common_Neutral_Gray_10),
+                                ColorResource(id = R.color.Common_Neutral_Gray_10)
                             ),
                             Pair(
                                 "Common_Neutral_Gray_5",
-                                colorResource(id = R.color.Common_Neutral_Gray_5),
+                                ColorResource(id = R.color.Common_Neutral_Gray_5)
                             ),
-                            Pair("Alert", colorResource(id = R.color.Alert)),
-                            Pair("Success", colorResource(id = R.color.Success)),
-                            Pair("Black", colorResource(id = R.color.Black)),
-                            Pair("White", colorResource(id = R.color.White)),
-                        ),
+                            Pair("Alert", ColorResource(id = R.color.Alert)),
+                            Pair("Success", ColorResource(id = R.color.Success)),
+                            Pair("Black", ColorResource(id = R.color.Black)),
+                            Pair("White", ColorResource(id = R.color.White))
+                        )
                     )
                 }
             }
@@ -181,19 +181,15 @@ class ColorItemScreenshotTests : ScreenshotTest {
     }
 
     @Composable
-    private fun colorItemComponent(
-        @ColorRes id: Int,
-    ) {
+    private fun colorItemComponent(@ColorRes id: Int) {
         NMGTheme {
             Surface(color = Color.White) {
-                ColorItem(color = colorResource(id = id))
+                ColorItem(color = ColorResource(id = id))
             }
         }
     }
 
-    private fun renderComponent(
-        @ColorRes id: Int,
-    ) {
+    private fun renderComponent(@ColorRes id: Int) {
         composeRule.setContent {
             colorItemComponent(id)
         }

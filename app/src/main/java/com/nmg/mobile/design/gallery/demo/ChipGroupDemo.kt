@@ -12,19 +12,19 @@ private data class DemoChipData(override val title: String) : ChipData
 fun ChipGroup_Demo_Preview() {
     ChipGroup(
         items =
-            listOf(
-                DemoChipData("Home"),
-                DemoChipData("About"),
-                DemoChipData("Settings"),
-                DemoChipData("Profile"),
-                DemoChipData("Help"),
-                DemoChipData("Contact"),
-                DemoChipData("Privacy"),
-                DemoChipData("Terms"),
-                DemoChipData("FAQ"),
-                DemoChipData("Support"),
-                DemoChipData("Logout"),
-            ),
+        listOf(
+            DemoChipData("Home"),
+            DemoChipData("About"),
+            DemoChipData("Settings"),
+            DemoChipData("Profile"),
+            DemoChipData("Help"),
+            DemoChipData("Contact"),
+            DemoChipData("Privacy"),
+            DemoChipData("Terms"),
+            DemoChipData("FAQ"),
+            DemoChipData("Support"),
+            DemoChipData("Logout")
+        )
     ) {
     }
 }

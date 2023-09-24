@@ -11,8 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nmg.mobile.design.widgets.videoplayer.VideoPlayer
 
 @Composable
-fun <Reels : List<ReelInterface>>ReelsList(reels: Reels) {
-
+fun <Reels : List<ReelInterface>> ReelsList(reels: Reels) {
     LazyColumn {
         items(reels.size) { index ->
             Box(Modifier.fillParentMaxSize()) {

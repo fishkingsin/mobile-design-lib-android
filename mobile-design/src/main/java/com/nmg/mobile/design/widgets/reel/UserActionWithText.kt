@@ -16,10 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun UserActionWithText(
-    @DrawableRes drawableRes: Int,
-    text: String
-) {
+fun UserActionWithText(@DrawableRes drawableRes: Int, text: String) {
     Icon(
         bitmap = ImageBitmap.imageResource(id = drawableRes),
         tint = Color.White,

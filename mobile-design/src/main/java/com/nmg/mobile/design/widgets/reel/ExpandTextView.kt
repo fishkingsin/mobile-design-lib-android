@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.nmg.mobile.design.theme.NMGTheme
 
 const val DEFAULT_MINIMUM_TEXT_LINE = 2
+
 @Composable
 public fun ExpandTextView(
     modifier: Modifier = Modifier,
@@ -34,7 +35,8 @@ public fun ExpandTextView(
     text: String,
     collapsedMaxLine: Int = DEFAULT_MINIMUM_TEXT_LINE,
     showMoreText: String = "... 展開",
-    showMoreStyle: SpanStyle = SpanStyle(fontWeight = FontWeight.W400, color = NMGTheme.colors.commonNeutralGray60),
+    showMoreStyle: SpanStyle =
+        SpanStyle(fontWeight = FontWeight.W400, color = NMGTheme.colors.commonNeutralGray60),
     showLessText: String = " 收起",
     showLessStyle: SpanStyle = showMoreStyle,
     textAlign: TextAlign? = null
@@ -42,11 +44,12 @@ public fun ExpandTextView(
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
     var lastCharIndex by remember { mutableStateOf(0) }
-    Box(modifier = Modifier
-        .clickable(clickable) {
-            isExpanded = !isExpanded
-        }
-        .then(modifier)
+    Box(
+        modifier = Modifier
+            .clickable(clickable) {
+                isExpanded = !isExpanded
+            }
+            .then(modifier)
     ) {
         Text(
             modifier = textModifier

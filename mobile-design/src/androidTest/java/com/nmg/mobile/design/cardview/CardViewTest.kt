@@ -7,10 +7,10 @@ import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.CardView
+import java.lang.Thread.sleep
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.lang.Thread.sleep
 
 class CardViewTest : ScreenshotTest {
 
@@ -27,8 +27,7 @@ class CardViewTest : ScreenshotTest {
     @Test
     fun test_CardView() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 CardView(
                     data = CardData(
                         imageURL = "https://placehold.co/358x200/png",

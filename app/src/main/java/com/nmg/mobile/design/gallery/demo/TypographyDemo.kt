@@ -33,12 +33,12 @@ fun TypographyDemo() {
             Pair("caption3Emphasize", NMGTheme.typography.caption3Emphasize),
             Pair("naviTitle", NMGTheme.typography.naviTitle),
             Pair("body", NMGTheme.typography.body),
-            Pair("bodyEmphasize", NMGTheme.typography.bodyEmphasize),
+            Pair("bodyEmphasize", NMGTheme.typography.bodyEmphasize)
         )
     LazyVerticalGrid(
         columns = GridCells.Adaptive(300.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(typographies) {
             Text("${it.first} ${it.second.fontSize}", style = it.second)
