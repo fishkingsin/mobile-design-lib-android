@@ -13,8 +13,9 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun ReelActionButtonGroup() {
+public fun ReelActionButtonGroup(modifier: Modifier = Modifier) {
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -41,7 +42,7 @@ public fun ReelActionButtonGroup() {
 fun ReelActionButtonGroupPreview() {
     NMGTheme {
         Box(modifier = Modifier.background(Color.Black)) {
-            ReelActionButtonGroup()
+            ReelActionButtonGroup(modifier = Modifier)
         }
     }
 }

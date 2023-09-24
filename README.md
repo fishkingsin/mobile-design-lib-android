@@ -128,8 +128,9 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 |  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_PAUSED.png)        |
 |  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_COMPLETED.png)          |
 |  | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.videoplayer.VideoPlayerControlTest_test_VideoPlayerControlTest_COMPLETED_CANCEL_AUTOPLAY.png)        |
-| ReelActionButton | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelActionButtonGroupTest_test_ReelActionButton.png)         |
-| ReelActionButtonGroup | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelActionButtonGroupTest_test_ReelActionButtonGroup.png)         |
+| ReelActionButton | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobiledesignlibrary.reel.ReelActionButtonTest_test_ReelActionButton.png)         |
+| ReelActionButtonGroup | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobiledesignlibrary.reel.ReelActionButtonGroupTest_test_ReelActionButtonGroup.png)         |
+| ReelPlayer            | ![Alt text](mobile-design/screenshots/debug/com.nmg.mobile.design.reel.ReelPlayerTest_test_ReelPlayer.png)                                                                                                                                  |
 
 ## target
 
