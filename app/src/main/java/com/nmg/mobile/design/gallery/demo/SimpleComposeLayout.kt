@@ -17,19 +17,19 @@ fun SimpleComposeLayout(message: String = "Hello from Compose!") {
     Column(Modifier.fillMaxSize()) {
         Text(
             text = stringResource(R.string.title),
-            style = NMGTheme.typography.headlineEmphasize
+            style = NMGTheme.typography.headlineEmphasize,
         )
         Text(
             text = stringResource(R.string.subtitle),
-            style = NMGTheme.typography.headlineEmphasize
+            style = NMGTheme.typography.headlineEmphasize,
         )
         Text(
             text = message,
-            style = NMGTheme.typography.body
+            style = NMGTheme.typography.body,
         )
         Text(
             text = stringResource(R.string.body),
-            style = NMGTheme.typography.body
+            style = NMGTheme.typography.body,
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(onClick = { /* Handle click */ }, Modifier.fillMaxWidth()) {
