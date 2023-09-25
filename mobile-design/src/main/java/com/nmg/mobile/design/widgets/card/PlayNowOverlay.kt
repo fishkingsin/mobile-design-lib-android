@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,14 +26,14 @@ public fun PlayNowOverlay(boxScope: BoxScope) {
             modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer(alpha = 0.75F)
-                .background(Color.Black, shape = RoundedCornerShape(4.dp)),
+                .background(Color.Black, shape = RoundedCornerShape(4.dp))
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(R.string.playing_now),
                 color = Color.White,
                 style = NMGTheme.typography.body,
-                overflow = TextOverflow.Ellipsis,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

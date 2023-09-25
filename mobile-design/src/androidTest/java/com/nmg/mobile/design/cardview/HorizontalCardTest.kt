@@ -7,7 +7,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
-import com.nmg.mobile.design.widgets.card.CardView
 import com.nmg.mobile.design.widgets.card.HorizontalCard
 import org.junit.Before
 import org.junit.Rule
@@ -28,7 +27,7 @@ class HorizontalCardTest : ScreenshotTest {
     @Test
     fun test_HorizontalCard() {
         composeRule.setContent {
-            NMGTheme() {
+            NMGTheme {
                 LazyColumn {
                     items(2) {
                         HorizontalCard(
@@ -48,5 +47,4 @@ class HorizontalCardTest : ScreenshotTest {
         Thread.sleep(5000)
         compareScreenshot(composeRule)
     }
-
 }

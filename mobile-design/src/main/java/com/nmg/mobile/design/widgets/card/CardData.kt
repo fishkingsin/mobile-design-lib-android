@@ -5,6 +5,7 @@ public abstract class CardDataAbstract(
     override val headline: String,
     override val leadingFootnote: String,
     override val secondFootnote: String,
+    override val tag: String? = null,
     private val _timecode: String? = null
 ) : CardDisplayable, TimecodeDisplayable {
     override val timecode: String
@@ -16,6 +17,7 @@ public data class CardData(
     override val headline: String,
     override val leadingFootnote: String,
     override val secondFootnote: String,
+    override val tag: String? = null,
     val _timecode: String? = null
 ) : CardDataAbstract(
     imageURL = imageURL,
