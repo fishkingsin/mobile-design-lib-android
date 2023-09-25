@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -24,7 +25,6 @@ public fun TopImageCardView(
 ) {
     val shape = RoundedCornerShape(NMGTheme.customSystem.roudnCorner)
     Column(
-        modifier = Modifier.background(color = Color.White),
         verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
     ) {
         Box {
@@ -37,7 +37,8 @@ public fun TopImageCardView(
                 contentDescription = stringResource(R.string.description),
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier
-                    .background(color = Color.Black, shape = shape)
+                    .background(color = NMGTheme.colors.placeholder, shape = shape)
+                    .clip(shape)
                     .fillMaxWidth()
                     .heightIn(
                         NMGTheme.customSystem.cardMinHeight,
@@ -58,7 +59,7 @@ public fun TopImageCardView(
 fun TopImageCardView_Preview() {
     NMGTheme {
         TopImageCardView(
-            imageURL = "https://placehold.co/358x200/png",
+            imageURL = "https://placehold.co/358x100/png",
             overlay = {
                 CardViewTimeCodeOverlay("12:34", it)
             },
