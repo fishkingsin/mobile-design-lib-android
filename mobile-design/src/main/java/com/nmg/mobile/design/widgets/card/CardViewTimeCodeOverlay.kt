@@ -21,7 +21,7 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
     boxScope.apply {
         Row(
             modifier = Modifier
-                .padding(NMGTheme.customSystem.spacing)
+                .padding(4.dp)
                 .align(Alignment.BottomEnd)
                 .background(
                     color = Color(0xF2838383),

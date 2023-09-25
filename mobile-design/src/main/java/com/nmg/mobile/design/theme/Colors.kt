@@ -24,6 +24,8 @@ public data class Colors(
     override val chipBackground: Color = commonNeutralGray5
     override val chipForeground: Color = commonNeutralGray90
     override val placeholder: Color get() = Color(0xFFC4C4C4)
+    override val selectedTabContentColor: Color = commonNeutralGray90
+    override val unselectedTabContentColor: Color = commonNeutralGray60
     override val footnote: Color = commonNeutralGray30
     override val primaryMain: Color = Color(0xFFF29600)
     override val primary: Color = primaryMain
