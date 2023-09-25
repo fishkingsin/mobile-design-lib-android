@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 
 public object ThemeStorage {
-    fun setThemeColor(context: Context, themeColor: String?) {
+    fun setThemeColor(
+        context: Context,
+        themeColor: String?,
+    ) {
         val sharedpreferences: SharedPreferences =
             context.getSharedPreferences("theme_data", Context.MODE_PRIVATE)
         val editor = sharedpreferences.edit()
