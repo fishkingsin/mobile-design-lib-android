@@ -34,7 +34,8 @@ class OSThemeFragment : Fragment() {
 
     override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
         val inflater = super.onGetLayoutInflater(savedInstanceState)
-        val contextThemeWrapper: Context = ContextThemeWrapper(requireContext(), com.nmg.mobile.design.R.style.OS)
+        val contextThemeWrapper: Context =
+            ContextThemeWrapper(requireContext(), com.nmg.mobile.design.R.style.OS)
         return inflater.cloneInContext(contextThemeWrapper)
     }
 
@@ -60,12 +61,12 @@ class OSThemeFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EDThemeFragment().apply {
-                arguments = Bundle().apply {
+        fun newInstance(param1: String, param2: String) = EDThemeFragment().apply {
+            arguments =
+                Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-            }
+        }
     }
 }

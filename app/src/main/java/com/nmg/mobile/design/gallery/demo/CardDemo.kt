@@ -31,7 +31,8 @@ fun CardDemo() {
                     verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
                 ) {
                     ChipGroup(
-                        items = listOf(
+                        items =
+                        listOf(
                             DemoChipData("Home"),
                             DemoChipData("About"),
                             DemoChipData("Settings"),
@@ -42,15 +43,18 @@ fun CardDemo() {
                             DemoChipData("Terms"),
                             DemoChipData("FAQ"),
                             DemoChipData("Support"),
-                            DemoChipData("Logout"),
+                            DemoChipData("Logout")
                         )
                     ) {
                     }
                     Text("最新的連續短片", style = NMGTheme.typography.title1Medium)
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)) {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
+                    ) {
                         items(10) { it ->
                             ReelCard(
-                                data = CardData(
+                                data =
+                                CardData(
                                     imageURL = "https://placehold.co/124x224/png?text=$it",
                                     headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
                                     leadingFootnote = "4小時前",
@@ -84,7 +88,8 @@ fun CardDemo() {
 
             items(10) {
                 VideoCardView(
-                    data = CardData(
+                    data =
+                    CardData(
                         imageURL = "https://placehold.co/358x200/png?text=$it",
                         headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
                         leadingFootnote = "4小時前",

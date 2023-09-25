@@ -15,10 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,7 +38,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVideoViewEvent?) {
@@ -51,7 +48,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             .heightIn(max = 219.dp)
             .widthIn(max = 390.dp)
             .background(color = Color.Black)
-            .padding(NMGTheme.customSystem.padding),
+            .padding(NMGTheme.customSystem.padding)
     ) {
         Row {
             val style = TextStyle(
@@ -66,7 +63,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 text = "$secCountDown",
                 style = TextStyle(
                     fontSize = 14.sp,
-                    color = NMGTheme.colors.commonNeutralGray2,
+                    color = NMGTheme.colors.commonNeutralGray2
                 ),
                 modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
             )
@@ -98,7 +95,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.White,
-                        textAlign = TextAlign.Center,
+                        textAlign = TextAlign.Center
                     ),
                     modifier = Modifier
                         .padding(bottom = 4.dp, end = 4.dp)
@@ -106,7 +103,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                             color = Color(0xF2838383),
                             shape = RoundedCornerShape(size = 4.dp)
                         )
-                        .padding(top = 2.dp, bottom = 2.dp, start = 4.dp, end = 4.dp),
+                        .padding(top = 2.dp, bottom = 2.dp, start = 4.dp, end = 4.dp)
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))
@@ -114,10 +111,10 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 text = item.headline,
                 style = TextStyle(
                     fontSize = 16.sp,
-                    color = NMGTheme.colors.commonNeutralGray2,
+                    color = NMGTheme.colors.commonNeutralGray2
                 ),
                 maxLines = 3,
-                overflow = TextOverflow.Ellipsis,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Spacer(modifier = Modifier.height(41.dp))
@@ -131,7 +128,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 textAlign = TextAlign.Center,
                 style = TextStyle(
                     fontSize = 16.sp,
-                    color = NMGTheme.colors.commonNeutralGray2,
+                    color = NMGTheme.colors.commonNeutralGray2
                 ),
                 modifier = Modifier
                     .weight(1f)
@@ -140,7 +137,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                     .padding(top = 9.dp, bottom = 9.dp)
                     .clickable(true, onClick = {
                         event?.onClickCancel()
-                    }),
+                    })
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -148,7 +145,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 textAlign = TextAlign.Center,
                 style = TextStyle(
                     fontSize = 16.sp,
-                    color = NMGTheme.colors.commonNeutralGray90,
+                    color = NMGTheme.colors.commonNeutralGray90
                 ),
                 modifier = Modifier
                     .weight(1f)
@@ -157,7 +154,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                     .padding(top = 9.dp, bottom = 9.dp)
                     .clickable(true, onClick = {
                         event?.onClickPlay()
-                    }),
+                    })
             )
         }
     }
@@ -166,11 +163,13 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun UpcomingVideoViewPreview() {
-    UpcomingVideoView(object : UpcomingItem {
-        override var imageURL: String = "https://placehold.co/144x75/png"
-        override var headline: String = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
-        override var timeCode: String = "22:22"
-        override var secCountDown: Int = 10
-    }, null)
+    UpcomingVideoView(
+        object : UpcomingItem {
+            override var imageURL: String = "https://placehold.co/144x75/png"
+            override var headline: String = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
+            override var timeCode: String = "22:22"
+            override var secCountDown: Int = 10
+        },
+        null
+    )
 }
-

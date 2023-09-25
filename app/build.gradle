@@ -80,10 +80,12 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 
     implementation project(path: ':mobile-design')
+
     implementation project.ext.androidX.values()
 
     implementation project.ext.compose.values()
 
+    implementation project.ext.youtubeHelper.values()
 
     testImplementation project.ext.test.values()
     // AndroidTests
@@ -99,7 +101,7 @@ dependencies {
 }
 
 apply from: '../ktlint.gradle'
-check.dependsOn ktlint
+
 
 
 

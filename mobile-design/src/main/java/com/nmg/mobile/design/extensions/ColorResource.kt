@@ -20,7 +20,7 @@ private object ColorResourceHelper {
 
 @Composable
 @ReadOnlyComposable
-public fun colorResource(@ColorRes id: Int): Color {
+public fun ColorResource(@ColorRes id: Int): Color {
     val context = LocalContext.current
     return if (Build.VERSION.SDK_INT >= 23) {
         ColorResourceHelper.getColor(context, id)

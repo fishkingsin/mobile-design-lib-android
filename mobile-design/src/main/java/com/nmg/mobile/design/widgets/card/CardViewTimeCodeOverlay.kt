@@ -24,24 +24,25 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
                 .padding(NMGTheme.customSystem.spacing)
                 .align(Alignment.BottomEnd)
                 .background(
-                    color = Color(0xF2838383), shape = RoundedCornerShape(size = 4.dp)
+                    color = Color(0xF2838383),
+                    shape = RoundedCornerShape(size = 4.dp)
                 ),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
 
         ) {
             Icon(
                 modifier = Modifier.padding(start = 4.dp),
                 tint = Color.White,
                 painter = painterResource(id = R.drawable.play),
-                contentDescription = "image description",
+                contentDescription = "image description"
             )
             Text(
                 text = timecode,
                 color = Color.White,
                 fontSize = 12.sp,
                 modifier = Modifier
-                    .padding(2.dp),
+                    .padding(2.dp)
             )
         }
     }
@@ -53,7 +54,8 @@ fun CardViewTimeCodeOverlay_Preview() {
     NMGTheme {
         Box {
             CardViewTimeCodeOverlay(
-                timecode = "22:22", this
+                timecode = "22:22",
+                this
             )
         }
     }

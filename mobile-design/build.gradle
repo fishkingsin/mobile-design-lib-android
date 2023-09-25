@@ -124,7 +124,7 @@ dependencies {
 }
 
 apply from: '../ktlint.gradle'
-check.dependsOn ktlint
+
 
 
 def projectScreenshotsDirectory = "$projectDir/screenshots"

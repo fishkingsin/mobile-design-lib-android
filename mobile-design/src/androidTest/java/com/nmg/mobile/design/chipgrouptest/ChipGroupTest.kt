@@ -26,8 +26,7 @@ class ChipGroupTest : ScreenshotTest {
     @Test
     fun test_ChipGroup() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 ChipGroup(
                     items = listOf(
                         DemoChipData("Home"),
@@ -40,7 +39,7 @@ class ChipGroupTest : ScreenshotTest {
                         DemoChipData("Terms"),
                         DemoChipData("FAQ"),
                         DemoChipData("Support"),
-                        DemoChipData("Logout"),
+                        DemoChipData("Logout")
                     )
                 ) {
                 }

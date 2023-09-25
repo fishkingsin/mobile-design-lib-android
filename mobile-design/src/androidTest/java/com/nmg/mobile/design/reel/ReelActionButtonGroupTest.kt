@@ -4,10 +4,7 @@ import android.content.Context
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
-import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
-import com.nmg.mobile.design.widgets.reel.ReelActionButton
-import com.nmg.mobile.design.widgets.reel.ReelActionButtonData
 import com.nmg.mobile.design.widgets.reel.ReelActionButtonGroup
 import org.junit.Before
 import org.junit.Rule
@@ -24,18 +21,14 @@ class ReelActionButtonGroupTest : ScreenshotTest {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
 
-
     @Test
     fun test_ReelActionButtonGroup() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 ReelActionButtonGroup()
             }
         }
         Thread.sleep(1000)
         compareScreenshot(composeRule)
     }
-
-
 }

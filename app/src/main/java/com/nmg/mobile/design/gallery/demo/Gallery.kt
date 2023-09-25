@@ -43,8 +43,26 @@ fun Gallery(navigationController: NavController) {
             }
         }
         item {
-            Button(onClick = { navigationController.navigate("SimpleComposeLayout") }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+            Button(onClick = {
+                navigationController.navigate("SimpleComposeLayout")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
                 Text(text = "SimpleComposeLayout")
+            }
+        }
+
+        item {
+            Button(onClick = {
+                navigationController.navigate("YoutubeHelper")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+                Text(text = "YoutubeHelper")
+            }
+        }
+
+        item {
+            Button(onClick = {
+                navigationController.navigate("VideoExampleView")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+                Text(text = "VideoExampleView")
             }
         }
     }

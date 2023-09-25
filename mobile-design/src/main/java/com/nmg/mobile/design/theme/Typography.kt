@@ -51,7 +51,7 @@ val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
             fontSize = 14.sp,
             lineHeight = 22.sp,
             fontWeight = FontWeight(500),
-            letterSpacing = 0.35.sp,
+            letterSpacing = 0.35.sp
         ),
         title2 = TextStyle(
             fontWeight = Normal,
@@ -85,7 +85,7 @@ val LocalTypography = staticCompositionLocalOf<ThemeableTypography> {
             fontSize = 16.sp,
             lineHeight = 22.sp,
             fontWeight = Normal,
-            letterSpacing = 0.4.sp,
+            letterSpacing = 0.4.sp
         ),
         headlineEmphasize = TextStyle(
             fontWeight = Bold,

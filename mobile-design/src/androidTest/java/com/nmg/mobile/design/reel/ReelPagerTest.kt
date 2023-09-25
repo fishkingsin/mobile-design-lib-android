@@ -26,7 +26,6 @@ class ReelPagerTest : ScreenshotTest {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
 
-
     @Test
     fun test_ReelPager() {
         composeRule.setContent {
@@ -48,6 +47,4 @@ class ReelPagerTest : ScreenshotTest {
         Thread.sleep(1000)
         compareScreenshot(composeRule)
     }
-
-
 }

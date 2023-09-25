@@ -16,26 +16,34 @@ import com.nmg.mobile.design.theme.NMGTheme.colors
 import com.nmg.mobile.design.theme.WWDefaultColors
 
 @Composable
-public fun Chip(content: @Composable (selected: Boolean) -> Unit, selected: Boolean, onClick: () -> Unit) {
+public fun Chip(
+    content: @Composable (selected: Boolean) -> Unit,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
     val shape = RoundedCornerShape(60.dp)
     val chipBackground = colors.chipBackground
     val chipSelectedBackground = colors.chipSelectedBackground
     Box(
         modifier = Modifier
             .background(color = chipBackground, shape = shape)
-            .conditional(selected, modifier = { background(color = chipSelectedBackground, shape = shape) })
+            .conditional(
+                selected,
+                modifier = { background(color = chipSelectedBackground, shape = shape) }
+            )
             .clickable {
                 onClick.invoke()
             }
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Center
         ) {
             content(selected)
         }
     }
 }
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TabCell_Preview() {
