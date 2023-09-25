@@ -22,6 +22,10 @@ public data class NMGDefaultColors(val context: Context) : ThemeableColors {
             context.theme
         )
     )
+    override val selectedTabContentColor: Color
+        get() = commonNeutralGray90
+    override val unselectedTabContentColor: Color
+        get() = commonNeutralGray60
 
     override val commonNeutralGray90: Color = Color(
         ResourcesCompat.getColor(
