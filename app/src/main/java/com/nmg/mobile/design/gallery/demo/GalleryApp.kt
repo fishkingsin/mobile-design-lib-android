@@ -9,6 +9,7 @@ import com.nmg.mobile.design.widgets.reel.ReelsView
 @Composable
 fun GalleryApp(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "Gallery") {
+        composable("TVPOC") { TVPOCScreen() }
         composable("Reels") { ReelsView() }
         composable("Gallery") { Gallery(navController) }
         composable("ColorPalette") { ColorPalette() }

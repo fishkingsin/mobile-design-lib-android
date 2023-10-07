@@ -17,6 +17,11 @@ import com.nmg.mobile.design.theme.NMGTheme
 fun Gallery(navigationController: NavController) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
         item {
+            Button(onClick = { navigationController.navigate("TVPOC") }) {
+                Text(text = "TV POC")
+            }
+        }
+        item {
             Button(onClick = { navigationController.navigate("Reels") }) {
                 Text(text = "Reels")
             }
