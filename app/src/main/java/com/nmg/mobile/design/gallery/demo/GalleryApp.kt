@@ -10,6 +10,7 @@ import com.nmg.mobile.design.widgets.reel.ReelsView
 fun GalleryApp(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "Gallery") {
         composable("TVPOC") { TVPOCScreen() }
+        composable("TVPOCVimeo") { TVPOCVimeoScreen() }
         composable("Reels") { ReelsView() }
         composable("Gallery") { Gallery(navController) }
         composable("ColorPalette") { ColorPalette() }

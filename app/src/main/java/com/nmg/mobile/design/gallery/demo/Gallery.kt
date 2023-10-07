@@ -22,6 +22,11 @@ fun Gallery(navigationController: NavController) {
             }
         }
         item {
+            Button(onClick = { navigationController.navigate("TVPOCVimeo") }) {
+                Text(text = "TV POC Vimeo")
+            }
+        }
+        item {
             Button(onClick = { navigationController.navigate("Reels") }) {
                 Text(text = "Reels")
             }
