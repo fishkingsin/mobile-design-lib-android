@@ -1,23 +1,19 @@
 package com.nmg.mobile.design.gallery.demo
 
-import android.net.Uri
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.nmg.mobile.design.widgets.videoplayer.VideoPlayer
-import com.nmg.mobile.design.widgets.ytplayer.YTPlayerView
 
 @Composable
 fun TVPOCScreen() {
-    TVPOC("kXaRg6wUYK8") { url, lifecycleOwner ->
-        YTPlayerView(lifecycleOwner, url)
+    TVPOC(TVContent(ytUrl = "kXaRg6wUYK8")) { content, lifecycleOwner ->
+        content.view(lifecycleOwner)
     }
 }
 
 @Composable
 fun TVPOCVimeoScreen() {
-    TVPOC("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8") { url, lifecycleOwner ->
-        VideoPlayer(Uri.parse(url), modifier = Modifier.fillMaxWidth().fillMaxHeight(0.33f))
+    TVPOC(
+        TVContent(m3u8 = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")
+    ) { content, lifecycleOwner ->
+        content.view(lifecycleOwner)
     }
 }

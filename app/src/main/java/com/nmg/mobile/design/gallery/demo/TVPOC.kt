@@ -24,13 +24,12 @@ import com.nmg.mobile.design.gallery.demo.tvpoc.TVHeadline
 import com.nmg.mobile.design.gallery.demo.tvpoc.TVNote
 import com.nmg.mobile.design.theme.EDDefaultColors
 import com.nmg.mobile.design.theme.NMGTheme
-import com.nmg.mobile.design.widgets.ytplayer.YTPlayerView
 
 @Composable
-fun TVPOC(
-    url: String,
+fun <Content : TVContentProtocol> TVPOC(
+    tvContent: Content,
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
-    content: @Composable (url: String, lifecycleOwner: LifecycleOwner) -> Unit
+    content: @Composable (content: Content, lifecycleOwner: LifecycleOwner) -> Unit
 ) {
     var lifecycleEvent by remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
     DisposableEffect(lifecycleOwner) {
@@ -48,7 +47,7 @@ fun TVPOC(
         verticalArrangement = Arrangement.spacedBy(0.dp, Alignment.Top),
         horizontalAlignment = Alignment.Start
     ) {
-        content(url, lifecycleOwner)
+        content(tvContent, lifecycleOwner)
         LazyColumn {
             // Add a single item
             item {
@@ -73,8 +72,8 @@ fun TVPOC(
 @Composable
 fun TVPOCPreview() {
     NMGTheme(colors = EDDefaultColors()) {
-        TVPOC("kXaRg6wUYK8") { url, lifecycleOwner ->
-            YTPlayerView(lifecycleOwner, url)
+        TVPOC(TVContent(ytUrl = "kXaRg6wUYK8")) { content, lifeCycleOwner ->
+            content.view(lifeCycleOwner)
         }
     }
 }
