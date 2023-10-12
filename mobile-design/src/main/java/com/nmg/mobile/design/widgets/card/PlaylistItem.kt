@@ -15,7 +15,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> PlaylistItem(data: Data) {
+public fun <Data : CardDataProtocol> PlaylistItem(data: Data) {
     Box(
         modifier = Modifier
             .background(Color.White)

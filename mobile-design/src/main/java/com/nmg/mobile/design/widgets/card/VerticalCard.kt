@@ -21,7 +21,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> VerticalCard(data: Data) {
+public fun <Data : CardDataProtocol> VerticalCard(data: Data) {
     Box(
         modifier = Modifier
             .aspectRatio(126f / 224f)
