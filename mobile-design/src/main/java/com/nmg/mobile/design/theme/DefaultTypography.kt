@@ -21,11 +21,17 @@ public val defaultTypography = Typography(
         fontSize = 14.sp,
         lineHeight = 22.sp,
         fontWeight = FontWeight(500),
-        letterSpacing = 0.35.sp,
+        letterSpacing = 0.35.sp
     ),
     title2 = TextStyle(
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp
+    ),
+    title2Medium = TextStyle(
+        fontSize = 18.sp,
+        lineHeight = 18.sp,
+        fontWeight = FontWeight.Medium,
+        letterSpacing = 0.35.sp
     ),
     title3 = TextStyle(
         fontWeight = FontWeight.Normal,
@@ -55,7 +61,7 @@ public val defaultTypography = Typography(
         fontSize = 16.sp,
         lineHeight = 22.sp,
         fontWeight = FontWeight.Normal,
-        letterSpacing = 0.4.sp,
+        letterSpacing = 0.4.sp
     ),
     headlineEmphasize = TextStyle(
         fontWeight = FontWeight.Bold,

@@ -34,7 +34,8 @@ class GOTRIPThemeFragment : Fragment() {
 
     override fun onGetLayoutInflater(savedInstanceState: Bundle?): LayoutInflater {
         val inflater = super.onGetLayoutInflater(savedInstanceState)
-        val contextThemeWrapper: Context = ContextThemeWrapper(requireContext(), com.nmg.mobile.design.R.style.GOTRIP)
+        val contextThemeWrapper: Context =
+            ContextThemeWrapper(requireContext(), com.nmg.mobile.design.R.style.GOTRIP)
         return inflater.cloneInContext(contextThemeWrapper)
     }
 
@@ -60,12 +61,12 @@ class GOTRIPThemeFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GOTRIPThemeFragment().apply {
-                arguments = Bundle().apply {
+        fun newInstance(param1: String, param2: String) = GOTRIPThemeFragment().apply {
+            arguments =
+                Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-            }
+        }
     }
 }

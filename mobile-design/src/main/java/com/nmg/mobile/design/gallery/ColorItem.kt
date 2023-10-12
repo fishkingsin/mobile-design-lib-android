@@ -23,9 +23,9 @@ private fun Color.toHexCode(): String {
 
 @Composable
 public fun ColorItem(colorName: String = "", color: Color) {
-
     Column(
-        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(colorName, style = NMGTheme.typography.caption)
         Box(

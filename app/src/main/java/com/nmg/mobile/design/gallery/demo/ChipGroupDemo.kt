@@ -4,12 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.nmg.mobile.design.widgets.chip.ChipData
 import com.nmg.mobile.design.widgets.chip.ChipGroup
+
 private data class DemoChipData(override val title: String) : ChipData
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ChipGroup_Demo_Preview() {
     ChipGroup(
-        items = listOf(
+        items =
+        listOf(
             DemoChipData("Home"),
             DemoChipData("About"),
             DemoChipData("Settings"),
@@ -20,7 +23,7 @@ fun ChipGroup_Demo_Preview() {
             DemoChipData("Terms"),
             DemoChipData("FAQ"),
             DemoChipData("Support"),
-            DemoChipData("Logout"),
+            DemoChipData("Logout")
         )
     ) {
     }

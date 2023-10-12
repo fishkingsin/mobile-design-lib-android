@@ -14,6 +14,19 @@ public data class NMGDefaultColors(val context: Context) : ThemeableColors {
         get() = commonNeutralGray5
     override val chipForeground: Color
         get() = commonNeutralGray90
+
+    override val placeholder: Color = Color(
+        ResourcesCompat.getColor(
+            context.resources,
+            R.color.placeholder,
+            context.theme
+        )
+    )
+    override val selectedTabContentColor: Color
+        get() = commonNeutralGray90
+    override val unselectedTabContentColor: Color
+        get() = commonNeutralGray60
+
     override val commonNeutralGray90: Color = Color(
         ResourcesCompat.getColor(
             context.resources,
@@ -102,7 +115,9 @@ public data class NMGDefaultColors(val context: Context) : ThemeableColors {
 
     override val primaryMain: Color = Color(
         ResourcesCompat.getColor(
-            context.resources, R.color.primaryMain, context.theme
+            context.resources,
+            R.color.primaryMain,
+            context.theme
         )
     )
 

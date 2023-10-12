@@ -16,12 +16,11 @@ import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun <Reel : ReelInterface>FooterUserData(reel: Reel, modifier: Modifier) {
+fun <Reel : ReelInterface> FooterUserData(reel: Reel, modifier: Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center
     ) {
-
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {

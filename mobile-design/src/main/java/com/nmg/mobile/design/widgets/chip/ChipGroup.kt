@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nmg.mobile.design.theme.EDDefaultColors
+import com.nmg.mobile.design.theme.GotripDefaultColors
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.theme.WWDefaultColors
 
@@ -20,7 +20,11 @@ public interface ChipData {
 }
 
 @Composable
-public fun <Items : List<ChipData>> ChipGroup(items: Items, selectedTabIndex: Int = 0, onTapChip: (Int) -> Unit) {
+public fun <Items : List<ChipData>> ChipGroup(
+    items: Items,
+    selectedTabIndex: Int = 0,
+    onTapChip: (Int) -> Unit
+) {
     var tabIndex by remember { mutableStateOf(selectedTabIndex) }
     val chipSelectedForeground = NMGTheme.colors.chipSelectedForeground
     val chipForeground = NMGTheme.colors.chipForeground
@@ -30,7 +34,7 @@ public fun <Items : List<ChipData>> ChipGroup(items: Items, selectedTabIndex: In
     }
 
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         items(items.size) { index ->
             Chip(
@@ -74,7 +78,7 @@ fun ChipGroup_WW_Theme_Preview() {
                 DemoChipData("Terms"),
                 DemoChipData("FAQ"),
                 DemoChipData("Support"),
-                DemoChipData("Logout"),
+                DemoChipData("Logout")
             )
         ) {
         }
@@ -84,7 +88,7 @@ fun ChipGroup_WW_Theme_Preview() {
 @Preview(showBackground = true)
 @Composable
 fun ChipGroup_ED_Theme_Preview() {
-    NMGTheme(EDDefaultColors()) {
+    NMGTheme(GotripDefaultColors()) {
         ChipGroup(
             items = listOf(
                 DemoChipData("Home"),
@@ -97,7 +101,7 @@ fun ChipGroup_ED_Theme_Preview() {
                 DemoChipData("Terms"),
                 DemoChipData("FAQ"),
                 DemoChipData("Support"),
-                DemoChipData("Logout"),
+                DemoChipData("Logout")
             )
         ) {
         }
@@ -118,7 +122,7 @@ fun ChipGroup_Selected_Tab_Preview() {
         DemoChipData("Terms"),
         DemoChipData("FAQ"),
         DemoChipData("Support"),
-        DemoChipData("Logout"),
+        DemoChipData("Logout")
     )
     var selectedTabIndex by remember { mutableStateOf(0) }
 

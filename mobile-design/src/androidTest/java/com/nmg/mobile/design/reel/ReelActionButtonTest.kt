@@ -23,12 +23,10 @@ class ReelActionButtonTest : ScreenshotTest {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
     }
 
-
     @Test
     fun test_ReelActionButton() {
         composeRule.setContent {
-
-            NMGTheme() {
+            NMGTheme {
                 ReelActionButton(object : ReelActionButtonData {
                     override var vectorDrawableRes: Int = R.drawable.reel_link
                     override var vectorDrawableResSelected: Int? = null
@@ -39,6 +37,4 @@ class ReelActionButtonTest : ScreenshotTest {
         Thread.sleep(1000)
         compareScreenshot(composeRule)
     }
-
-
 }

@@ -1,6 +1,5 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
-import android.widget.ScrollView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,23 +45,23 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data: VideoPlayerControlData> VideoPlayerControl(
+public fun <Data : VideoPlayerControlData> VideoPlayerControl(
     data: Data,
     onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
     onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
     event: VideoPlayerControlEvent?
 ) {
-    var sliderValue:Float by remember { mutableStateOf(data.sliderValue) }
-    var playerState:VideoPlayerControlState by remember { mutableStateOf(data.playState) }
-    var playerIcon = when(playerState) {
+    var sliderValue: Float by remember { mutableStateOf(data.sliderValue) }
+    var playerState: VideoPlayerControlState by remember { mutableStateOf(data.playState) }
+    var playerIcon = when (playerState) {
         VideoPlayerControlState.LOADING -> R.drawable.video_player_loading
         VideoPlayerControlState.PLAYING -> 0
         VideoPlayerControlState.PLAYING_TAB -> R.drawable.video_player_pause
         VideoPlayerControlState.PAUSED -> R.drawable.video_player_play
         VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> R.drawable.video_player_replay
-            else -> R.drawable.video_player_pause
-        }
-    var isShowControl = when(playerState) {
+        else -> R.drawable.video_player_pause
+    }
+    var isShowControl = when (playerState) {
         VideoPlayerControlState.LOADING -> true
         VideoPlayerControlState.PLAYING -> false
         VideoPlayerControlState.PLAYING_TAB -> true
@@ -71,10 +70,12 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
         else -> false
     }
 
-    Box(modifier = Modifier
-        .aspectRatio(390f / 219f)
-        .size(390.dp, 219.dp)
-        .background(Color.Black)) {
+    Box(
+        modifier = Modifier
+            .aspectRatio(390f / 219f)
+            .size(390.dp, 219.dp)
+            .background(Color.Black)
+    ) {
         onVideoPlayerLayer?.let { it ->
             it(this)
         }
@@ -86,9 +87,9 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                 contentDescription = stringResource(R.string.description),
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier.background(
-                        color = Color.Black,
-                        shape = RoundedCornerShape(4.dp)
-                    ).fillMaxSize().aspectRatio(390f / 219f).size(390.dp, 219.dp),
+                    color = Color.Black,
+                    shape = RoundedCornerShape(4.dp)
+                ).fillMaxSize().aspectRatio(390f / 219f).size(390.dp, 219.dp)
             )
         }
         if (playerState == VideoPlayerControlState.COMPLETED) {
@@ -105,13 +106,13 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                         .height(36.dp),
                     tint = Color.White,
                     painter = painterResource(id = R.drawable.video_player_back),
-                    contentDescription = "",
+                    contentDescription = ""
                 )
             }
             Row(
                 modifier = Modifier.align(Alignment.Center),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 if (playerState != VideoPlayerControlState.LOADING) {
                     IconButton(onClick = { event?.onClickPre() }) {
@@ -121,7 +122,7 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                                 .height(44.dp),
                             tint = Color.White,
                             painter = painterResource(id = R.drawable.video_player_pre),
-                            contentDescription = "",
+                            contentDescription = ""
                         )
                     }
                 }
@@ -130,20 +131,25 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                     when (playerState) {
                         VideoPlayerControlState.LOADING -> { /* pass */ }
                         VideoPlayerControlState.PLAYING -> { /* pass */ }
-                        VideoPlayerControlState.PLAYING_TAB -> { event?.onClickPause() }
-                        VideoPlayerControlState.PAUSED -> { event?.onClickPlay() }
-                        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> { event?.onClickReplay() }
+                        VideoPlayerControlState.PLAYING_TAB -> {
+                            event?.onClickPause()
+                        }
+                        VideoPlayerControlState.PAUSED -> {
+                            event?.onClickPlay()
+                        }
+                        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
+                            event?.onClickReplay()
+                        }
                         else -> { /* pass */ }
                     }
-                })
-                {
+                }) {
                     Icon(
                         modifier = Modifier
                             .width(60.dp)
                             .height(60.dp),
                         tint = Color.White,
                         painter = painterResource(id = playerIcon),
-                        contentDescription = "",
+                        contentDescription = ""
                     )
                 }
                 Spacer(modifier = Modifier.width(32.dp))
@@ -155,14 +161,14 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                                 .height(44.dp),
                             tint = Color.White,
                             painter = painterResource(id = R.drawable.video_player_next),
-                            contentDescription = "",
+                            contentDescription = ""
                         )
                     }
                 }
             }
-            if (playerState == VideoPlayerControlState.PLAYING_TAB
-                || playerState == VideoPlayerControlState.PAUSED
-                || playerState == VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
+            if (playerState == VideoPlayerControlState.PLAYING_TAB ||
+                playerState == VideoPlayerControlState.PAUSED ||
+                playerState == VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
             ) {
                 Row(
                     modifier = Modifier
@@ -174,7 +180,7 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                         style = TextStyle(
                             fontSize = 12.sp,
                             color = Color.White,
-                            textAlign = TextAlign.Center,
+                            textAlign = TextAlign.Center
                         )
                     )
                     Spacer(modifier = Modifier.width(4.dp))
@@ -183,7 +189,7 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                         style = TextStyle(
                             fontSize = 12.sp,
                             color = NMGTheme.colors.commonNeutralGray20,
-                            textAlign = TextAlign.Center,
+                            textAlign = TextAlign.Center
                         )
                     )
                     Spacer(modifier = Modifier.width(4.dp))
@@ -192,13 +198,14 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                         style = TextStyle(
                             fontSize = 12.sp,
                             color = NMGTheme.colors.commonNeutralGray20,
-                            textAlign = TextAlign.Center,
+                            textAlign = TextAlign.Center
                         )
                     )
                 }
             }
-            if (playerState == VideoPlayerControlState.PAUSED
-                || playerState == VideoPlayerControlState.PLAYING_TAB) {
+            if (playerState == VideoPlayerControlState.PAUSED ||
+                playerState == VideoPlayerControlState.PLAYING_TAB
+            ) {
                 IconButton(
                     onClick = { event?.onClickFullScreen() },
                     modifier = Modifier
@@ -211,13 +218,14 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
                             .height(16.dp),
                         tint = Color.White,
                         painter = painterResource(id = R.drawable.video_player_expand),
-                        contentDescription = "",
+                        contentDescription = ""
                     )
                 }
             }
         }
-        if (playerState != VideoPlayerControlState.LOADING
-            && playerState != VideoPlayerControlState.COMPLETED) {
+        if (playerState != VideoPlayerControlState.LOADING &&
+            playerState != VideoPlayerControlState.COMPLETED
+        ) {
             Slider(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -240,6 +248,7 @@ public fun <Data: VideoPlayerControlData> VideoPlayerControl(
         }
     }
 }
+
 @Preview(showBackground = true)
 @Composable
 fun VideoPlayerControlPreview() {
@@ -248,47 +257,77 @@ fun VideoPlayerControlPreview() {
             verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
-            VideoPlayerControl(object : VideoPlayerControlData {
-                override var playState: VideoPlayerControlState = VideoPlayerControlState.LOADING
-                override var imageURL: String = "https://placehold.co/390x219/png"
-                override var totalTime: String = "22:22"
-                override var sliderValue: Float = 0.5f
-            }, null, null, null)
+            VideoPlayerControl(
+                object : VideoPlayerControlData {
+                    override var playState: VideoPlayerControlState = VideoPlayerControlState.LOADING
+                    override var imageURL: String = "https://placehold.co/390x219/png"
+                    override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
+                },
+                null,
+                null,
+                null
+            )
 
-            VideoPlayerControl(object : VideoPlayerControlData {
-                override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING
-                override var imageURL: String = "https://placehold.co/390x219/png"
-                override var totalTime: String = "22:22"
-                override var sliderValue: Float = 0.5f
-            }, null, null, null)
+            VideoPlayerControl(
+                object : VideoPlayerControlData {
+                    override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING
+                    override var imageURL: String = "https://placehold.co/390x219/png"
+                    override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
+                },
+                null,
+                null,
+                null
+            )
 
-            VideoPlayerControl(object : VideoPlayerControlData {
-                override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING_TAB
-                override var imageURL: String = "https://placehold.co/390x219/png"
-                override var totalTime: String = "22:22"
-                override var sliderValue: Float = 0.5f
-            }, null, null, null)
+            VideoPlayerControl(
+                object : VideoPlayerControlData {
+                    override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING_TAB
+                    override var imageURL: String = "https://placehold.co/390x219/png"
+                    override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
+                },
+                null,
+                null,
+                null
+            )
 
-            VideoPlayerControl(object : VideoPlayerControlData {
-                override var playState: VideoPlayerControlState = VideoPlayerControlState.PAUSED
-                override var imageURL: String = "https://placehold.co/390x219/png"
-                override var totalTime: String = "22:22"
-                override var sliderValue: Float = 0.5f
-            }, null, null, null)
+            VideoPlayerControl(
+                object : VideoPlayerControlData {
+                    override var playState: VideoPlayerControlState = VideoPlayerControlState.PAUSED
+                    override var imageURL: String = "https://placehold.co/390x219/png"
+                    override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
+                },
+                null,
+                null,
+                null
+            )
 
-            VideoPlayerControl(object : VideoPlayerControlData {
-                override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED
-                override var imageURL: String = "https://placehold.co/390x219/png"
-                override var totalTime: String = "22:22"
-                override var sliderValue: Float = 0.5f
-            }, null, null, null)
+            VideoPlayerControl(
+                object : VideoPlayerControlData {
+                    override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED
+                    override var imageURL: String = "https://placehold.co/390x219/png"
+                    override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
+                },
+                null,
+                null,
+                null
+            )
 
-            VideoPlayerControl(object : VideoPlayerControlData {
-                override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
-                override var imageURL: String = "https://placehold.co/390x219/png"
-                override var totalTime: String = "22:22"
-                override var sliderValue: Float = 0.5f
-            }, null, null, null)
+            VideoPlayerControl(
+                object : VideoPlayerControlData {
+                    override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
+                    override var imageURL: String = "https://placehold.co/390x219/png"
+                    override var totalTime: String = "22:22"
+                    override var sliderValue: Float = 0.5f
+                },
+                null,
+                null,
+                null
+            )
         }
     }
 }

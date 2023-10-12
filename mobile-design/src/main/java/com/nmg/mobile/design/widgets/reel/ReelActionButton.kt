@@ -1,6 +1,5 @@
 package com.nmg.mobile.design.widgets.reel
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -28,8 +27,16 @@ import com.nmg.mobile.design.theme.NMGTheme
 public fun <Item : ReelActionButtonData> ReelActionButton(item: Item) {
     var isSelected: Boolean by remember { mutableStateOf(item.isSelected) }
     val hasSelectRes = isSelected && null != item.vectorDrawableResSelected
-    val currentRes = if (hasSelectRes) { item.vectorDrawableResSelected } else { item.vectorDrawableRes }
-    val tintColor = if (hasSelectRes) { Color.Red } else { Color.White }
+    val currentRes = if (hasSelectRes) {
+        item.vectorDrawableResSelected
+    } else {
+        item.vectorDrawableRes
+    }
+    val tintColor = if (hasSelectRes) {
+        Color.Red
+    } else {
+        Color.White
+    }
 //    val drawable = AppCompatResources.getDrawable(LocalContext.current, id)
     Box(modifier = Modifier.size(36.dp, 36.dp)) {
         currentRes?.let {
@@ -39,8 +46,10 @@ public fun <Item : ReelActionButtonData> ReelActionButton(item: Item) {
                     .height(20.dp)
                     .align(Alignment.Center),
                 tint = tintColor,
-                painter = rememberVectorPainter(image = ImageVector.vectorResource(id = currentRes)),
-                contentDescription = "",
+                painter = rememberVectorPainter(
+                    image = ImageVector.vectorResource(id = currentRes)
+                ),
+                contentDescription = ""
             )
         }
     }
@@ -69,4 +78,3 @@ fun ReelActionButtonPreview() {
         }
     }
 }
-
