@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
 import com.nmg.mobile.design.widgets.card.HorizontalCard
+import com.nmg.mobile.design.widgets.card.PlaylistItem
 import com.nmg.mobile.design.widgets.card.VerticalCard
 import com.nmg.mobile.design.widgets.card.VideoCardView
 import com.nmg.mobile.design.widgets.chip.ChipGroup
@@ -105,8 +106,20 @@ fun CardDemo() {
                 )
             }
 
-            items(10) {
+            items(5) {
                 VideoCardView(
+                    data = CardData(
+                        imageURL = "https://placehold.co/358x200/png?text=$it",
+                        headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
+                        leadingFootnote = "4小時前",
+                        secondFootnote = "經人觀點",
+                        _timecode = "22:22"
+                    )
+                )
+            }
+
+            items(5) {
+                PlaylistItem(
                     data = CardData(
                         imageURL = "https://placehold.co/358x200/png?text=$it",
                         headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",

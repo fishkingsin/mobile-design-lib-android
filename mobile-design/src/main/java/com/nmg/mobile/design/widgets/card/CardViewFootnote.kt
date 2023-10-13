@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> CardViewFootnote(data: Data) {
+public fun <Data : CardDataProtocol> CardViewFootnote(data: Data) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)

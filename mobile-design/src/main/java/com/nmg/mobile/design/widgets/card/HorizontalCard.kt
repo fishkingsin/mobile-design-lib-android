@@ -28,7 +28,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> HorizontalCard(data: Data, isPlaying: Boolean = false) {
+public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boolean = false) {
     Box(
         modifier = Modifier
             .background(if (isPlaying) NMGTheme.colors.commonNeutralGray5 else Color.White)
