@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> VideoCardView(data: Data) {
+public fun <Data : CardDataProtocol> VideoCardView(data: Data) {
     Box(
         modifier = Modifier
             .background(Color.White)
