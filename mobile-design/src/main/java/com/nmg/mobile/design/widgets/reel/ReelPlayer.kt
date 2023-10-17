@@ -1,5 +1,6 @@
 package com.nmg.mobile.design.widgets.reel
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -25,18 +27,24 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension.Companion.fillToConstraints
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
+import com.nmg.mobile.design.widgets.videoplayer.VideoPlayer
 
 @Composable
 public fun <Item : ReelPlayerData> ReelPlayer(
     item: Item,
     playerView: @Composable ((BoxScope) -> Unit)? = null
 ) {
-    Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+    Box(modifier = Modifier
+        .background(Color.Black)
+        .fillMaxWidth()
+        .fillMaxHeight()) {
         playerView?.let {
             it(this)
         }
         ConstraintLayout(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight()
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
                 .align(Alignment.BottomEnd)
         ) {
             val (titleContainer, reelActionButtonGroup, mask) = createRefs()
@@ -81,13 +89,15 @@ public fun <Item : ReelPlayerData> ReelPlayer(
                 )
             }
             ReelActionButtonGroup(
-                modifier = Modifier.constrainAs(reelActionButtonGroup) {
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }.padding(
-                    end = NMGTheme.customSystem.padding,
-                    bottom = NMGTheme.customSystem.padding
-                )
+                modifier = Modifier
+                    .constrainAs(reelActionButtonGroup) {
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(
+                        end = NMGTheme.customSystem.padding,
+                        bottom = NMGTheme.customSystem.padding
+                    )
             )
         }
     }
@@ -102,7 +112,13 @@ fun ReelPlayerPreview() {
     }
     NMGTheme {
         Box(modifier = Modifier.background(Color.Gray)) {
-            ReelPlayer(item)
+//            ReelPlayer(item) {
+//                VideoPlayer(
+//                    uri = Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"),
+////                    uri = Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
+//                    modifier = Modifier.fillMaxSize()
+//                )
+//            }
         }
     }
 }

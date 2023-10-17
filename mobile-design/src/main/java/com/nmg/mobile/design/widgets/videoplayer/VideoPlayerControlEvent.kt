@@ -8,4 +8,5 @@ interface VideoPlayerControlEvent {
     fun onClickPause() {}
     fun onClickReplay() {}
     fun onClickFullScreen() {}
+    fun onClickVideoWhenPlaying() {}
 }
