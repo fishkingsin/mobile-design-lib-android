@@ -11,11 +11,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Slider
@@ -29,43 +31,47 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 data class VideoPlayerControl(
     val data: VideoPlayerControlData,
-    val playerState: VideoPlayerControlState = VideoPlayerControlState.PLAYER_INIT,
     val onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
     val onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
+    val onSwipeProgressChange: ((Float) -> Unit)? = null,
     val event: VideoPlayerControlEvent? = null
 ) {
     @Composable
     fun playerInitView(boxScope: BoxScope) {
         boxScope.apply {
-//            AsyncImage(
-//                model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
-//                    .crossfade(true).build(),
-//                placeholder = painterResource(R.drawable.placeholder),
-//                contentDescription = stringResource(R.string.description),
-//                contentScale = ContentScale.FillHeight,
-//                modifier = Modifier
-//                    .background(
-//                        color = Color.Black,
-//                        shape = RoundedCornerShape(4.dp)
-//                    )
-//                    .fillMaxSize()
-//                    .aspectRatio(390f / 219f)
-//                    .size(390.dp, 219.dp)
-//            )
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
+                    .crossfade(true).build(),
+                placeholder = painterResource(R.drawable.placeholder),
+                contentDescription = stringResource(R.string.description),
+                contentScale = ContentScale.FillHeight,
+                modifier = Modifier
+                    .background(
+                        color = Color.Black,
+                        shape = RoundedCornerShape(4.dp)
+                    )
+                    .fillMaxSize()
+                    .aspectRatio(390f / 219f)
+                    .size(390.dp, 219.dp)
+            )
             Row(
                 modifier = Modifier.align(Alignment.Center),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Spacer(modifier = Modifier.width(32.dp))
                 IconButton(onClick = {
 
                 }) {
@@ -91,7 +97,11 @@ data class VideoPlayerControl(
                     .height(3.dp)
                     .align(Alignment.BottomCenter),
                 value = sliderValue,
-                onValueChange = { },
+                onValueChange = { itValue ->
+                    onSwipeProgressChange?.let { itCall ->
+                        itCall(itValue)
+                    }
+                },
 //            valueRange = 0f..100f,
                 onValueChangeFinished = {
                     // launch some business logic update with the state you hold
@@ -183,20 +193,16 @@ data class VideoPlayerControl(
 
     @Composable
     fun view() {
-//        var playerState by remember {
-//            mutableStateOf(playerState)
-//        }
-        val sliderValue: Float by remember { mutableStateOf(data.sliderValue) }
-        val targetState = when(playerState) {
+        val targetState = when (data.playState) {
             VideoPlayerControlState.PLAYER_INIT -> VideoPlayerControlState.LOADING
             VideoPlayerControlState.PLAYER_IDLE -> VideoPlayerControlState.LOADING
-            VideoPlayerControlState.LOADING -> playerState
+            VideoPlayerControlState.LOADING -> data.playState
             VideoPlayerControlState.PLAY_READY -> VideoPlayerControlState.PAUSED
-            VideoPlayerControlState.PLAYING -> playerState
-            VideoPlayerControlState.PLAYING_TAB -> playerState
-            VideoPlayerControlState.PAUSED -> playerState
-            VideoPlayerControlState.COMPLETED -> playerState
-            VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> playerState
+            VideoPlayerControlState.PLAYING -> data.playState
+            VideoPlayerControlState.PLAYING_TAB -> data.playState
+            VideoPlayerControlState.PAUSED -> data.playState
+            VideoPlayerControlState.COMPLETED -> data.playState
+            VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> data.playState
             else -> VideoPlayerControlState.LOADING
         }
         Box(
@@ -205,7 +211,7 @@ data class VideoPlayerControl(
                 .size(390.dp, 219.dp)
                 .background(Color.Black)
                 .clickable(enabled = true, onClick = {
-                    if (playerState == VideoPlayerControlState.PLAYING) {
+                    if (data.playState == VideoPlayerControlState.PLAYING) {
                         event?.onClickVideoWhenPlaying()
                     }
                 })
@@ -213,62 +219,92 @@ data class VideoPlayerControl(
             onVideoPlayerLayer?.let { it ->
                 it(this)
             }
-            Log.i("[VideoPlayer]", "[VideoPlayer]playState=${playerState}, targetState=${targetState}")
-            if (targetState == VideoPlayerControlState.LOADING) {
-                playerInitView(this)
-            } else if (targetState == VideoPlayerControlState.PLAYING) {
-                playerPlayingView(this, sliderValue = sliderValue)
-            } else if (targetState == VideoPlayerControlState.PLAYING_TAB
-                || targetState == VideoPlayerControlState.PAUSED
-                || targetState == VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
-            ) {
-                Log.i("[VideoPlayer]", "[VideoPlayer]it")
-                playerPlayingTabOrPauseOrCompletedView(this, targetState)
-            } else if (targetState == VideoPlayerControlState.COMPLETED) {
-                onVideoPlayerCompletedLayer?.let { it ->
-                    it(this)
+            Log.i(
+                "[VideoPlayer]",
+                "[VideoPlayer]playState=${data.playState}, targetState=${targetState}"
+            )
+            when (targetState) {
+                VideoPlayerControlState.LOADING -> {
+                    playerInitView(this)
+                }
+
+                VideoPlayerControlState.PLAYING -> {
+                    playerPlayingView(this, sliderValue = data.sliderValue)
+                }
+
+                VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
+                    Log.i("[VideoPlayer]", "[VideoPlayer]it")
+                    playerPlayingTabOrPauseOrCompletedView(this, targetState)
+                }
+
+                VideoPlayerControlState.COMPLETED -> {
+                    onVideoPlayerCompletedLayer?.let { it ->
+                        it(this)
+                    }
+                }
+
+                else -> {
+                    Text(text = "UNKNOW STATE")
                 }
             }
         }
     }
 }
+
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Preview(showBackground = true)
 @Composable
 fun VideoPlayerControlPreview() {
-//    VideoPlayer(uri = Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"))
-//    VideoPlayer(
-//        uri = Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
-//        modifier = Modifier.fillMaxSize()
-//    )
-//    Log.i("VideoPlayerControll", "[VideoPlayer]VideoPlayerControlPreview")
     val testUri =
 //        Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")
         Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")
-    var playerControlState by remember {
-        mutableStateOf(VideoPlayerControlState.PLAYER_INIT)
-    }
-    var item = object : VideoPlayerControlData {
-            override var playState = playerControlState
-            override var imageURL: String = "https://placehold.co/390x219/png"
-            override var totalTime: String = "22:22"
-            override var sliderValue: Float = 0.5f
+//        Uri.parse("http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8")
+    // Define the UI element expanded state
+    var item: VideoPlayerControlData = object : VideoPlayerControlData {
+        override var playState by remember {
+            mutableStateOf(VideoPlayerControlState.PLAYER_INIT)
         }
-//    )
-//    } // Define the UI element expanded state
+        override var imageURL: String = "https://placehold.co/390x219/png"
+        override var totalTime: String = "22:22"
+        override var sliderValue by remember {
+            mutableStateOf(0f)
+        }
+    }
+    var seekToPos by remember {
+        mutableStateOf(-1f)
+    }
 
     NMGTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
-//            modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
-            VideoPlayerControl(data = item, playerState = playerControlState, onVideoPlayerLayer = { itBox ->
-                VideoPlayer(uri = testUri, isAutoPlay = true, onStateChange = { itState ->
-                    Log.i("VideoPlayerControll", "[VideoPlayer]VideoPlayer#itState=${itState}")
-                    playerControlState = itState
-                })
-//                Text(text = "playerControlState=${playerControlState}", color = Color.Red)
-            }).view()
+            VideoPlayerControl(data = item,
+                onVideoPlayerLayer = { itBox ->
+                    VideoPlayer(uri = testUri, isAutoPlay = true,
+                        onStateChange = { itState ->
+                            Log.i(
+                                "VideoPlayerControl",
+                                "[VideoPlayer]VideoPlayer#itState=${itState}"
+                            )
+                            item.playState = itState
+                        },
+                        onProgressChange = { pos, duration ->
+                            val currentSliderValue =
+                                (((pos * 1.0 / duration) * 100).toInt() * 1.0 / 100)
+                            Log.i(
+                                "VideoPlayerControl",
+                                "[VideoPlayer]#onProgressChange#pos=${pos} duration=${duration} #currentSliderValue=${currentSliderValue}"
+                            )
+                            if (currentSliderValue.toFloat() == item.sliderValue) {
+                                return@VideoPlayer
+                            }
+                            item.sliderValue = currentSliderValue.toFloat()
+                        })
+                },
+                onSwipeProgressChange = {
+                    seekToPos = it
+                }
+                ).view()
         }
     }
 }

@@ -7,16 +7,20 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.ExperimentalComposeApi
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.datasource.DataSource
 import androidx.media3.datasource.DefaultDataSource.Factory
@@ -25,13 +29,17 @@ import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 public fun VideoPlayer(
     uri: Uri,
     isAutoPlay: Boolean = true,
+    seekToPos: Long = -1L,
     onStateChange: ((VideoPlayerControlState) -> Unit)? = null,
+    onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier
 ) {
@@ -68,6 +76,10 @@ public fun VideoPlayer(
     exoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
     exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
     exoPlayer.addListener(object : Player.Listener {
+        override fun onPlayerError(error: PlaybackException) {
+            super.onPlayerError(error)
+            Log.i(TAG, "${TAG}onPlayerError error=${error}")
+        }
         override fun onIsLoadingChanged(isLoading: Boolean) {
             super.onIsLoadingChanged(isLoading)
 //            Log.i(TAG, "${TAG}onIsLoadingChanged#isLoading=${isLoading}")
@@ -124,6 +136,26 @@ public fun VideoPlayer(
             }
         }
     })
+    exoPlayer.seekTo(1000)
+    var progressChange by remember {
+        mutableStateOf(0L)
+    }
+    var progressNeedToSeek by remember {
+        mutableStateOf(seekToPos)
+    }
+    LaunchedEffect(progressChange) {
+        delay(200)
+        onProgressChange?.let {
+            it(exoPlayer.currentPosition, exoPlayer.duration)
+        }
+        progressChange += 1
+    }
+//    LaunchedEffect(progressNeedToSeek) {
+//        if (seekToPos >= 0) {
+//            exoPlayer.seekTo(progressNeedToSeek)
+//        }
+//        Log.i(TAG, "progressNeedToSeek")
+//    }
 
     DisposableEffect(
         AndroidView(factory = {
