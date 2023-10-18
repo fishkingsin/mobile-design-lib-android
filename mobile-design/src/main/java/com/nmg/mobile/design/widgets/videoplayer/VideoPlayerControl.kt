@@ -46,7 +46,6 @@ data class VideoPlayerControl(
     val data: VideoPlayerControlData,
     val onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
     val onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
-    val onSwipeProgressChange: ((Float) -> Unit)? = null,
     val event: VideoPlayerControlEvent? = null
 ) {
     @Composable
@@ -72,9 +71,7 @@ data class VideoPlayerControl(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = {
-
-                }) {
+                IconButton(enabled = false, onClick = {}) {
                     Icon(
                         modifier = Modifier
                             .width(60.dp)
@@ -98,9 +95,6 @@ data class VideoPlayerControl(
                     .align(Alignment.BottomCenter),
                 value = sliderValue,
                 onValueChange = { itValue ->
-                    onSwipeProgressChange?.let { itCall ->
-                        itCall(itValue)
-                    }
                 },
 //            valueRange = 0f..100f,
                 onValueChangeFinished = {
@@ -140,21 +134,48 @@ data class VideoPlayerControl(
                 }
                 Spacer(modifier = Modifier.width(32.dp))
                 IconButton(onClick = {
-                }) {
-                    val icon = when (videoPlayerControlState) {
-                        VideoPlayerControlState.PLAYING_TAB -> R.drawable.video_player_pause
-                        VideoPlayerControlState.PAUSED -> R.drawable.video_player_play
-                        VideoPlayerControlState.COMPLETED -> R.drawable.video_player_replay
-                        else -> 0
+                    when (videoPlayerControlState) {
+                        VideoPlayerControlState.PLAYING_TAB -> event?.onClickPause()
+                        VideoPlayerControlState.PAUSED -> event?.onClickPlay()
+                        VideoPlayerControlState.COMPLETED -> event?.onClickReplay()
+                        else -> {
+                        // pass
+                        }
                     }
-                    Icon(
-                        modifier = Modifier
-                            .width(60.dp)
-                            .height(60.dp),
-                        tint = Color.White,
-                        painter = painterResource(id = icon),
-                        contentDescription = ""
-                    )
+                }) {
+                    when (videoPlayerControlState) {
+                        VideoPlayerControlState.PLAYING_TAB -> {
+                            Icon(
+                                modifier = Modifier
+                                    .width(60.dp)
+                                    .height(60.dp),
+                                tint = Color.White,
+                                painter = painterResource(id = R.drawable.video_player_pause),
+                                contentDescription = ""
+                            )
+                        }
+                        VideoPlayerControlState.PAUSED -> {
+                            Icon(
+                                modifier = Modifier
+                                    .width(60.dp)
+                                    .height(60.dp),
+                                tint = Color.White,
+                                painter = painterResource(id = R.drawable.video_player_play),
+                                contentDescription = ""
+                            )
+                        }
+                        VideoPlayerControlState.COMPLETED -> {
+                        Icon(
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp),
+                            tint = Color.White,
+                            painter = painterResource(id = R.drawable.video_player_replay),
+                            contentDescription = ""
+                        )
+                        }
+                        else -> {}
+                    }
                 }
                 Spacer(modifier = Modifier.width(32.dp))
                 IconButton(onClick = { event?.onClickNext() }) {
@@ -233,7 +254,6 @@ data class VideoPlayerControl(
                 }
 
                 VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
-                    Log.i("[VideoPlayer]", "[VideoPlayer]it")
                     playerPlayingTabOrPauseOrCompletedView(this, targetState)
                 }
 
@@ -301,9 +321,6 @@ fun VideoPlayerControlPreview() {
                             item.sliderValue = currentSliderValue.toFloat()
                         })
                 },
-                onSwipeProgressChange = {
-                    seekToPos = it
-                }
                 ).view()
         }
     }

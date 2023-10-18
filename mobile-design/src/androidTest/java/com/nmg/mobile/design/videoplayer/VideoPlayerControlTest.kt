@@ -36,7 +36,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     },
                     null,
                     null,
-                )
+                ).view()
             }
         }
         Thread.sleep(5000)
@@ -57,7 +57,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     null,
                     null,
                     null
-                )
+                ).view()
             }
         }
         Thread.sleep(5000)
@@ -78,7 +78,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     null,
                     null,
                     null
-                )
+                ).view()
             }
         }
         Thread.sleep(5000)
@@ -99,7 +99,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     null,
                     null,
                     null
-                )
+                ).view()
             }
         }
         Thread.sleep(5000)
@@ -120,7 +120,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     null,
                     null,
                     null
-                )
+                ).view()
             }
         }
         Thread.sleep(5000)
@@ -141,7 +141,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                     null,
                     null,
                     null
-                )
+                ).view()
             }
         }
         Thread.sleep(5000)
