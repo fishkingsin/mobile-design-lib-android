@@ -3,6 +3,7 @@ package com.nmg.mobile.design.theme
 import androidx.compose.ui.graphics.Color
 
 public interface ThemeableColors {
+    val textSecondary: Color
     public val chipSelectedBackground: Color
     public val chipSelectedForeground: Color
     public val chipBackground: Color

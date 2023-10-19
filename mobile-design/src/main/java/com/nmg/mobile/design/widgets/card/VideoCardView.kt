@@ -26,6 +26,7 @@ public fun <Data : CardDataProtocol> VideoCardView(data: Data) {
     }
 }
 
+@Suppress("ktlint:standard:max-line-length")
 @Preview
 @Composable
 fun VideoCardView_Preview() {

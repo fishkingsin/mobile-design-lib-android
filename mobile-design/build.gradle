@@ -110,7 +110,8 @@ dependencies {
 
     implementation project.ext.landscapist.values()
 
-
+    implementation project.ext.youtubeHelper.values()
+    
     testImplementation 'junit:junit:4.13.2'
 
     androidTestUtil 'androidx.test:orchestrator:1.4.2'

@@ -76,6 +76,7 @@ public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boole
     }
 }
 
+@Suppress("ktlint:standard:max-line-length")
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun horizontalCardView_Preview() {

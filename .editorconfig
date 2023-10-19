@@ -15,3 +15,7 @@ twitter_compose-rule-set = enabled # Enable all rules in the `compose-rule-set` 
 ktlint_standard_max-line-length= disabled
 [*.{kt,kts}]
 ktlint_standard_no-wildcard-imports = disabled
+[*Test.{kt,kts}]
+ktlint_standard = disabled
+[*Tests.{kt,kts}]
+ktlint_standard = disabled

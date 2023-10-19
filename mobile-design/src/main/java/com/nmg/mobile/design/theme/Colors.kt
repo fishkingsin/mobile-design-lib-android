@@ -19,6 +19,8 @@ public data class Colors(
     override val commonNeutralGray2: Color
     /* ... */
 ) : ThemeableColors {
+    override val textSecondary: Color
+        get() = commonNeutralGray20
     override val chipSelectedBackground: Color = commonNeutralGray90
     override val chipSelectedForeground: Color = commonNeutralGray5
     override val chipBackground: Color = commonNeutralGray5

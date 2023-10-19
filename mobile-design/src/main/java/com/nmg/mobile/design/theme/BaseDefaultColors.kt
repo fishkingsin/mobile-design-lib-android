@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 public abstract class BaseDefaultColors : ThemeableColors {
 
     val defaultColor: ThemeableColors = defaultThemeColors
+    override val textSecondary: Color = defaultColor.commonNeutralGray20
     override val chipSelectedBackground: Color = defaultColor.chipSelectedBackground
     override val chipBackground: Color = defaultColor.chipBackground
     override val commonNeutralGray90: Color = defaultColor.commonNeutralGray90
