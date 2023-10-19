@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
@@ -40,7 +39,7 @@ public fun CardViewTimeCodeOverlay(timecode: String, boxScope: BoxScope) {
             Text(
                 text = timecode,
                 color = Color.White,
-                fontSize = 12.sp,
+                style = NMGTheme.typography.eleRegular12,
                 modifier = Modifier
                     .padding(2.dp)
             )

@@ -68,7 +68,7 @@ public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boole
                 modifier = Modifier.padding(start = 12.dp),
                 text = data.headline,
                 color = NMGTheme.colors.commonNeutralGray90,
-                style = NMGTheme.typography.body,
+                style = NMGTheme.typography.cardTitle,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )

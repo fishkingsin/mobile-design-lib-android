@@ -48,7 +48,7 @@ public fun <Data : CardDataProtocol> VerticalCard(data: Data) {
                 Text(
                     text = it,
                     color = Color.White,
-                    style = NMGTheme.typography.body,
+                    style = NMGTheme.typography.eleMedium14,
                     modifier = Modifier
                         .padding(horizontal = 8.dp, vertical = 12.dp)
                         .align(Alignment.BottomStart)

@@ -51,25 +51,21 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             .padding(NMGTheme.customSystem.padding)
     ) {
         Row {
-            val style = TextStyle(
-                fontSize = 14.sp,
+            Text(
+                text = "將於",
+                style = NMGTheme.typography.eleRegular14,
                 color = NMGTheme.colors.commonNeutralGray50
             )
             Text(
-                text = "將於",
-                style = style
-            )
-            Text(
                 text = "$secCountDown",
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    color = NMGTheme.colors.commonNeutralGray2
-                ),
+                style = NMGTheme.typography.eleRegular14,
+                color = NMGTheme.colors.commonNeutralGray2,
                 modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
             )
             Text(
                 text = "秒後播放",
-                style = style
+                style = NMGTheme.typography.eleRegular14,
+                color = NMGTheme.colors.commonNeutralGray50
             )
         }
         Row(modifier = Modifier.padding(top = 18.dp)) {
@@ -109,10 +105,8 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = item.headline,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = NMGTheme.colors.commonNeutralGray2
-                ),
+                style = NMGTheme.typography.cardTitle,
+                color = NMGTheme.colors.commonNeutralGray2,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
@@ -126,10 +120,8 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             Text(
                 text = "取消",
                 textAlign = TextAlign.Center,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = NMGTheme.colors.commonNeutralGray2
-                ),
+                style = NMGTheme.typography.eleRegular16,
+                color = NMGTheme.colors.commonNeutralGray2,
                 modifier = Modifier
                     .weight(1f)
                     .border(width = 1.dp, color = NMGTheme.colors.commonNeutralGray2)
@@ -143,10 +135,8 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             Text(
                 text = "立即播放",
                 textAlign = TextAlign.Center,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    color = NMGTheme.colors.commonNeutralGray90
-                ),
+                style = NMGTheme.typography.eleRegular16,
+                color = NMGTheme.colors.commonNeutralGray90,
                 modifier = Modifier
                     .weight(1f)
                     .border(width = 1.dp, color = NMGTheme.colors.commonNeutralGray2)
