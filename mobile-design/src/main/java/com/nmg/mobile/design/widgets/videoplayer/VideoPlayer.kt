@@ -140,12 +140,8 @@ public fun VideoPlayer(
             }
         }
     })
-    exoPlayer.seekTo(1000)
     var progressChange by remember {
         mutableStateOf(0L)
-    }
-    var progressNeedToSeek by remember {
-        mutableStateOf(seekToPos)
     }
     LaunchedEffect(progressChange) {
         delay(200)
