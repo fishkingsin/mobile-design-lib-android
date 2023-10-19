@@ -112,13 +112,13 @@ fun ReelPlayerPreview() {
     }
     NMGTheme {
         Box(modifier = Modifier.background(Color.Gray)) {
-//            ReelPlayer(item) {
-//                VideoPlayer(
-//                    uri = Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"),
-////                    uri = Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
-//                    modifier = Modifier.fillMaxSize()
-//                )
-//            }
+            ReelPlayer(item) {
+                VideoPlayer(
+                    uri = Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"),
+//                    uri = Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 }

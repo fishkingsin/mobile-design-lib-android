@@ -96,22 +96,26 @@ public fun VideoPlayer(
             var playerState = VideoPlayerControlState.PLAYER_IDLE
             when (playbackState) {
                 ExoPlayer.STATE_IDLE -> {
-                    //播放器已实例化，但尚未准备就绪。
+                    //The player has been instantiated but is not ready yet.
                     Log.i(TAG, "${TAG}ExoPlayer.STATE_IDLE")
                     playerState = VideoPlayerControlState.PLAYER_IDLE
                 }
                 ExoPlayer.STATE_BUFFERING -> {
-                    //播放器无法从当前位置开始播放，因为已缓冲的数据不足。
+                    //The player cannot start playback from the current position
+                    //because there is insufficient data buffered
                     Log.i(TAG, "${TAG}ExoPlayer.STATE_BUFFERING")
 //                    playerState =  VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
                 }
                 ExoPlayer.STATE_READY -> {
-                    //播放器可以立即从当前位置开始播放。这意味着如果播放器的 playWhenReady 属性为 true，播放器将自动开始播放媒体。如果该属性为 false，播放器会暂停播放。
+                    //The player can immediately start playing from the current position.
+                    //This means that the player will automatically start playing media
+                    // if its playWhenReady property is true. If this property is false,
+                    // the player will pause playback.
                     Log.i(TAG, "${TAG}ExoPlayer.STATE_READY")
                     playerState =  VideoPlayerControlState.PLAY_READY
                 }
                 ExoPlayer.STATE_ENDED -> {
-                    //播放器已完成媒体播放。
+                    //The player has completed media playback
                     Log.i(TAG, "${TAG}ExoPlayer.STATE_ENDED")
                     playerState =  VideoPlayerControlState.COMPLETED
                 }
