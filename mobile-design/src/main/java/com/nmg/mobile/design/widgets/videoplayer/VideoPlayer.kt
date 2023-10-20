@@ -7,14 +7,11 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameMillis
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
@@ -30,7 +27,6 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
@@ -43,7 +39,7 @@ public fun VideoPlayer(
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier
 ) {
-    val TAG = "[VideoPlayer]"
+    val tag = "[VideoPlayer]"
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
             .build()
@@ -78,7 +74,7 @@ public fun VideoPlayer(
     exoPlayer.addListener(object : Player.Listener {
         override fun onPlayerError(error: PlaybackException) {
             super.onPlayerError(error)
-            Log.i(TAG, "${TAG}onPlayerError error=${error}")
+            Log.i(tag, "${tag}onPlayerError error=$error")
         }
         override fun onIsLoadingChanged(isLoading: Boolean) {
             super.onIsLoadingChanged(isLoading)
@@ -96,35 +92,35 @@ public fun VideoPlayer(
             var playerState = VideoPlayerControlState.PLAYER_IDLE
             when (playbackState) {
                 ExoPlayer.STATE_IDLE -> {
-                    //The player has been instantiated but is not ready yet.
-                    Log.i(TAG, "${TAG}ExoPlayer.STATE_IDLE")
+                    // The player has been instantiated but is not ready yet.
+                    Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
                     playerState = VideoPlayerControlState.PLAYER_IDLE
                 }
                 ExoPlayer.STATE_BUFFERING -> {
-                    //The player cannot start playback from the current position
-                    //because there is insufficient data buffered
-                    Log.i(TAG, "${TAG}ExoPlayer.STATE_BUFFERING")
+                    // The player cannot start playback from the current position
+                    // because there is insufficient data buffered
+                    Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
 //                    playerState =  VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
                 }
                 ExoPlayer.STATE_READY -> {
-                    //The player can immediately start playing from the current position.
-                    //This means that the player will automatically start playing media
+                    // The player can immediately start playing from the current position.
+                    // This means that the player will automatically start playing media
                     // if its playWhenReady property is true. If this property is false,
                     // the player will pause playback.
-                    Log.i(TAG, "${TAG}ExoPlayer.STATE_READY")
-                    playerState =  VideoPlayerControlState.PLAY_READY
+                    Log.i(tag, "${tag}ExoPlayer.STATE_READY")
+                    playerState = VideoPlayerControlState.PLAY_READY
                 }
                 ExoPlayer.STATE_ENDED -> {
-                    //The player has completed media playback
-                    Log.i(TAG, "${TAG}ExoPlayer.STATE_ENDED")
-                    playerState =  VideoPlayerControlState.COMPLETED
+                    // The player has completed media playback
+                    Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
+                    playerState = VideoPlayerControlState.COMPLETED
                 }
                 else -> {
-                    Log.i(TAG, "${TAG}UNKNOWN_STATE")
+                    Log.i(tag, "${tag}UNKNOWN_STATE")
                 }
             }
             onStateChange?.let {
-                Log.i(TAG, "${TAG}onStateChange playerState=${playerState}")
+                Log.i(tag, "${tag}onStateChange playerState=$playerState")
                 it(playerState)
             }
         }
@@ -132,11 +128,13 @@ public fun VideoPlayer(
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
             onStateChange?.let {
-                it(if (isPlaying) {
-                    VideoPlayerControlState.PLAYING
-                } else {
-                    VideoPlayerControlState.PAUSED
-                })
+                it(
+                    if (isPlaying) {
+                        VideoPlayerControlState.PLAYING
+                    } else {
+                        VideoPlayerControlState.PAUSED
+                    }
+                )
             }
         }
     })

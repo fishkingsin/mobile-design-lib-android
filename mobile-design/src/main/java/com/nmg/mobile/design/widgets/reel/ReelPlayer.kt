@@ -34,10 +34,12 @@ public fun <Item : ReelPlayerData> ReelPlayer(
     item: Item,
     playerView: @Composable ((BoxScope) -> Unit)? = null
 ) {
-    Box(modifier = Modifier
-        .background(Color.Black)
-        .fillMaxWidth()
-        .fillMaxHeight()) {
+    Box(
+        modifier = Modifier
+            .background(Color.Black)
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
         playerView?.let {
             it(this)
         }
@@ -114,7 +116,9 @@ fun ReelPlayerPreview() {
         Box(modifier = Modifier.background(Color.Gray)) {
             ReelPlayer(item) {
                 VideoPlayer(
-                    uri = Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"),
+                    uri = Uri.parse(
+                        "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8"
+                    ),
 //                    uri = Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"),
                     modifier = Modifier.fillMaxSize()
                 )

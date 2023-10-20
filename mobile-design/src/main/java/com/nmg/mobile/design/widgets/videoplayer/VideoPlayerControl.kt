@@ -47,7 +47,7 @@ public fun VideoPlayerControl(
     data: VideoPlayerControlData,
     event: VideoPlayerControlEvent? = null,
     onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
-    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
+    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null
 ) {
     val targetState = when (data.playState) {
         VideoPlayerControlState.PLAYER_INIT -> VideoPlayerControlState.LOADING
@@ -77,7 +77,7 @@ public fun VideoPlayerControl(
         }
         Log.i(
             "[VideoPlayer]",
-            "[VideoPlayer]playState=${data.playState}, targetState=${targetState}"
+            "[VideoPlayer]playState=${data.playState}, targetState=$targetState"
         )
         when (targetState) {
             VideoPlayerControlState.LOADING -> {
@@ -110,10 +110,7 @@ public fun VideoPlayerControl(
 }
 
 @Composable
-fun VideoPlayerControlInitView(
-    boxScope: BoxScope,
-    data: VideoPlayerControlData,
-) {
+fun VideoPlayerControlInitView(boxScope: BoxScope, data: VideoPlayerControlData) {
     boxScope.apply {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
@@ -177,7 +174,7 @@ fun VideoPlayerControlPlayingView(boxScope: BoxScope, sliderValue: Float) {
 fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
     boxScope: BoxScope,
     videoPlayerControlState: VideoPlayerControlState,
-    event: VideoPlayerControlEvent? = null,
+    event: VideoPlayerControlEvent? = null
 ) {
     boxScope.apply {
         Row(
@@ -256,10 +253,10 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
             }
         }
 
-        if (VideoPlayerControlState.PAUSED == videoPlayerControlState
-            || VideoPlayerControlState.PLAYING == videoPlayerControlState
-            || VideoPlayerControlState.PLAYING_TAB == videoPlayerControlState
-        )
+        if (VideoPlayerControlState.PAUSED == videoPlayerControlState ||
+            VideoPlayerControlState.PLAYING == videoPlayerControlState ||
+            VideoPlayerControlState.PLAYING_TAB == videoPlayerControlState
+        ) {
             IconButton(
                 onClick = { event?.onClickFullScreen() },
                 modifier = Modifier
@@ -275,6 +272,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
                     contentDescription = ""
                 )
             }
+        }
     }
 }
 
@@ -299,16 +297,18 @@ fun VideoPlayerControlPreview() {
 
     NMGTheme {
         Column(
-            verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
+            verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
         ) {
             VideoPlayerControl(
                 data = item,
                 onVideoPlayerLayer = {
-                    VideoPlayer(uri = testUri, isAutoPlay = true,
+                    VideoPlayer(
+                        uri = testUri,
+                        isAutoPlay = true,
                         onStateChange = { itState ->
                             Log.i(
                                 "VideoPlayerControl",
-                                "[VideoPlayer]VideoPlayer#itState=${itState}"
+                                "[VideoPlayer]VideoPlayer#itState=$itState"
                             )
                             item.playState = itState
                         },
@@ -317,14 +317,15 @@ fun VideoPlayerControlPreview() {
                                 (((pos * 1.0 / duration) * 100).toInt() * 1.0 / 100)
                             Log.i(
                                 "VideoPlayerControl",
-                                "[VideoPlayer]#onProgressChange#pos=${pos} duration=${duration} #currentSliderValue=${currentSliderValue}"
+                                "[VideoPlayer]#onProgressChange#pos=$pos duration=$duration #currentSliderValue=$currentSliderValue"
                             )
                             if (currentSliderValue.toFloat() == item.sliderValue) {
                                 return@VideoPlayer
                             }
                             item.sliderValue = currentSliderValue.toFloat()
-                        })
-                },
+                        }
+                    )
+                }
             )
         }
     }

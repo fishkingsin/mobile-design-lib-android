@@ -18,6 +18,7 @@ class VideoPlayerControlTest : ScreenshotTest {
     val composeRule = createComposeRule()
 
     lateinit var instrumentationContext: Context
+
     @Before
     fun setup() {
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
@@ -35,7 +36,7 @@ class VideoPlayerControlTest : ScreenshotTest {
                         override var sliderValue: Float = 0.5f
                     },
                     null,
-                    null,
+                    null
                 )
             }
         }
