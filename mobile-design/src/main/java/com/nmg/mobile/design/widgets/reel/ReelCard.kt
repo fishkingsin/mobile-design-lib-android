@@ -17,10 +17,10 @@ import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
-import com.nmg.mobile.design.widgets.card.CardDataAbstract
+import com.nmg.mobile.design.widgets.card.CardDataProtocol
 
 @Composable
-public fun <Data : CardDataAbstract> ReelCard(
+public fun <Data : CardDataProtocol> ReelCard(
     data: Data,
     overlay: (@Composable (BoxScope) -> Unit)? = null
 ) {

@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> CardView(data: Data) {
+public fun <Data : CardDataProtocol> CardView(data: Data) {
     Box(
         modifier = Modifier
             .background(Color.White)

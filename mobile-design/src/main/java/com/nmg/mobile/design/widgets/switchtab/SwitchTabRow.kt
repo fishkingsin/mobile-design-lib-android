@@ -90,7 +90,11 @@ fun <Data : TabData> SwitchTabRow(
                     text = {
                         Text(
                             text = tab.title,
-                            style = NMGTheme.typography.title2Medium
+                            style = if (tabIndex == index) {
+                                NMGTheme.typography.eleMedium18
+                            } else {
+                                NMGTheme.typography.eleRegular18
+                            }
                         )
                     },
                     selectedContentColor = NMGTheme.colors.selectedTabContentColor,

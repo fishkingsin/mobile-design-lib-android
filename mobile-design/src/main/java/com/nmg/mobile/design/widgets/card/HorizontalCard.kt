@@ -28,7 +28,7 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataAbstract> HorizontalCard(data: Data, isPlaying: Boolean = false) {
+public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boolean = false) {
     Box(
         modifier = Modifier
             .background(if (isPlaying) NMGTheme.colors.commonNeutralGray5 else Color.White)
@@ -68,7 +68,7 @@ public fun <Data : CardDataAbstract> HorizontalCard(data: Data, isPlaying: Boole
                 modifier = Modifier.padding(start = 12.dp),
                 text = data.headline,
                 color = NMGTheme.colors.commonNeutralGray90,
-                style = NMGTheme.typography.body,
+                style = NMGTheme.typography.cardTitle,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
@@ -76,6 +76,7 @@ public fun <Data : CardDataAbstract> HorizontalCard(data: Data, isPlaying: Boole
     }
 }
 
+@Suppress("ktlint:standard:max-line-length")
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun horizontalCardView_Preview() {

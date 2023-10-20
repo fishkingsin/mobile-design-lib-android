@@ -32,7 +32,7 @@ public fun PlayNowOverlay(boxScope: BoxScope) {
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(R.string.playing_now),
                 color = Color.White,
-                style = NMGTheme.typography.body,
+                style = NMGTheme.typography.eleRegular16,
                 overflow = TextOverflow.Ellipsis
             )
         }

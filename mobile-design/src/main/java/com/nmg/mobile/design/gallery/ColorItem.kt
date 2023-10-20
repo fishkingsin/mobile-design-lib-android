@@ -27,7 +27,7 @@ public fun ColorItem(colorName: String = "", color: Color) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(colorName, style = NMGTheme.typography.caption)
+        Text(colorName, style = NMGTheme.typography.eleRegular14)
         Box(
             modifier = Modifier
                 .size(100.dp)
