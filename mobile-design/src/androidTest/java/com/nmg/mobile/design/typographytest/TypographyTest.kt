@@ -23,26 +23,24 @@ class TypographyTest : ScreenshotTest {
 
     lateinit var instrumentationContext: Context
     val typographies = listOf(
-        Pair("largeTitleEmphasize", defaultTypography.largeTitleEmphasize),
-        Pair("titleEmphasize", defaultTypography.titleEmphasize),
-        Pair("title1", defaultTypography.title1),
-        Pair("title2", defaultTypography.title2),
-        Pair("title3", defaultTypography.title3),
-        Pair("title4", defaultTypography.title4),
-        Pair("title2Emphasize", defaultTypography.title2Emphasize),
-        Pair("title3Emphasize", defaultTypography.title3Emphasize),
-        Pair("title4Emphasize", defaultTypography.title4Emphasize),
-        Pair("title5", defaultTypography.title5),
-        Pair("headline", defaultTypography.headline),
-        Pair("headlineEmphasize", defaultTypography.headlineEmphasize),
-        Pair("primaryButton", defaultTypography.primaryButton),
-        Pair("captionEmphasize", defaultTypography.captionEmphasize),
-        Pair("caption", defaultTypography.caption),
-        Pair("caption2", defaultTypography.caption2),
-        Pair("caption3Emphasize", defaultTypography.caption3Emphasize),
-        Pair("naviTitle", defaultTypography.naviTitle),
-        Pair("body", defaultTypography.body),
-        Pair("bodyEmphasize", defaultTypography.bodyEmphasize)
+        Pair("eleSemibold24", defaultTypography.eleSemibold24),
+        Pair("eleSemibold22", defaultTypography.eleSemibold22),
+        Pair("eleMedium18", defaultTypography.eleMedium18),
+        Pair("eleMedium14", defaultTypography.eleMedium14),
+        Pair("eleRegular24", defaultTypography.eleRegular24),
+        Pair("eleRegular18", defaultTypography.eleRegular18),
+        Pair("eleRegular16", defaultTypography.eleRegular16),
+        Pair("eleRegular14", defaultTypography.eleRegular14),
+        Pair("eleRegular12", defaultTypography.eleRegular12),
+        Pair("eleRegular10", defaultTypography.eleRegular10),
+        Pair("carouselTitle", defaultTypography.carouselTitle),
+        Pair("cardTitle", defaultTypography.cardTitle),
+        Pair("cardContent", defaultTypography.cardContent),
+        Pair("articleH1", defaultTypography.articleH1),
+        Pair("articleH2", defaultTypography.articleH2),
+        Pair("articleH3", defaultTypography.articleH3),
+        Pair("articleContent", defaultTypography.articleContent),
+        Pair("articleDescription", defaultTypography.articleDescription)
     )
 
     @Before
@@ -70,10 +68,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_largeTitleEmphasize() {
+    fun test_eleSemibold24() {
         composeRule.setContent {
             NMGTheme {
-                Text("largeTitleEmphasize", style = defaultTypography.largeTitleEmphasize)
+                Text("eleSemibold24", style = defaultTypography.eleSemibold24)
             }
         }
 
@@ -81,10 +79,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_titleEmphasize() {
+    fun test_eleSemibold22() {
         composeRule.setContent {
             NMGTheme {
-                Text("titleEmphasize", style = defaultTypography.titleEmphasize)
+                Text("eleSemibold22", style = defaultTypography.eleSemibold22)
             }
         }
 
@@ -92,10 +90,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title1() {
+    fun test_eleMedium18() {
         composeRule.setContent {
             NMGTheme {
-                Text("title1", style = defaultTypography.title1)
+                Text("eleMedium18", style = defaultTypography.eleMedium18)
             }
         }
 
@@ -103,10 +101,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title2() {
+    fun test_eleMedium14() {
         composeRule.setContent {
             NMGTheme {
-                Text("title2", style = defaultTypography.title2)
+                Text("eleMedium14", style = defaultTypography.eleMedium14)
             }
         }
 
@@ -114,10 +112,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title3() {
+    fun test_eleRegular24() {
         composeRule.setContent {
             NMGTheme {
-                Text("title3", style = defaultTypography.title3)
+                Text("eleRegular24", style = defaultTypography.eleRegular24)
             }
         }
 
@@ -125,10 +123,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title4() {
+    fun test_eleRegular18() {
         composeRule.setContent {
             NMGTheme {
-                Text("title4", style = defaultTypography.title4)
+                Text("eleRegular18", style = defaultTypography.eleRegular18)
             }
         }
 
@@ -136,10 +134,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title2Emphasize() {
+    fun test_eleRegular16() {
         composeRule.setContent {
             NMGTheme {
-                Text("title2Emphasize", style = defaultTypography.title2Emphasize)
+                Text("eleRegular16", style = defaultTypography.eleRegular16)
             }
         }
 
@@ -147,10 +145,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title3Emphasize() {
+    fun test_eleRegular14() {
         composeRule.setContent {
             NMGTheme {
-                Text("title3Emphasize", style = defaultTypography.title3Emphasize)
+                Text("eleRegular14", style = defaultTypography.eleRegular14)
             }
         }
 
@@ -158,10 +156,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title4Emphasize() {
+    fun test_eleRegular12() {
         composeRule.setContent {
             NMGTheme {
-                Text("title4Emphasize", style = defaultTypography.title4Emphasize)
+                Text("eleRegular12", style = defaultTypography.eleRegular12)
             }
         }
 
@@ -169,10 +167,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_title5() {
+    fun test_eleRegular10() {
         composeRule.setContent {
             NMGTheme {
-                Text("title5", style = defaultTypography.title5)
+                Text("eleRegular10", style = defaultTypography.eleRegular10)
             }
         }
 
@@ -180,10 +178,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_headline() {
+    fun test_carouselTitle() {
         composeRule.setContent {
             NMGTheme {
-                Text("headline", style = defaultTypography.headline)
+                Text("carouselTitle", style = defaultTypography.carouselTitle)
             }
         }
 
@@ -191,10 +189,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_headlineEmphasize() {
+    fun test_cardTitle() {
         composeRule.setContent {
             NMGTheme {
-                Text("headlineEmphasize", style = defaultTypography.headlineEmphasize)
+                Text("cardTitle", style = defaultTypography.cardTitle)
             }
         }
 
@@ -202,10 +200,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_primaryButton() {
+    fun test_cardContent() {
         composeRule.setContent {
             NMGTheme {
-                Text("primaryButton", style = defaultTypography.primaryButton)
+                Text("cardContent", style = defaultTypography.cardContent)
             }
         }
 
@@ -213,10 +211,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_captionEmphasize() {
+    fun test_articleH1() {
         composeRule.setContent {
             NMGTheme {
-                Text("captionEmphasize", style = defaultTypography.captionEmphasize)
+                Text("articleH1", style = defaultTypography.articleH1)
             }
         }
 
@@ -224,10 +222,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_caption() {
+    fun test_articleH2() {
         composeRule.setContent {
             NMGTheme {
-                Text("caption", style = defaultTypography.caption)
+                Text("articleH2", style = defaultTypography.articleH2)
             }
         }
 
@@ -235,10 +233,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_caption2() {
+    fun test_articleH3() {
         composeRule.setContent {
             NMGTheme {
-                Text("caption2", style = defaultTypography.caption2)
+                Text("articleH3", style = defaultTypography.articleH3)
             }
         }
 
@@ -246,10 +244,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_caption3Emphasize() {
+    fun test_articleContent() {
         composeRule.setContent {
             NMGTheme {
-                Text("caption3Emphasize", style = defaultTypography.caption3Emphasize)
+                Text("articleContent", style = defaultTypography.articleContent)
             }
         }
 
@@ -257,32 +255,10 @@ class TypographyTest : ScreenshotTest {
     }
 
     @Test
-    fun test_naviTitle() {
+    fun test_articleDescription() {
         composeRule.setContent {
             NMGTheme {
-                Text("naviTitle", style = defaultTypography.naviTitle)
-            }
-        }
-
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_body() {
-        composeRule.setContent {
-            NMGTheme {
-                Text("body", style = defaultTypography.body)
-            }
-        }
-
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_bodyEmphasize() {
-        composeRule.setContent {
-            NMGTheme {
-                Text("bodyEmphasize", style = defaultTypography.bodyEmphasize)
+                Text("articleDescription", style = defaultTypography.articleDescription)
             }
         }
 

@@ -10,7 +10,7 @@ public fun <Data : CardDataProtocol> CardViewHeadline(data: Data) {
     Text(
         text = data.headline,
         maxLines = 2,
-        style = NMGTheme.typography.headline,
+        style = NMGTheme.typography.cardTitle,
         overflow = TextOverflow.Ellipsis
     )
 }

@@ -50,7 +50,7 @@ fun CardDemo() {
                         )
                     ) {
                     }
-                    Text("最新的連續短片", style = NMGTheme.typography.title1Medium)
+                    Text("最新的連續短片", style = NMGTheme.typography.eleMedium14)
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
                     ) {
@@ -73,7 +73,7 @@ fun CardDemo() {
                         }
                     }
 
-                    Text("#職學職用", style = NMGTheme.typography.title1Medium)
+                    Text("#職學職用", style = NMGTheme.typography.eleMedium14)
                     LazyRow(
                         horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
                     ) {

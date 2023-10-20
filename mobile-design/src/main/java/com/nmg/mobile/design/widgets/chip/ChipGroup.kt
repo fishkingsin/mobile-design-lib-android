@@ -50,6 +50,7 @@ public fun <Items : List<ChipData>> ChipGroup(
                         } else {
                             chipForeground
                         },
+                        style = NMGTheme.typography.eleRegular14,
                         modifier = Modifier
                             .padding(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
                         text = items[index].title

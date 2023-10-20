@@ -15,7 +15,7 @@ public fun <Data : CardDataProtocol> CardViewFootnote(data: Data) {
         horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
     ) {
         val color = NMGTheme.colors.footnote
-        val style = NMGTheme.typography.caption
+        val style = NMGTheme.typography.eleRegular14
 
         Text(text = data.leadingFootnote, color = color, style = style)
         Text(text = data.secondFootnote, color = color, style = style)
