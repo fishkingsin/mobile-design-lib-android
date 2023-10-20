@@ -226,7 +226,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
                         )
                     }
 
-                    VideoPlayerControlState.COMPLETED -> {
+                    VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
                         Icon(
                             modifier = Modifier
                                 .width(60.dp)
