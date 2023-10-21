@@ -36,7 +36,6 @@ class VideoPlayerControlTest : ScreenshotTest {
                         override var sliderValue: Float = 0.5f
                     },
                     null,
-                    null,
                     null
                 )
             }

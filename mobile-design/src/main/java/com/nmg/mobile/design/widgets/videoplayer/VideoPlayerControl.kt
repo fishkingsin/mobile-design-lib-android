@@ -1,6 +1,9 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -14,9 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Slider
@@ -34,217 +35,243 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : VideoPlayerControlData> VideoPlayerControl(
-    data: Data,
+public fun VideoPlayerControl(
+    data: VideoPlayerControlData,
+    event: VideoPlayerControlEvent? = null,
     onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
-    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
-    event: VideoPlayerControlEvent?
+    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null
 ) {
-    var sliderValue: Float by remember { mutableStateOf(data.sliderValue) }
-    var playerState: VideoPlayerControlState by remember { mutableStateOf(data.playState) }
-    var playerIcon = when (playerState) {
-        VideoPlayerControlState.LOADING -> R.drawable.video_player_loading
-        VideoPlayerControlState.PLAYING -> 0
-        VideoPlayerControlState.PLAYING_TAB -> R.drawable.video_player_pause
-        VideoPlayerControlState.PAUSED -> R.drawable.video_player_play
-        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> R.drawable.video_player_replay
-        else -> R.drawable.video_player_pause
+    val targetState = when (data.playState) {
+        VideoPlayerControlState.PLAYER_INIT -> VideoPlayerControlState.LOADING
+        VideoPlayerControlState.PLAYER_IDLE -> VideoPlayerControlState.LOADING
+        VideoPlayerControlState.LOADING -> data.playState
+        VideoPlayerControlState.PLAY_READY -> VideoPlayerControlState.PAUSED
+        VideoPlayerControlState.PLAYING -> data.playState
+        VideoPlayerControlState.PLAYING_TAB -> data.playState
+        VideoPlayerControlState.PAUSED -> data.playState
+        VideoPlayerControlState.COMPLETED -> data.playState
+        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> data.playState
+        else -> VideoPlayerControlState.LOADING
     }
-    var isShowControl = when (playerState) {
-        VideoPlayerControlState.LOADING -> true
-        VideoPlayerControlState.PLAYING -> false
-        VideoPlayerControlState.PLAYING_TAB -> true
-        VideoPlayerControlState.PAUSED -> true
-        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> true
-        else -> false
-    }
-
     Box(
         modifier = Modifier
             .aspectRatio(390f / 219f)
             .size(390.dp, 219.dp)
             .background(Color.Black)
+            .clickable(enabled = true, onClick = {
+                if (data.playState == VideoPlayerControlState.PLAYING) {
+                    event?.onClickVideoWhenPlaying()
+                }
+            })
     ) {
         onVideoPlayerLayer?.let { it ->
             it(this)
         }
-        if (playerState == VideoPlayerControlState.LOADING) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
-                    .crossfade(true).build(),
-                placeholder = painterResource(R.drawable.placeholder),
-                contentDescription = stringResource(R.string.description),
-                contentScale = ContentScale.FillHeight,
-                modifier = Modifier.background(
-                    color = Color.Black,
-                    shape = RoundedCornerShape(4.dp)
-                ).fillMaxSize().aspectRatio(390f / 219f).size(390.dp, 219.dp)
-            )
-        }
-        if (playerState == VideoPlayerControlState.COMPLETED) {
-            onVideoPlayerCompletedLayer?.let { it ->
-                it(this)
+        Log.i(
+            "[VideoPlayer]",
+            "[VideoPlayer]playState=${data.playState}, targetState=$targetState"
+        )
+        when (targetState) {
+            VideoPlayerControlState.LOADING -> {
+                VideoPlayerControlInitView(boxScope = this, data = data)
+            }
+
+            VideoPlayerControlState.PLAYING -> {
+                VideoPlayerControlPlayingView(boxScope = this, sliderValue = data.sliderValue)
+            }
+
+            VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
+                VideoPlayerControlPlayingTabOrPauseOrCompletedView(
+                    boxScope = this,
+                    videoPlayerControlState = targetState,
+                    event = event
+                )
+            }
+
+            VideoPlayerControlState.COMPLETED -> {
+                onVideoPlayerCompletedLayer?.let { it ->
+                    it(this)
+                }
+            }
+
+            else -> {
+                Text(text = "UNKNOW STATE")
             }
         }
-        if (isShowControl) {
-            IconButton(onClick = { event?.onClickBack() }) {
+    }
+}
+
+@Composable
+fun VideoPlayerControlInitView(boxScope: BoxScope, data: VideoPlayerControlData) {
+    boxScope.apply {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
+                .crossfade(true).build(),
+            placeholder = painterResource(R.drawable.placeholder),
+            contentDescription = stringResource(R.string.description),
+            contentScale = ContentScale.FillHeight,
+            modifier = Modifier
+                .background(
+                    color = Color.Black,
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .fillMaxSize()
+                .aspectRatio(390f / 219f)
+                .size(390.dp, 219.dp)
+        )
+        Row(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(enabled = false, onClick = {}) {
                 Icon(
                     modifier = Modifier
-                        .padding(8.dp)
-                        .width(36.dp)
-                        .height(36.dp),
+                        .width(60.dp)
+                        .height(60.dp),
                     tint = Color.White,
-                    painter = painterResource(id = R.drawable.video_player_back),
+                    painter = painterResource(id = R.drawable.video_player_loading),
                     contentDescription = ""
                 )
             }
-            Row(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                if (playerState != VideoPlayerControlState.LOADING) {
-                    IconButton(onClick = { event?.onClickPre() }) {
+        }
+    }
+}
+
+@Composable
+fun VideoPlayerControlPlayingView(boxScope: BoxScope, sliderValue: Float) {
+    boxScope.apply {
+        Slider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(3.dp)
+                .align(Alignment.BottomCenter),
+            value = sliderValue,
+            onValueChange = { itValue ->
+            },
+            onValueChangeFinished = {
+                // launch some business logic update with the state you hold
+                // viewModel.updateSelectedSliderValue(sliderPosition)
+            },
+            colors = SliderDefaults.colors(
+                thumbColor = NMGTheme.colors.primaryMain,
+                activeTrackColor = NMGTheme.colors.primaryMain,
+                inactiveTrackColor = Color.White
+            )
+        )
+    }
+}
+
+@Composable
+fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
+    boxScope: BoxScope,
+    videoPlayerControlState: VideoPlayerControlState,
+    event: VideoPlayerControlEvent? = null
+) {
+    boxScope.apply {
+        Row(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = { event?.onClickPre() }) {
+                Icon(
+                    modifier = Modifier
+                        .width(44.dp)
+                        .height(44.dp),
+                    tint = Color.White,
+                    painter = painterResource(id = R.drawable.video_player_pre),
+                    contentDescription = ""
+                )
+            }
+            Spacer(modifier = Modifier.width(32.dp))
+            IconButton(onClick = {
+                when (videoPlayerControlState) {
+                    VideoPlayerControlState.PLAYING_TAB -> event?.onClickPause()
+                    VideoPlayerControlState.PAUSED -> event?.onClickPlay()
+                    VideoPlayerControlState.COMPLETED -> event?.onClickReplay()
+                    else -> {
+                        // pass
+                    }
+                }
+            }) {
+                when (videoPlayerControlState) {
+                    VideoPlayerControlState.PLAYING_TAB -> {
                         Icon(
                             modifier = Modifier
-                                .width(44.dp)
-                                .height(44.dp),
+                                .width(60.dp)
+                                .height(60.dp),
                             tint = Color.White,
-                            painter = painterResource(id = R.drawable.video_player_pre),
+                            painter = painterResource(id = R.drawable.video_player_pause),
                             contentDescription = ""
                         )
                     }
-                }
-                Spacer(modifier = Modifier.width(32.dp))
-                IconButton(onClick = {
-                    when (playerState) {
-                        VideoPlayerControlState.LOADING -> { /* pass */ }
-                        VideoPlayerControlState.PLAYING -> { /* pass */ }
-                        VideoPlayerControlState.PLAYING_TAB -> {
-                            event?.onClickPause()
-                        }
-                        VideoPlayerControlState.PAUSED -> {
-                            event?.onClickPlay()
-                        }
-                        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
-                            event?.onClickReplay()
-                        }
-                        else -> { /* pass */ }
-                    }
-                }) {
-                    Icon(
-                        modifier = Modifier
-                            .width(60.dp)
-                            .height(60.dp),
-                        tint = Color.White,
-                        painter = painterResource(id = playerIcon),
-                        contentDescription = ""
-                    )
-                }
-                Spacer(modifier = Modifier.width(32.dp))
-                if (playerState != VideoPlayerControlState.LOADING) {
-                    IconButton(onClick = { event?.onClickNext() }) {
+
+                    VideoPlayerControlState.PAUSED -> {
                         Icon(
                             modifier = Modifier
-                                .width(44.dp)
-                                .height(44.dp),
+                                .width(60.dp)
+                                .height(60.dp),
                             tint = Color.White,
-                            painter = painterResource(id = R.drawable.video_player_next),
+                            painter = painterResource(id = R.drawable.video_player_play),
                             contentDescription = ""
                         )
                     }
+
+                    VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
+                        Icon(
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp),
+                            tint = Color.White,
+                            painter = painterResource(id = R.drawable.video_player_replay),
+                            contentDescription = ""
+                        )
+                    }
+
+                    else -> {}
                 }
             }
-            if (playerState == VideoPlayerControlState.PLAYING_TAB ||
-                playerState == VideoPlayerControlState.PAUSED ||
-                playerState == VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
-            ) {
-                Row(
+            Spacer(modifier = Modifier.width(32.dp))
+            IconButton(onClick = { event?.onClickNext() }) {
+                Icon(
                     modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(start = 16.dp, bottom = 15.dp)
-                ) {
-                    Text(
-                        text = "1:36",
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            color = Color.White,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "/",
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            color = NMGTheme.colors.commonNeutralGray20,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = data.totalTime,
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            color = NMGTheme.colors.commonNeutralGray20,
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                }
-            }
-            if (playerState == VideoPlayerControlState.PAUSED ||
-                playerState == VideoPlayerControlState.PLAYING_TAB
-            ) {
-                IconButton(
-                    onClick = { event?.onClickFullScreen() },
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .width(16.dp)
-                            .height(16.dp),
-                        tint = Color.White,
-                        painter = painterResource(id = R.drawable.video_player_expand),
-                        contentDescription = ""
-                    )
-                }
+                        .width(44.dp)
+                        .height(44.dp),
+                    tint = Color.White,
+                    painter = painterResource(id = R.drawable.video_player_next),
+                    contentDescription = ""
+                )
             }
         }
-        if (playerState != VideoPlayerControlState.LOADING &&
-            playerState != VideoPlayerControlState.COMPLETED
+
+        if (VideoPlayerControlState.PAUSED == videoPlayerControlState ||
+            VideoPlayerControlState.PLAYING == videoPlayerControlState ||
+            VideoPlayerControlState.PLAYING_TAB == videoPlayerControlState
         ) {
-            Slider(
+            IconButton(
+                onClick = { event?.onClickFullScreen() },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(3.dp)
-                    .align(Alignment.BottomCenter),
-                value = sliderValue,
-                onValueChange = { },
-//            valueRange = 0f..100f,
-                onValueChangeFinished = {
-                    // launch some business logic update with the state you hold
-                    // viewModel.updateSelectedSliderValue(sliderPosition)
-                },
-//            steps = 5,
-                colors = SliderDefaults.colors(
-                    thumbColor = NMGTheme.colors.primaryMain,
-                    activeTrackColor = NMGTheme.colors.primaryMain,
-                    inactiveTrackColor = Color.White
+                    .align(Alignment.BottomEnd)
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .width(16.dp)
+                        .height(16.dp),
+                    tint = Color.White,
+                    painter = painterResource(id = R.drawable.video_player_expand),
+                    contentDescription = ""
                 )
-            )
+            }
         }
     }
 }
@@ -252,81 +279,53 @@ public fun <Data : VideoPlayerControlData> VideoPlayerControl(
 @Preview(showBackground = true)
 @Composable
 fun VideoPlayerControlPreview() {
+    val testUri =
+//        Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")
+        Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")
+//        Uri.parse("http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8")
+    // Define the UI element expanded state
+    var item: VideoPlayerControlData = object : VideoPlayerControlData {
+        override var playState by remember {
+            mutableStateOf(VideoPlayerControlState.PLAYER_INIT)
+        }
+        override var imageURL: String = "https://placehold.co/390x219/png"
+        override var totalTime: String = "22:22"
+        override var sliderValue by remember {
+            mutableStateOf(0f)
+        }
+    }
+
     NMGTheme {
         Column(
-            verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
-            modifier = Modifier.verticalScroll(rememberScrollState())
+            verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
         ) {
             VideoPlayerControl(
-                object : VideoPlayerControlData {
-                    override var playState: VideoPlayerControlState = VideoPlayerControlState.LOADING
-                    override var imageURL: String = "https://placehold.co/390x219/png"
-                    override var totalTime: String = "22:22"
-                    override var sliderValue: Float = 0.5f
-                },
-                null,
-                null,
-                null
-            )
-
-            VideoPlayerControl(
-                object : VideoPlayerControlData {
-                    override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING
-                    override var imageURL: String = "https://placehold.co/390x219/png"
-                    override var totalTime: String = "22:22"
-                    override var sliderValue: Float = 0.5f
-                },
-                null,
-                null,
-                null
-            )
-
-            VideoPlayerControl(
-                object : VideoPlayerControlData {
-                    override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING_TAB
-                    override var imageURL: String = "https://placehold.co/390x219/png"
-                    override var totalTime: String = "22:22"
-                    override var sliderValue: Float = 0.5f
-                },
-                null,
-                null,
-                null
-            )
-
-            VideoPlayerControl(
-                object : VideoPlayerControlData {
-                    override var playState: VideoPlayerControlState = VideoPlayerControlState.PAUSED
-                    override var imageURL: String = "https://placehold.co/390x219/png"
-                    override var totalTime: String = "22:22"
-                    override var sliderValue: Float = 0.5f
-                },
-                null,
-                null,
-                null
-            )
-
-            VideoPlayerControl(
-                object : VideoPlayerControlData {
-                    override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED
-                    override var imageURL: String = "https://placehold.co/390x219/png"
-                    override var totalTime: String = "22:22"
-                    override var sliderValue: Float = 0.5f
-                },
-                null,
-                null,
-                null
-            )
-
-            VideoPlayerControl(
-                object : VideoPlayerControlData {
-                    override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
-                    override var imageURL: String = "https://placehold.co/390x219/png"
-                    override var totalTime: String = "22:22"
-                    override var sliderValue: Float = 0.5f
-                },
-                null,
-                null,
-                null
+                data = item,
+                onVideoPlayerLayer = {
+                    VideoPlayer(
+                        uri = testUri,
+                        isAutoPlay = true,
+                        onStateChange = { itState ->
+                            Log.i(
+                                "VideoPlayerControl",
+                                "[VideoPlayer]VideoPlayer#itState=$itState"
+                            )
+                            item.playState = itState
+                        },
+                        onProgressChange = { pos, duration ->
+                            val currentSliderValue =
+                                (((pos * 1.0 / duration) * 100).toInt() * 1.0 / 100)
+                            Log.i(
+                                "VideoPlayerControl",
+                                "[VideoPlayer]#onProgressChange#pos=$pos duration=$duration #currentSliderValue=$currentSliderValue"
+                            )
+                            if (currentSliderValue.toFloat() == item.sliderValue) {
+                                return@VideoPlayer
+                            }
+                            item.sliderValue = currentSliderValue.toFloat()
+                        }
+                    )
+                }
             )
         }
     }
