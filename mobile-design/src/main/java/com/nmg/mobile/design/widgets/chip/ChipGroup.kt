@@ -3,6 +3,7 @@ package com.nmg.mobile.design.widgets.chip
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.Button
@@ -23,6 +24,7 @@ public interface ChipData {
 public fun <Items : List<ChipData>> ChipGroup(
     items: Items,
     selectedTabIndex: Int = 0,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     onTapChip: (Int) -> Unit
 ) {
     var tabIndex by remember { mutableStateOf(selectedTabIndex) }
@@ -34,7 +36,8 @@ public fun <Items : List<ChipData>> ChipGroup(
     }
 
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+        horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
+        contentPadding = contentPadding,
     ) {
         items(items.size) { index ->
             Chip(
