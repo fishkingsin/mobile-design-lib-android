@@ -5,4 +5,5 @@ public interface CardDisplayable {
     public val headline: String
     public val leadingFootnote: String
     public val secondFootnote: String
+    public val tag: String?
 }

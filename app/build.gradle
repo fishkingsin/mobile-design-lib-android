@@ -37,9 +37,6 @@ android {
         animationsDisabled = true
     }
 
-    adbOptions {
-        installOptions '-g', '-r'
-    }
 
     buildTypes {
         release {
@@ -62,6 +59,10 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.2"
     }
+    testNamespace 'com.nmg.mobile.design.gallery.test'
+    installation {
+        installOptions '-g', '-r'
+    }
 
 }
 
@@ -79,10 +80,12 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 
     implementation project(path: ':mobile-design')
+
     implementation project.ext.androidX.values()
 
     implementation project.ext.compose.values()
 
+    implementation project.ext.youtubeHelper.values()
 
     testImplementation project.ext.test.values()
     // AndroidTests
@@ -98,7 +101,7 @@ dependencies {
 }
 
 apply from: '../ktlint.gradle'
-check.dependsOn ktlint
+
 
 
 
@@ -106,7 +109,7 @@ def projectScreenshotsDirectory = "$projectDir/screenshots"
 def deviceScreenshotsDirectory = '/sdcard/Pictures/' + appId + '/debug/screenshots'
 
 def clearScreenshotsTask = task('clearScreenshots', type: Exec) {
-    println deviceScreenshotsDirectory
+    println "clearScreenshotsTask $deviceScreenshotsDirectory"
     executable "${android.getAdbExe().toString()}"
     args 'shell', 'rm', '-r', deviceScreenshotsDirectory
 }

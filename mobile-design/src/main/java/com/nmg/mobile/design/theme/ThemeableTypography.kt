@@ -1,27 +1,26 @@
 package com.nmg.mobile.design.theme
 
 import androidx.compose.ui.text.TextStyle
-
 public interface ThemeableTypography {
-    public val largeTitleEmphasize: TextStyle
-    public val titleEmphasize: TextStyle
-    public val title1: TextStyle
-    public val title1Medium: TextStyle
-    public val title2: TextStyle
-    public val title3: TextStyle
-    public val title4: TextStyle
-    public val title2Emphasize: TextStyle
-    public val title3Emphasize: TextStyle
-    public val title4Emphasize: TextStyle
-    public val title5: TextStyle
-    public val headline: TextStyle
-    public val headlineEmphasize: TextStyle
-    public val primaryButton: TextStyle
-    public val captionEmphasize: TextStyle
-    public val caption: TextStyle
-    public val caption2: TextStyle
-    public val caption3Emphasize: TextStyle
-    public val naviTitle: TextStyle
-    public val body: TextStyle
-    public val bodyEmphasize: TextStyle
+    public val eleSemibold24: TextStyle
+    public val eleSemibold22: TextStyle
+
+    public val eleMedium18: TextStyle
+    public val eleMedium14: TextStyle
+
+    public val eleRegular24: TextStyle
+    public val eleRegular18: TextStyle
+    public val eleRegular16: TextStyle
+    public val eleRegular14: TextStyle
+    public val eleRegular12: TextStyle
+    public val eleRegular10: TextStyle
+
+    public val carouselTitle: TextStyle
+    public val cardTitle: TextStyle
+    public val cardContent: TextStyle
+    public val articleH1: TextStyle
+    public val articleH2: TextStyle
+    public val articleH3: TextStyle
+    public val articleContent: TextStyle
+    public val articleDescription: TextStyle
 }

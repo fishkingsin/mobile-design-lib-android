@@ -9,14 +9,13 @@ import org.junit.Rule
 import org.junit.Test
 
 class MainActivityTest : ScreenshotTest {
-
     @get:Rule
     var activityScenarioRule = activityScenarioRule<MainActivity>()
 
     @Test
     fun activityTest() {
         val activity = launchActivity()
-        activityScenarioRule.scenario.use{
+        activityScenarioRule.scenario.use {
             compareScreenshot(it.waitForActivity())
         }
     }

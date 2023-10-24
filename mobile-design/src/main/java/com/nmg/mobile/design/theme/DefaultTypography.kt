@@ -5,92 +5,92 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 public val defaultTypography = Typography(
-    largeTitleEmphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 45.sp
+    eleSemibold24 = TextStyle(
+        fontSize = 24.sp,
+        fontWeight = FontWeight.SemiBold
     ),
-    titleEmphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 24.sp
+    eleSemibold22 = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.SemiBold
     ),
-    title1 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 24.sp
+
+    eleMedium18 = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Medium
     ),
-    title1Medium = TextStyle(
+    eleMedium14 = TextStyle(
         fontSize = 14.sp,
-        lineHeight = 22.sp,
-        fontWeight = FontWeight(500),
-        letterSpacing = 0.35.sp,
+        fontWeight = FontWeight.Medium
     ),
-    title2 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 18.sp
+
+    eleRegular24 = TextStyle(
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Normal
     ),
-    title3 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 17.sp
+    eleRegular18 = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Normal
     ),
-    title4 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 20.sp
-    ),
-    title2Emphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
-    ),
-    title3Emphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 17.sp
-    ),
-    title4Emphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
-    ),
-    title5 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp
-    ),
-    headline = TextStyle(
+    eleRegular16 = TextStyle(
         fontSize = 16.sp,
-        lineHeight = 22.sp,
+        fontWeight = FontWeight.Normal
+    ),
+    eleRegular14 = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal
+    ),
+    eleRegular12 = TextStyle(
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Normal
+    ),
+    eleRegular10 = TextStyle(
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Normal
+    ),
+
+    carouselTitle = TextStyle(
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
+        fontWeight = FontWeight.SemiBold,
+        letterSpacing = 0.4.sp
+    ),
+    cardTitle = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 21.sp,
+        fontWeight = FontWeight.Medium
+    ),
+    cardContent = TextStyle(
+        fontSize = 14.sp,
+        lineHeight = 18.2.sp,
+        fontWeight = FontWeight.Normal
+    ),
+    articleH1 = TextStyle(
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
+        fontWeight = FontWeight.SemiBold
+    ),
+    articleH2 = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 24.sp,
+        fontWeight = FontWeight.SemiBold,
+        letterSpacing = 0.32.sp
+    ),
+    articleH3 = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 28.8.sp,
+        fontWeight = FontWeight.SemiBold,
+        letterSpacing = 0.32.sp
+    ),
+    articleContent = TextStyle(
+        fontSize = 16.sp,
+        lineHeight = 27.2.sp,
         fontWeight = FontWeight.Normal,
-        letterSpacing = 0.4.sp,
+        letterSpacing = 0.32.sp
     ),
-    headlineEmphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 16.sp
-    ),
-    primaryButton = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
-    ),
-    captionEmphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 12.sp
-    ),
-    caption = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    ),
-    caption2 = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 10.sp
-    ),
-    caption3Emphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 8.sp
-    ),
-    naviTitle = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
-    ),
-    body = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
-    ),
-    bodyEmphasize = TextStyle(
-        fontWeight = FontWeight.Bold,
-        fontSize = 14.sp
+    articleDescription = TextStyle(
+        fontSize = 14.sp,
+        lineHeight = 21.sp,
+        fontWeight = FontWeight(400),
+        letterSpacing = 0.28.sp
     )
 )

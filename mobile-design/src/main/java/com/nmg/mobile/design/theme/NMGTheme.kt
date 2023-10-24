@@ -2,29 +2,27 @@ package com.nmg.mobile.design.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 public fun NMGTheme(
-    colors: ThemeableColors = defaultThemeColors,
+    colors: ThemeableColors = NMGDefaultColors(LocalContext.current),
     typography: ThemeableTypography = defaultTypography,
     customSystem: CustomSystem = CustomSystem(
         value1 = 1000,
-        value2 = "Custom system",
+        value2 = "Custom system"
     ),
     content: @Composable () -> Unit
 ) {
-
+    /* ... */
+    CompositionLocalProvider(
+        LocalColors provides colors,
+        LocalTypography provides typography,
+        LocalCustomSystem provides customSystem,
         /* ... */
-        CompositionLocalProvider(
-            LocalColors provides colors,
-            LocalTypography provides typography,
-            LocalCustomSystem provides customSystem,
-            /* ... */
-            content = content
-        )
-
+        content = content
+    )
 }
-
 
 public object NMGTheme {
     public val colors: ThemeableColors
@@ -38,4 +36,3 @@ public object NMGTheme {
         get() = LocalCustomSystem.current
     /* ... */
 }
-
