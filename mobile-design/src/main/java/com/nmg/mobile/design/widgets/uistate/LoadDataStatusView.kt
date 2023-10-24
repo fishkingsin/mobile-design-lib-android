@@ -1,10 +1,12 @@
 package com.nmg.mobile.design.widgets.uistate
 
+import android.content.res.Resources.Theme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -14,8 +16,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 enum class LoadDataStatus {
@@ -85,13 +89,25 @@ fun LoadDataStatusView(
 @Composable
 fun DefaultLoadingView(boxScope: BoxScope, loadDataStatusModel: LoadDataStatusModel) {
     boxScope.apply {
-        CircularProgressIndicator(
-            color = NMGTheme.colors.primaryMain,
+        Row(
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(NMGTheme.customSystem.padding)
-                .size(32.dp)
-        )
+                .padding(NMGTheme.customSystem.padding),
+            horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CircularProgressIndicator(
+                color = NMGTheme.colors.primaryMain,
+                modifier = Modifier
+                    .size(25.dp)
+            )
+
+            Text(
+                text = stringResource(id = R.string.load_more),
+                style = NMGTheme.typography.eleRegular14,
+                color = NMGTheme.colors.commonNeutralGray80
+            )
+        }
     }
 }
 
