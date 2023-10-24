@@ -1,6 +1,5 @@
 package com.nmg.mobile.design.widgets.uistate
 
-import android.content.res.Resources.Theme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,13 +22,16 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 enum class LoadDataStatus {
-    SUCCESS, LOADING, EMPTY, ERROR
+    SUCCESS,
+    LOADING,
+    EMPTY,
+    ERROR
 }
 
 data class LoadDataStatusModel(
     val loadDataStatus: LoadDataStatus,
     val hasMore: Boolean = false,
-    val message: String? = null,
+    val message: String? = null
 ) {
     val loading: Boolean = loadDataStatus == LoadDataStatus.LOADING
     val error: Boolean = loadDataStatus == LoadDataStatus.ERROR
@@ -41,15 +43,30 @@ data class LoadDataStatusModel(
 fun LoadDataStatusView(
     loadDataStatusModel: LoadDataStatusModel,
     successView: @Composable ((BoxScope, LoadDataStatusModel) -> Unit)? = null,
-    loadingView: @Composable ((BoxScope, LoadDataStatusModel) -> Unit)? = { boxScope, loadingStatusData ->
+    loadingView: @Composable (
+        (
+            BoxScope,
+            LoadDataStatusModel
+        ) -> Unit
+    )? = { boxScope, loadingStatusData ->
         DefaultLoadingView(boxScope, loadingStatusData)
     },
-    errorView: @Composable ((BoxScope, LoadDataStatusModel) -> Unit)? = { boxScope, loadingStatusData ->
+    errorView: @Composable (
+        (
+            BoxScope,
+            LoadDataStatusModel
+        ) -> Unit
+    )? = { boxScope, loadingStatusData ->
         DefaultErrorView(boxScope, loadingStatusData)
     },
-    emptyView: @Composable ((BoxScope, LoadDataStatusModel) -> Unit)? = { boxScope, loadingStatusData ->
+    emptyView: @Composable (
+        (
+            BoxScope,
+            LoadDataStatusModel
+        ) -> Unit
+    )? = { boxScope, loadingStatusData ->
         DefaultEmptyView(boxScope, loadingStatusData)
-    },
+    }
 ) {
     when (loadDataStatusModel.loadDataStatus) {
         LoadDataStatus.SUCCESS -> {
@@ -159,7 +176,7 @@ fun DefaultLoadingStatusView_Preview() {
             Box(
                 modifier = Modifier
                     .background(color = Color.White)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
             ) {
                 LoadDataStatusView(LoadDataStatusModel(LoadDataStatus.LOADING))
             }
@@ -167,7 +184,7 @@ fun DefaultLoadingStatusView_Preview() {
             Box(
                 modifier = Modifier
                     .background(color = Color.White)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
             ) {
                 LoadDataStatusView(LoadDataStatusModel(LoadDataStatus.ERROR, message = "error"))
             }
@@ -175,7 +192,7 @@ fun DefaultLoadingStatusView_Preview() {
             Box(
                 modifier = Modifier
                     .background(color = Color.White)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
             ) {
                 LoadDataStatusView(LoadDataStatusModel(LoadDataStatus.ERROR, message = "no data"))
             }
