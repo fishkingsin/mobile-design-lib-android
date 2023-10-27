@@ -13,14 +13,12 @@ public data class CustomSystem(
     val spacing: Dp = 8.dp,
     val roudnCorner: Dp = 4.dp,
     val cardMinHeight: Dp = 120.dp,
-    val cardMaxHeight: Dp = 200.dp,
-) {
-}
-
+    val cardMaxHeight: Dp = 200.dp
+)
 
 val LocalCustomSystem = staticCompositionLocalOf {
     CustomSystem(
         value1 = 0,
-        value2 = "",
+        value2 = ""
     )
 }

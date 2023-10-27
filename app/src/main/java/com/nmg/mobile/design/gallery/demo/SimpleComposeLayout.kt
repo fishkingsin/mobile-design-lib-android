@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,19 +17,19 @@ fun SimpleComposeLayout(message: String = "Hello from Compose!") {
     Column(Modifier.fillMaxSize()) {
         Text(
             text = stringResource(R.string.title),
-            style = NMGTheme.typography.headlineEmphasize
+            style = NMGTheme.typography.eleSemibold24
         )
         Text(
             text = stringResource(R.string.subtitle),
-            style =  NMGTheme.typography.headlineEmphasize
+            style = NMGTheme.typography.eleSemibold22
         )
         Text(
             text = message,
-            style = NMGTheme.typography.body
+            style = NMGTheme.typography.eleRegular14
         )
         Text(
             text = stringResource(R.string.body),
-            style = NMGTheme.typography.body
+            style = NMGTheme.typography.eleRegular14
         )
         Spacer(modifier = Modifier.weight(1f))
         Button(onClick = { /* Handle click */ }, Modifier.fillMaxWidth()) {

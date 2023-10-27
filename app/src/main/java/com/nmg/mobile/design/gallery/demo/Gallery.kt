@@ -16,6 +16,21 @@ import com.nmg.mobile.design.theme.NMGTheme
 @Composable
 fun Gallery(navigationController: NavController) {
     LazyColumn(modifier = Modifier.padding(16.dp)) {
+        item {
+            Button(onClick = { navigationController.navigate("TVPOC") }) {
+                Text(text = "TV POC")
+            }
+        }
+        item {
+            Button(onClick = { navigationController.navigate("TVPOCVimeo") }) {
+                Text(text = "TV POC Vimeo")
+            }
+        }
+        item {
+            Button(onClick = { navigationController.navigate("Reels") }) {
+                Text(text = "Reels")
+            }
+        }
         // Add a single item
         item {
             Button(onClick = { navigationController.navigate("ColorPalette") }) {
@@ -23,22 +38,44 @@ fun Gallery(navigationController: NavController) {
             }
         }
         item {
-            Button(onClick = { navigationController.navigate("CardDemo")}) {
+            Button(onClick = { navigationController.navigate("IconDemo") }) {
+                Text(text = "IconDemo")
+            }
+        }
+        item {
+            Button(onClick = { navigationController.navigate("CardDemo") }) {
                 Text(text = "Card")
             }
         }
         item {
-            Button(onClick = { navigationController.navigate("TypographyDemo")}) {
+            Button(onClick = { navigationController.navigate("TypographyDemo") }) {
                 Text(text = "Typography")
             }
         }
         item {
-            Button(onClick = { navigationController.navigate("SimpleComposeLayout") }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+            Button(onClick = {
+                navigationController.navigate("SimpleComposeLayout")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
                 Text(text = "SimpleComposeLayout")
             }
         }
-    }
 
+        item {
+            Button(onClick = {
+                navigationController.navigate("YoutubeHelper")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+                Text(text = "YoutubeHelper")
+            }
+        }
+
+        item {
+            Button(onClick = {
+                navigationController.navigate("VideoExampleView")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+                Text(text = "VideoExampleView")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true, showSystemUi = true)

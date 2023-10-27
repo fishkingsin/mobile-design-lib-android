@@ -8,6 +8,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val TAG = "MainActivity"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportFragmentManager.beginTransaction()
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
         // legacy
 //        setContentView(R.layout.activity_main)
-
     }
 }
 

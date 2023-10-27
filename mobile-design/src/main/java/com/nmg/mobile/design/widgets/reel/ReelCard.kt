@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -15,11 +15,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
+import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.card.CardData
-import com.nmg.mobile.design.widgets.card.CardDataAbstract
+import com.nmg.mobile.design.widgets.card.CardDataProtocol
 
 @Composable
-public fun <Data: CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (BoxScope) -> Unit)? = null) {
+public fun <Data : CardDataProtocol> ReelCard(
+    data: Data,
+    overlay: (@Composable (BoxScope) -> Unit)? = null
+) {
     Box(
         modifier = Modifier
             .aspectRatio(126f / 224f)
@@ -36,7 +40,8 @@ public fun <Data: CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (B
             contentDescription = stringResource(R.string.description),
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
-                .background(color = Color.Black, shape = shape)
+                .background(color = NMGTheme.colors.placeholder, shape = shape)
+                .clip(shape)
                 .fillMaxSize()
         )
         overlay?.let {
@@ -48,14 +53,16 @@ public fun <Data: CardDataAbstract>ReelCard(data: Data, overlay: (@Composable (B
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ReelCardPreview() {
-    ReelCard(data = CardData(
-        imageURL = "https://placehold.co/124x224/png",
-        headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
-        leadingFootnote = "4小時前",
-        secondFootnote = "經人觀點",
-        _timecode = "22:22"
-    ), overlay = {
-        ReelCardOverlay("#hashtag", it)
-    })
+    ReelCard(
+        data = CardData(
+            imageURL = "https://placehold.co/126x224/png",
+            headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
+            leadingFootnote = "4小時前",
+            secondFootnote = "經人觀點",
+            _timecode = "22:22"
+        ),
+        overlay = {
+            ReelCardOverlay("#hashtag", it)
+        }
+    )
 }
-

@@ -1,14 +1,8 @@
 package com.nmg.mobile.design.gallery
 
-
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
-import android.view.View
-import android.view.Window
-
 import android.widget.TextView
-
 
 object DialogManager {
     fun showCustomAlertDialog(context: Context, callback: ColorDialogCallback) {

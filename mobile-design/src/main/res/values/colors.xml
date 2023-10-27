@@ -16,6 +16,8 @@
     <color name="Success">#42D1B0</color>
     <color name="Black">#000000</color>
     <color name="White">#FFFFFF</color>
+    <color name="placeholder">#C4C4C4</color>
+    <color name="primaryMain">#F29600</color>
     <!--ED-->
     <color name="ed_primaryMain">#1E37A6</color>
     <!--WW-->
