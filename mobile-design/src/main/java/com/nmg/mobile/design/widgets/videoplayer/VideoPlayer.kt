@@ -39,6 +39,9 @@ public fun VideoPlayer(
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier
 ) {
+    var playerState by remember {
+        mutableStateOf(VideoPlayerControlState.LOADING)
+    }
     val tag = "[VideoPlayer]"
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
@@ -89,18 +92,15 @@ public fun VideoPlayer(
 
         override fun onPlaybackStateChanged(playbackState: Int) {
             super.onPlaybackStateChanged(playbackState)
-            var playerState = VideoPlayerControlState.PLAYER_IDLE
             when (playbackState) {
                 ExoPlayer.STATE_IDLE -> {
                     // The player has been instantiated but is not ready yet.
                     Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
-                    playerState = VideoPlayerControlState.PLAYER_IDLE
                 }
                 ExoPlayer.STATE_BUFFERING -> {
                     // The player cannot start playback from the current position
                     // because there is insufficient data buffered
                     Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
-//                    playerState =  VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
                 }
                 ExoPlayer.STATE_READY -> {
                     // The player can immediately start playing from the current position.
@@ -108,7 +108,6 @@ public fun VideoPlayer(
                     // if its playWhenReady property is true. If this property is false,
                     // the player will pause playback.
                     Log.i(tag, "${tag}ExoPlayer.STATE_READY")
-                    playerState = VideoPlayerControlState.PLAY_READY
                 }
                 ExoPlayer.STATE_ENDED -> {
                     // The player has completed media playback

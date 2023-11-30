@@ -47,27 +47,16 @@ public fun VideoPlayerControl(
     data: VideoPlayerControlData,
     event: VideoPlayerControlEvent? = null,
     onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
-    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null
+    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
+    playState: VideoPlayerControlState = VideoPlayerControlState.LOADING,
 ) {
-    val targetState = when (data.playState) {
-        VideoPlayerControlState.PLAYER_INIT -> VideoPlayerControlState.LOADING
-        VideoPlayerControlState.PLAYER_IDLE -> VideoPlayerControlState.LOADING
-        VideoPlayerControlState.LOADING -> data.playState
-        VideoPlayerControlState.PLAY_READY -> VideoPlayerControlState.PAUSED
-        VideoPlayerControlState.PLAYING -> data.playState
-        VideoPlayerControlState.PLAYING_TAB -> data.playState
-        VideoPlayerControlState.PAUSED -> data.playState
-        VideoPlayerControlState.COMPLETED -> data.playState
-        VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> data.playState
-        else -> VideoPlayerControlState.LOADING
-    }
     Box(
         modifier = Modifier
             .aspectRatio(390f / 219f)
             .size(390.dp, 219.dp)
             .background(Color.Black)
             .clickable(enabled = true, onClick = {
-                if (data.playState == VideoPlayerControlState.PLAYING) {
+                if (playState == VideoPlayerControlState.PLAYING) {
                     event?.onClickVideoWhenPlaying()
                 }
             })
@@ -77,9 +66,9 @@ public fun VideoPlayerControl(
         }
         Log.i(
             "[VideoPlayer]",
-            "[VideoPlayer]playState=${data.playState}, targetState=$targetState"
+            "[VideoPlayer]playState=${playState}"
         )
-        when (targetState) {
+        when (playState) {
             VideoPlayerControlState.LOADING -> {
                 VideoPlayerControlInitView(boxScope = this, data = data)
             }
@@ -91,9 +80,10 @@ public fun VideoPlayerControl(
             VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
                 VideoPlayerControlPlayingTabOrPauseOrCompletedView(
                     boxScope = this,
-                    videoPlayerControlState = targetState,
+                    videoPlayerControlState = playState,
                     event = event
                 )
+                VideoPlayerControlPlayingView(boxScope = this, sliderValue = data.sliderValue)
             }
 
             VideoPlayerControlState.COMPLETED -> {
@@ -103,7 +93,7 @@ public fun VideoPlayerControl(
             }
 
             else -> {
-                Text(text = "UNKNOW STATE")
+                Text(text = "UNKNOWN STATE")
             }
         }
     }
@@ -279,15 +269,16 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
 @Preview(showBackground = true)
 @Composable
 fun VideoPlayerControlPreview() {
+    var playState by remember {
+        mutableStateOf(VideoPlayerControlState.LOADING)
+    }
     val testUri =
 //        Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")
-        Uri.parse("https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8")
+        Uri.parse("https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8")
 //        Uri.parse("http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8")
     // Define the UI element expanded state
     var item: VideoPlayerControlData = object : VideoPlayerControlData {
-        override var playState by remember {
-            mutableStateOf(VideoPlayerControlState.PLAYER_INIT)
-        }
+        override var playState = VideoPlayerControlState.LOADING
         override var imageURL: String = "https://placehold.co/390x219/png"
         override var totalTime: String = "22:22"
         override var sliderValue by remember {
@@ -300,6 +291,7 @@ fun VideoPlayerControlPreview() {
             verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
         ) {
             VideoPlayerControl(
+                playState = playState,
                 data = item,
                 onVideoPlayerLayer = {
                     VideoPlayer(
@@ -310,21 +302,22 @@ fun VideoPlayerControlPreview() {
                                 "VideoPlayerControl",
                                 "[VideoPlayer]VideoPlayer#itState=$itState"
                             )
-                            item.playState = itState
+                            playState = itState
                         },
-                        onProgressChange = { pos, duration ->
-                            val currentSliderValue =
-                                (((pos * 1.0 / duration) * 100).toInt() * 1.0 / 100)
-                            Log.i(
-                                "VideoPlayerControl",
-                                "[VideoPlayer]#onProgressChange#pos=$pos duration=$duration #currentSliderValue=$currentSliderValue"
-                            )
-                            if (currentSliderValue.toFloat() == item.sliderValue) {
-                                return@VideoPlayer
-                            }
-                            item.sliderValue = currentSliderValue.toFloat()
-                        }
                     )
+                },
+                event = object : VideoPlayerControlEvent {
+                    override fun onClickPlay() {
+                        playState = VideoPlayerControlState.PLAYING
+                    }
+
+                    override fun onClickPause() {
+                        playState = VideoPlayerControlState.PAUSED
+                    }
+
+                    override fun onClickVideoWhenPlaying() {
+                        playState = VideoPlayerControlState.PLAYING_TAB
+                    }
                 }
             )
         }

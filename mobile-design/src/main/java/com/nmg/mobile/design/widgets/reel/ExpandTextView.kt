@@ -33,6 +33,7 @@ public fun ExpandTextView(
     style: TextStyle = LocalTextStyle.current,
     fontStyle: FontStyle? = null,
     text: String,
+    textColor: Color = Color.White,
     collapsedMaxLine: Int = DEFAULT_MINIMUM_TEXT_LINE,
     showMoreText: String = "... 展開",
     showMoreStyle: SpanStyle =
@@ -75,7 +76,7 @@ public fun ExpandTextView(
             fontStyle = fontStyle,
             fontSize = 14.sp,
             fontWeight = FontWeight.W400,
-            color = Color.White,
+            color = textColor,
             onTextLayout = { textLayoutResult ->
                 if (!isExpanded && textLayoutResult.hasVisualOverflow) {
                     clickable = true
