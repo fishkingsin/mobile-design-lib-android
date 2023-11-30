@@ -272,6 +272,8 @@ fun VideoPlayerControlPreview() {
     var playState by remember {
         mutableStateOf(VideoPlayerControlState.LOADING)
     }
+    var onClickPlay: Unit? = null
+    var onClickPause: Unit? = null
     val testUri =
 //        Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")
         Uri.parse("https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8")
@@ -304,21 +306,31 @@ fun VideoPlayerControlPreview() {
                             )
                             playState = itState
                         },
+                        onClickPlay = onClickPlay,
+                        onClickPause = onClickPause,
+                        onClickedPlay = {
+                            onClickPlay = null
+                        },
+                        onClickedPause = {
+                            onClickPause = null
+                        }
                     )
                 },
                 event = object : VideoPlayerControlEvent {
                     override fun onClickPlay() {
                         playState = VideoPlayerControlState.PLAYING
+                        onClickPlay = Unit
                     }
 
                     override fun onClickPause() {
                         playState = VideoPlayerControlState.PAUSED
+                        onClickPause = Unit
                     }
 
                     override fun onClickVideoWhenPlaying() {
                         playState = VideoPlayerControlState.PLAYING_TAB
                     }
-                }
+                },
             )
         }
     }

@@ -37,7 +37,11 @@ public fun VideoPlayer(
     onStateChange: ((VideoPlayerControlState) -> Unit)? = null,
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickPlay: Unit? = null,
+    onClickPause: Unit? = null,
+    onClickedPlay: (() -> Unit)? = null,
+    onClickedPause: (() -> Unit)? = null,
 ) {
     var playerState by remember {
         mutableStateOf(VideoPlayerControlState.LOADING)
@@ -137,16 +141,38 @@ public fun VideoPlayer(
             }
         }
     })
-    var progressChange by remember {
-        mutableStateOf(0L)
-    }
-    LaunchedEffect(progressChange) {
-        delay(200)
-        onProgressChange?.let {
-            it(exoPlayer.currentPosition, exoPlayer.duration)
+
+    onClickPlay?.let {
+        exoPlayer.play()
+        onClickedPlay?.let {itOnClickedPlay ->
+            itOnClickedPlay()
         }
-        progressChange += 1
     }
+
+    onClickPause?.let {
+        exoPlayer.pause()
+        onClickedPause?.let {itOnClickedPause ->
+            itOnClickedPause()
+        }
+    }
+//    LaunchedEffect(onClickPlay) {
+//        exoPlayer.play()
+//        onClickPlay = null
+//    }
+//    LaunchedEffect(onClickPause) {
+//        exoPlayer.pause()
+//        onClickPause = null
+//    }
+//    var progressChange by remember {
+//        mutableStateOf(0L)
+//    }
+//    LaunchedEffect(progressChange) {
+//        delay(200)
+//        onProgressChange?.let {
+//            it(exoPlayer.currentPosition, exoPlayer.duration)
+//        }
+//        progressChange += 1
+//    }
 //    LaunchedEffect(progressNeedToSeek) {
 //        if (seekToPos >= 0) {
 //            exoPlayer.seekTo(progressNeedToSeek)
