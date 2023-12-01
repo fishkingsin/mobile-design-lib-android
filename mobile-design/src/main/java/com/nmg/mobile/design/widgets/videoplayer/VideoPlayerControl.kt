@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -27,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,6 +43,12 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 
 @Composable
 public fun VideoPlayerControl(
@@ -272,8 +280,10 @@ fun VideoPlayerControlPreview() {
     var playState by remember {
         mutableStateOf(VideoPlayerControlState.LOADING)
     }
-    var onClickPlay: Unit? = null
-    var onClickPause: Unit? = null
+//    val interactions = remember { mutableStateListOf<Interaction>() }
+    val onClickedPlay: MutableSharedFlow<Unit> = MutableSharedFlow()
+    var onClickPlay: MutableSharedFlow<Unit> = MutableSharedFlow()
+    var onClickPause: MutableSharedFlow<Unit> = MutableSharedFlow()
     val testUri =
 //        Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")
         Uri.parse("https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8")
@@ -288,6 +298,11 @@ fun VideoPlayerControlPreview() {
         }
     }
 
+//    CoroutineScope(Dispatchers.IO).launch {
+//        onClickPlay.collect {
+//            Log.d("AAA", "onCreate: $it => Kotlin.Unit")
+//        }
+//    }
     NMGTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
@@ -306,28 +321,31 @@ fun VideoPlayerControlPreview() {
                             )
                             playState = itState
                         },
-                        onClickPlay = onClickPlay,
-                        onClickPause = onClickPause,
-                        onClickedPlay = {
-                            onClickPlay = null
-                        },
-                        onClickedPause = {
-                            onClickPause = null
-                        }
+                        onClickedPlay = onClickPlay,
+                        onClickedPause = onClickPause,
                     )
                 },
                 event = object : VideoPlayerControlEvent {
-                    override fun onClickPlay() {
-                        playState = VideoPlayerControlState.PLAYING
-                        onClickPlay = Unit
-                    }
+                    override fun onClickPlay()
+                        {
+                            playState = VideoPlayerControlState.PLAYING
+                            Log.i("VideoPlayerControl", "emit onClickPlay")
+                            onClickPlay.tryEmit(Unit)
+//                            onClickPlay = (Unit)
+//                            onClickPlay = null
+                        }
 
-                    override fun onClickPause() {
-                        playState = VideoPlayerControlState.PAUSED
-                        onClickPause = Unit
-                    }
+                    override fun onClickPause()
+                        {
+                            playState = VideoPlayerControlState.PAUSED
+                            Log.i("VideoPlayerControl", "emit onClickPause")
+                            onClickPause.tryEmit(Unit)
+//                            onClickPause = (Unit)
+//                            onClickPause = null
+                        }
 
                     override fun onClickVideoWhenPlaying() {
+                        Log.i("VideoPlayerControl", "emit onClickVideoWhenPlaying")
                         playState = VideoPlayerControlState.PLAYING_TAB
                     }
                 },

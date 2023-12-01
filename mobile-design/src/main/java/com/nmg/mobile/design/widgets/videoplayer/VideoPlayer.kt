@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -26,7 +27,10 @@ import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
@@ -38,10 +42,8 @@ public fun VideoPlayer(
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier,
-    onClickPlay: Unit? = null,
-    onClickPause: Unit? = null,
-    onClickedPlay: (() -> Unit)? = null,
-    onClickedPause: (() -> Unit)? = null,
+    onClickedPlay: MutableSharedFlow<Unit>? = null,
+    onClickedPause: MutableSharedFlow<Unit>? = null,
 ) {
     var playerState by remember {
         mutableStateOf(VideoPlayerControlState.LOADING)
@@ -142,22 +144,49 @@ public fun VideoPlayer(
         }
     })
 
-    onClickPlay?.let {
-        exoPlayer.play()
-        onClickedPlay?.let {itOnClickedPlay ->
-            itOnClickedPlay()
+    LaunchedEffect(onClickedPlay) {
+        onClickedPlay?.collect {
+            Log.i("VideoPlayer", "onClickedPlay ${onClickedPlay}")
+            launch(Dispatchers.Main) {
+                exoPlayer.play()
+            }
         }
     }
-
-    onClickPause?.let {
-        exoPlayer.pause()
-        onClickedPause?.let {itOnClickedPause ->
-            itOnClickedPause()
+    LaunchedEffect(onClickedPause) {
+        onClickedPause?.collect {
+            Log.i("VideoPlayer", "onClickedPause ${onClickedPause}")
+            launch(Dispatchers.Main) {
+                exoPlayer.pause()
+            }
         }
     }
+//    LaunchedEffect(onClickPlayC) {
+//        Log.i("VideoPlayer", "onClickPlayC ${onClickPlayC}")
+//        onClickPlayC.collect {it
+//            Log.i("VideoPlayer", "onClickPlay collect")
+//            exoPlayer.play()
+//        }
+////        Log.i("VideoPlayer", "onClickPause ${onClickPause}")
+//    }
+//    LaunchedEffect(onClickPauseC) {
+//        Log.i("VideoPlayer", "onClickPauseC ${onClickPauseC}")
+//        onClickPauseC.collect {
+//            Log.i("VideoPlayer", "onClickPause collect")
+//            exoPlayer.pause()
+//        }
+//    }
 //    LaunchedEffect(onClickPlay) {
-//        exoPlayer.play()
-//        onClickPlay = null
+//        onClickPlayC.emit(onClickPlay)
+//    }
+//    LaunchedEffect(onClickPause) {
+//        onClickPauseC.emit(onClickPause)
+//    }
+//    LaunchedEffect(true) {
+//        Log.i("VideoPlayer", "onClickPause ${onClickPauseC}")
+//        onClickPauseC.collect {
+//            Log.i("VideoPlayer", "onClickPause collect")
+//            exoPlayer.pause()
+//        }
 //    }
 //    LaunchedEffect(onClickPause) {
 //        exoPlayer.pause()

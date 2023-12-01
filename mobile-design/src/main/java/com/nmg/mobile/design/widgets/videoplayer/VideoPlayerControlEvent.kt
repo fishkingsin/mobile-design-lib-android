@@ -1,5 +1,7 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
+import kotlinx.coroutines.Job
+
 interface VideoPlayerControlEvent {
     fun onClickBack() {}
     fun onClickPlay() {}
