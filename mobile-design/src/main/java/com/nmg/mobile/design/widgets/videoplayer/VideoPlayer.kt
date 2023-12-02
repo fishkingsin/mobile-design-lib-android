@@ -5,10 +5,10 @@ import android.net.Uri
 import android.util.Log
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,8 +28,7 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
@@ -38,16 +37,25 @@ public fun VideoPlayer(
     uri: Uri,
     isAutoPlay: Boolean = true,
     seekToPos: Long = -1L,
-    onStateChange: ((VideoPlayerControlState) -> Unit)? = null,
+    onStateChange: (playState: VideoPlayerControlState) -> Unit = { println("callBack") },
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier,
-    onClickedPlay: MutableSharedFlow<Unit>? = null,
-    onClickedPause: MutableSharedFlow<Unit>? = null,
+    clickPlayEvent: Flow<Unit>? = null,
+    clickPauseEvent: Flow<Unit>? = null,
 ) {
     var playerState by remember {
         mutableStateOf(VideoPlayerControlState.LOADING)
     }
+//    var clickPlayEventFlow = clickPlayEvent?.collectAsState(initial = null)
+//    var clickPauseEventFlow = clickPauseEvent?.collectAsState(initial = null)
+//    var clickPlayEventFlow by remember {
+//        mutableStateOf(clickPauseEvent)
+//    }
+//    var clickPauseEventFlow by remember {
+//        mutableStateOf(clickPauseEvent)
+//    }
+
     val tag = "[VideoPlayer]"
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
@@ -114,6 +122,7 @@ public fun VideoPlayer(
                     // if its playWhenReady property is true. If this property is false,
                     // the player will pause playback.
                     Log.i(tag, "${tag}ExoPlayer.STATE_READY")
+                    playerState = VideoPlayerControlState.PLAYING
                 }
                 ExoPlayer.STATE_ENDED -> {
                     // The player has completed media playback
@@ -124,90 +133,53 @@ public fun VideoPlayer(
                     Log.i(tag, "${tag}UNKNOWN_STATE")
                 }
             }
-            onStateChange?.let {
-                Log.i(tag, "${tag}onStateChange playerState=$playerState")
-                it(playerState)
-            }
+            Log.i(tag, "${tag}onStateChange playerState=$playerState")
+            onStateChange(playerState)
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
-            onStateChange?.let {
-                it(
-                    if (isPlaying) {
-                        VideoPlayerControlState.PLAYING
-                    } else {
-                        VideoPlayerControlState.PAUSED
-                    }
-                )
-            }
+//            onStateChange?.let {
+//                playerState = if (isPlaying) {
+//                    VideoPlayerControlState.PLAYING
+//                } else {
+//                    VideoPlayerControlState.PAUSED
+//                }
+//                it(playerState)
+//            }
         }
     })
+    LaunchedEffect(clickPlayEvent) {
+        clickPlayEvent?.collect {
+            Log.i("VideoPlayer", "clickPlayEvent ${it}")
 
-    LaunchedEffect(onClickedPlay) {
-        onClickedPlay?.collect {
-            Log.i("VideoPlayer", "onClickedPlay ${onClickedPlay}")
-            launch(Dispatchers.Main) {
+//            launch(Dispatchers.Main) {
                 exoPlayer.play()
-            }
+//            }
+//            launch(Dispatchers.Main) {
+//                playerState = VideoPlayerControlState.PLAYING
+//                onStateChange(VideoPlayerControlState.PLAYING)
+//            }
+//            playerState = VideoPlayerControlState.PLAYING
+//            onStateChange?.let {
+//                it(playerState)
+//            }
+            Log.i("VideoPlayer", "clickPlayEvent ${it} 222")
         }
     }
-    LaunchedEffect(onClickedPause) {
-        onClickedPause?.collect {
-            Log.i("VideoPlayer", "onClickedPause ${onClickedPause}")
-            launch(Dispatchers.Main) {
+    LaunchedEffect(clickPauseEvent) {
+        clickPauseEvent?.collect {
+            Log.i("VideoPlayer", "clickPauseEvent ${it}")
+
+//            launch(Dispatchers.Main) {
                 exoPlayer.pause()
-            }
+
+//            playerState = VideoPlayerControlState.PAUSED
+//            onStateChange(VideoPlayerControlState.PAUSED)
+//            }
+            Log.i("VideoPlayer", "clickPauseEvent ${it} 222")
         }
     }
-//    LaunchedEffect(onClickPlayC) {
-//        Log.i("VideoPlayer", "onClickPlayC ${onClickPlayC}")
-//        onClickPlayC.collect {it
-//            Log.i("VideoPlayer", "onClickPlay collect")
-//            exoPlayer.play()
-//        }
-////        Log.i("VideoPlayer", "onClickPause ${onClickPause}")
-//    }
-//    LaunchedEffect(onClickPauseC) {
-//        Log.i("VideoPlayer", "onClickPauseC ${onClickPauseC}")
-//        onClickPauseC.collect {
-//            Log.i("VideoPlayer", "onClickPause collect")
-//            exoPlayer.pause()
-//        }
-//    }
-//    LaunchedEffect(onClickPlay) {
-//        onClickPlayC.emit(onClickPlay)
-//    }
-//    LaunchedEffect(onClickPause) {
-//        onClickPauseC.emit(onClickPause)
-//    }
-//    LaunchedEffect(true) {
-//        Log.i("VideoPlayer", "onClickPause ${onClickPauseC}")
-//        onClickPauseC.collect {
-//            Log.i("VideoPlayer", "onClickPause collect")
-//            exoPlayer.pause()
-//        }
-//    }
-//    LaunchedEffect(onClickPause) {
-//        exoPlayer.pause()
-//        onClickPause = null
-//    }
-//    var progressChange by remember {
-//        mutableStateOf(0L)
-//    }
-//    LaunchedEffect(progressChange) {
-//        delay(200)
-//        onProgressChange?.let {
-//            it(exoPlayer.currentPosition, exoPlayer.duration)
-//        }
-//        progressChange += 1
-//    }
-//    LaunchedEffect(progressNeedToSeek) {
-//        if (seekToPos >= 0) {
-//            exoPlayer.seekTo(progressNeedToSeek)
-//        }
-//        Log.i(TAG, "progressNeedToSeek")
-//    }
 
     DisposableEffect(
         AndroidView(factory = {
