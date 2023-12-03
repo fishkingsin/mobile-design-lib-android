@@ -7,6 +7,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.FrameLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,13 +23,13 @@ import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
+import kotlinx.coroutines.delay
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 public fun VideoPlayer(
     uri: Uri,
     isAutoPlay: Boolean = true,
-    seekToPos: Long = -1L,
     onStateChange: (playState: VideoPlayerControlState) -> Unit = { println("callBack") },
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
@@ -155,6 +156,15 @@ public fun VideoPlayer(
         Log.i("VideoPlayer", "clickevent pause")
     }
 
+    LaunchedEffect(Unit) {
+        while (true) {
+            Log.i("VideoPlayer", "currentPosition ${exoPlayer.currentPosition} exoPlayer.contentPosition=${exoPlayer.contentPosition} ${exoPlayer.duration}")
+            delay(1000)
+            onProgressChange?.let {
+                it(exoPlayer.currentPosition, exoPlayer.duration)
+            }
+        }
+    }
     DisposableEffect(
         AndroidView(factory = {
             PlayerView(context).apply {

@@ -58,6 +58,7 @@ public fun VideoPlayerControl(
     onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
     onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
     playState: VideoPlayerControlState = VideoPlayerControlState.LOADING,
+    progressValue: Float = 0f,
 ) {
     Box(
         modifier = Modifier
@@ -79,7 +80,7 @@ public fun VideoPlayerControl(
             }
 
             VideoPlayerControlState.PLAYING -> {
-                VideoPlayerControlPlayingView(boxScope = this, sliderValue = data.sliderValue)
+                VideoPlayerControlPlayingView(boxScope = this, sliderValue = progressValue)
             }
 
             VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
@@ -143,6 +144,7 @@ fun VideoPlayerControlInitView(boxScope: BoxScope, data: VideoPlayerControlData)
 
 @Composable
 fun VideoPlayerControlPlayingView(boxScope: BoxScope, sliderValue: Float) {
+    Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${sliderValue}")
     boxScope.apply {
         Slider(
             modifier = Modifier
@@ -151,10 +153,13 @@ fun VideoPlayerControlPlayingView(boxScope: BoxScope, sliderValue: Float) {
                 .align(Alignment.BottomCenter),
             value = sliderValue,
             onValueChange = { itValue ->
+                Log.i("progress", "onValueChange#itValue ${itValue}")
             },
             onValueChangeFinished = {
                 // launch some business logic update with the state you hold
                 // viewModel.updateSelectedSliderValue(sliderPosition)
+                Log.i("progress", "onValueChangeFinished")
+
             },
             colors = SliderDefaults.colors(
                 thumbColor = NMGTheme.colors.primaryMain,
