@@ -75,8 +75,9 @@ public fun VideoPlayer(
             val currentWindowIndex: Int = exoPlayer.getCurrentWindowIndex()
             val currentPositionMs: Long = exoPlayer.getCurrentPosition()
             Log.d(
-                tag, "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex
-                        + ", currentPositionMs=" + currentPositionMs
+                tag,
+                "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex +
+                        ", currentPositionMs=" + currentPositionMs
             )
         }
 
@@ -89,8 +90,9 @@ public fun VideoPlayer(
             val currentWindowIndex: Int = exoPlayer.getCurrentWindowIndex()
             val currentPositionMs: Long = exoPlayer.getCurrentPosition()
             Log.d(
-                tag, "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex
-                        + ", currentPositionMs=" + currentPositionMs
+                tag,
+                "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex +
+                        ", currentPositionMs=" + currentPositionMs
             )
         }
 
@@ -158,7 +160,10 @@ public fun VideoPlayer(
 
     LaunchedEffect(Unit) {
         while (true) {
-            Log.i("VideoPlayer", "currentPosition ${exoPlayer.currentPosition} exoPlayer.contentPosition=${exoPlayer.contentPosition} ${exoPlayer.duration}")
+            Log.i(
+                "VideoPlayer",
+                "currentPosition ${exoPlayer.currentPosition} exoPlayer.contentPosition=${exoPlayer.contentPosition} ${exoPlayer.duration}"
+            )
             delay(1000)
             onProgressChange?.let {
                 it(exoPlayer.currentPosition, exoPlayer.duration)
