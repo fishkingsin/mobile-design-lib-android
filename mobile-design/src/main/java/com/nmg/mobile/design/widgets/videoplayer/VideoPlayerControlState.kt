@@ -6,5 +6,7 @@ enum class VideoPlayerControlState {
     PLAYING_TAB,
     PAUSED,
     COMPLETED,
-    COMPLETED_CANCEL_AUTOPLAY
+    COMPLETED_CANCEL_AUTOPLAY,
+
+    REPLAY
 }

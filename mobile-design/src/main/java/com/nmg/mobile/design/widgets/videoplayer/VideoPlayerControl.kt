@@ -327,8 +327,8 @@ fun VideoPlayerControlPreview() {
                             )
                             playState = itState
                         },
-                        clickPlayEvent = null,
-                        clickPauseEvent = null
+//                        clickPlayEvent = null,
+//                        clickPauseEvent = null
 //                        onClickedPlay = onClickPlay,
 //                        onClickedPause = onClickPause,
                     )
