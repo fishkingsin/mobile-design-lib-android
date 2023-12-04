@@ -1,6 +1,7 @@
 package com.nmg.mobile.design.widgets.card
 
 public abstract class CardDataProtocol(
+    open val id: Int,
     override val imageURL: String,
     override val headline: String,
     override val leadingFootnote: String,
@@ -13,6 +14,7 @@ public abstract class CardDataProtocol(
 }
 
 public data class CardData(
+    override val id: Int,
     override val imageURL: String,
     override val headline: String,
     override val leadingFootnote: String,
@@ -20,6 +22,7 @@ public data class CardData(
     override val tag: String? = null,
     val _timecode: String? = null
 ) : CardDataProtocol(
+    id = id,
     imageURL = imageURL,
     headline = headline,
     leadingFootnote = leadingFootnote,
