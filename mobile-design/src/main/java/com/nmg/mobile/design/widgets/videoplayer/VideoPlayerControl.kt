@@ -1,7 +1,10 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +29,7 @@ import androidx.compose.material.Slider
 import androidx.compose.material.SliderDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,8 +44,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DefaultDataSource
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.hls.HlsMediaSource
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
@@ -51,45 +67,143 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
+@androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 public fun VideoPlayerControl(
+    context: Context = LocalContext.current,
     data: VideoPlayerControlData,
-    event: VideoPlayerControlEvent? = null,
-    onVideoPlayerLayer: (@Composable (BoxScope) -> Unit)? = null,
     onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
-    playState: VideoPlayerControlState = VideoPlayerControlState.LOADING,
-    progressValue: Float = 0f,
+    videoUrl: String? = null,
 ) {
+    val tag = "[VideoPlayerControl]"
+    var videoUrl = "https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8"
+
+    val exoPlayer = remember {
+        ExoPlayer.Builder(context)
+            .build()
+            .apply {
+                val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
+
+                val source = with(videoUrl) {
+                    when {
+                        this?.contains(".m3u8") == true -> {
+                            androidx.media3.exoplayer.hls.HlsMediaSource.Factory(
+                                dataSourceFactory
+                            ).createMediaSource(MediaItem.fromUri(videoUrl))
+                        }
+                        else -> {
+                            androidx.media3.exoplayer.source.ProgressiveMediaSource.Factory(dataSourceFactory)
+                                .createMediaSource(MediaItem.fromUri(videoUrl))
+                        }
+                    }
+                }
+
+                this.setMediaSource(source)
+                this.prepare()
+
+                playWhenReady = true
+                videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
+                repeatMode = Player.REPEAT_MODE_ONE
+            }
+    }
+
+    var shouldShowControls by remember { mutableStateOf(false) }
+    var isPlaying by remember { mutableStateOf(exoPlayer.isPlaying) }
+    var totalDuration by remember { mutableStateOf(0L) }
+    var currentTime by remember { mutableStateOf(0L) }
+    var bufferedPercentage by remember { mutableStateOf(0) }
+    var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
+    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
+
     Box(
         modifier = Modifier
             .aspectRatio(390f / 219f)
             .size(390.dp, 219.dp)
             .background(Color.Black)
             .clickable(enabled = true, onClick = {
-                if (playState == VideoPlayerControlState.PLAYING) {
-                    event?.onClickVideoWhenPlaying()
-                }
+                playState = VideoPlayerControlState.PLAYING_TAB
             })
     ) {
-        onVideoPlayerLayer?.let { it ->
-            it(this)
+        DisposableEffect(Unit) {
+            val listener : Player.Listener = object : Player.Listener {
+                override fun onEvents(
+                    player: Player,
+                    events: Player.Events
+                ) {
+                    super.onEvents(player, events)
+                    totalDuration = player.duration.coerceAtLeast(0L)
+                    currentTime = player.currentPosition.coerceAtLeast(0L)
+                    bufferedPercentage = player.bufferedPercentage
+                    isPlaying = player.isPlaying
+                    playbackState = player.playbackState
+//                    when (playbackState) {
+//                        ExoPlayer.STATE_IDLE -> {
+//                            // The player has been instantiated but is not ready yet.
+//                            Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
+//                        }
+//                        ExoPlayer.STATE_BUFFERING -> {
+//                            // The player cannot start playback from the current position
+//                            // because there is insufficient data buffered
+//                            Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
+//                        }
+//                        ExoPlayer.STATE_READY -> {
+//                            // The player can immediately start playing from the current position.
+//                            // This means that the player will automatically start playing media
+//                            // if its playWhenReady property is true. If this property is false,
+//                            // the player will pause playback.
+//                            Log.i(tag, "${tag}ExoPlayer.STATE_READY")
+//                            playState = VideoPlayerControlState.PLAYING
+//                        }
+//                        ExoPlayer.STATE_ENDED -> {
+//                            // The player has completed media playback
+//                            Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
+//                            playState = VideoPlayerControlState.COMPLETED
+//                        }
+//                        else -> {
+//                            Log.i(tag, "${tag}UNKNOWN_STATE")
+//                        }
+//                    }
+                }
+            }
+            exoPlayer.addListener(listener)
+            onDispose { exoPlayer.release() }
         }
+        AndroidView(factory = {
+            PlayerView(context).apply {
+                hideController()
+                useController = false
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+
+                player = exoPlayer
+                layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            }
+        })
         when (playState) {
             VideoPlayerControlState.LOADING -> {
                 VideoPlayerControlInitView(boxScope = this, data = data)
             }
 
             VideoPlayerControlState.PLAYING -> {
-                VideoPlayerControlPlayingView(boxScope = this, sliderValue = progressValue)
+                val progressValue = exoPlayer.currentPosition * 1.0 / exoPlayer.duration
+                VideoPlayerControlPlayingView(boxScope = this, progressValue = progressValue.toFloat())
             }
 
             VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
                 VideoPlayerControlPlayingTabOrPauseOrCompletedView(
                     boxScope = this,
                     videoPlayerControlState = playState,
-                    event = event
+                    //https://gist.github.com/rubenquadros/f2af69972984b13273edd01825c5695e
+                    onClickPlay = {
+                        exoPlayer.play()
+                        playState = VideoPlayerControlState.PLAYING
+                    },
+                    onClickPause = {
+                        exoPlayer.pause()
+                        playState = VideoPlayerControlState.PAUSED
+                    }
                 )
-                VideoPlayerControlPlayingView(boxScope = this, sliderValue = data.sliderValue)
+                val progressValue = exoPlayer.currentPosition * 1.0 / exoPlayer.duration
+                VideoPlayerControlPlayingView(boxScope = this, progressValue = progressValue.toFloat())
             }
 
             VideoPlayerControlState.COMPLETED -> {
@@ -143,15 +257,15 @@ fun VideoPlayerControlInitView(boxScope: BoxScope, data: VideoPlayerControlData)
 }
 
 @Composable
-fun VideoPlayerControlPlayingView(boxScope: BoxScope, sliderValue: Float) {
-    Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${sliderValue}")
+fun VideoPlayerControlPlayingView(boxScope: BoxScope, progressValue: Float) {
+    Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${progressValue}")
     boxScope.apply {
         Slider(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(3.dp)
                 .align(Alignment.BottomCenter),
-            value = sliderValue,
+            value = progressValue,
             onValueChange = { itValue ->
                 Log.i("progress", "onValueChange#itValue ${itValue}")
             },
@@ -174,7 +288,10 @@ fun VideoPlayerControlPlayingView(boxScope: BoxScope, sliderValue: Float) {
 fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
     boxScope: BoxScope,
     videoPlayerControlState: VideoPlayerControlState,
-    event: VideoPlayerControlEvent? = null
+    onClickPrevious: (() -> Unit)? = null,
+    onClickPlay: (() -> Unit)? = null,
+    onClickPause: (() -> Unit)? = null,
+    onClickReplay: (() -> Unit)? = null,
 ) {
     boxScope.apply {
         Row(
@@ -182,7 +299,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { event?.onClickPre() }) {
+            IconButton(onClick = { onClickPrevious?.let { it() } }) {
                 Icon(
                     modifier = Modifier
                         .width(44.dp)
@@ -195,9 +312,13 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
             Spacer(modifier = Modifier.width(32.dp))
             IconButton(onClick = {
                 when (videoPlayerControlState) {
-                    VideoPlayerControlState.PLAYING_TAB -> event?.onClickPause()
-                    VideoPlayerControlState.PAUSED -> event?.onClickPlay()
-                    VideoPlayerControlState.COMPLETED -> event?.onClickReplay()
+                    VideoPlayerControlState.PLAYING_TAB -> {
+                        onClickPause?.let { it() }
+                    }
+                    VideoPlayerControlState.PAUSED -> {
+                        onClickPlay?.let { it() }
+                    }
+                    VideoPlayerControlState.COMPLETED -> onClickReplay?.let { it() }
                     else -> {
                         // pass
                     }
@@ -241,7 +362,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
                 }
             }
             Spacer(modifier = Modifier.width(32.dp))
-            IconButton(onClick = { event?.onClickNext() }) {
+            IconButton(onClick = {  }) {
                 Icon(
                     modifier = Modifier
                         .width(44.dp)
@@ -258,7 +379,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
             VideoPlayerControlState.PLAYING_TAB == videoPlayerControlState
         ) {
             IconButton(
-                onClick = { event?.onClickFullScreen() },
+                onClick = {  },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
             ) {
@@ -279,16 +400,6 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
 @Preview(showBackground = true)
 @Composable
 fun VideoPlayerControlPreview() {
-    var playState by remember {
-        mutableStateOf(VideoPlayerControlState.LOADING)
-    }
-//    val interactions = remember { mutableStateListOf<Interaction>() }
-    var onClickPlay: MutableSharedFlow<Unit?> = MutableSharedFlow()
-    var onClickPause: MutableSharedFlow<Unit?> = MutableSharedFlow()
-    val testUri =
-//        Uri.parse("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8")
-        Uri.parse("https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8")
-//        Uri.parse("http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8")
     // Define the UI element expanded state
     var item: VideoPlayerControlData = object : VideoPlayerControlData {
         override var playState = VideoPlayerControlState.LOADING
@@ -299,113 +410,13 @@ fun VideoPlayerControlPreview() {
         }
     }
 
-//    CoroutineScope(Dispatchers.IO).launch {
-//        onClickPlay.collect {
-//            Log.d("AAA", "onCreate: $it => Kotlin.Unit")
-//        }
-//    }
     NMGTheme {
-        LaunchedEffect(Unit) {
-            onClickPlay.collect {
-                Log.i("VideoPlayerControl", "onClickPlay ${onClickPlay}")
-            }
-        }
-        LaunchedEffect(Unit) {
-            onClickPause.collect {
-                Log.i("VideoPlayerControl", "onClickPause ${onClickPause}")
-            }
-        }
         Column(
             verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
         ) {
             VideoPlayerControl(
-                playState = playState,
                 data = item,
-                onVideoPlayerLayer = {
-                    VideoPlayer(
-                        uri = testUri,
-                        isAutoPlay = true,
-                        onStateChange = { itState ->
-                            Log.i(
-                                "VideoPlayerControl",
-                                "[VideoPlayer]VideoPlayer#itState=$itState"
-                            )
-                            playState = itState
-                        },
-//                        clickPlayEvent = null,
-//                        clickPauseEvent = null
-//                        onClickedPlay = onClickPlay,
-//                        onClickedPause = onClickPause,
-                    )
-                },
-                event = object : VideoPlayerControlEvent {
-                    override fun onClickPlay() {
-                            playState = VideoPlayerControlState.PLAYING
-                            Log.i("VideoPlayerControl", "emit onClickPlay")
-                        onClickPlay.tryEmit(Unit)
-//                            onClickPlay = (Unit)
-//                            onClickPlay = null
-                        }
-
-                    override fun onClickPause() {
-                            playState = VideoPlayerControlState.PAUSED
-                            Log.i("VideoPlayerControl", "emit onClickPause")
-                        onClickPause.tryEmit(Unit)
-//                            onClickPause = (Unit)
-//                            onClickPause = null
-                        }
-
-                    override fun onClickVideoWhenPlaying() {
-                        Log.i("VideoPlayerControl", "emit onClickVideoWhenPlaying")
-                        playState = VideoPlayerControlState.PLAYING_TAB
-                    }
-                },
             )
         }
     }
-}
-
-
-class MyViewModel : ViewModel() {
-    var _clickEvent: MutableSharedFlow<Unit?> = MutableSharedFlow()
-    var clickEvent: SharedFlow<Unit?> = _clickEvent
-    fun onClick() {
-        viewModelScope.launch {
-            _clickEvent.emit(Unit)
-        }
-    }
-}
-
-@Composable
-fun Greeting(
-    viewModel: MyViewModel = MyViewModel()
-) {
-    SubView(viewModel.clickEvent, viewModel::onClick)
-
-}
-
-@Composable
-fun SubView(
-    clickEvent: Flow<Unit?>? = null,
-    callBack: () -> Unit = { println("callBack") }
-) {
-    LaunchedEffect(Unit) {
-        clickEvent?.collect { e ->
-            println("clickEvent=$e")
-        }
-    }
-
-    Button(
-        onClick = { callBack() },
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-    ) {
-        Text(text = "Button")
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-        Greeting()
 }
