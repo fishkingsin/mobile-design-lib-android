@@ -24,6 +24,7 @@ public interface ChipData {
 public fun <Items : List<ChipData>> ChipGroup(
     items: Items,
     selectedTabIndex: Int = 0,
+    selectedEnable: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     onTapChip: (Int) -> Unit
 ) {
@@ -40,7 +41,7 @@ public fun <Items : List<ChipData>> ChipGroup(
     ) {
         items(items.size) { index ->
             Chip(
-                selected = tabIndex == index,
+                selected = selectedEnable && tabIndex == index,
                 onClick = {
                     tabIndex = index
                     onTapChip(index)
@@ -133,7 +134,8 @@ fun ChipGroup_Selected_Tab_Preview() {
         Box {
             ChipGroup(
                 items = items,
-                selectedTabIndex = selectedTabIndex
+                selectedTabIndex = selectedTabIndex,
+                selectedEnable = false
             ) {
                 selectedTabIndex = it
             }
@@ -143,7 +145,7 @@ fun ChipGroup_Selected_Tab_Preview() {
             Button(onClick = {
                 selectedTabIndex = (selectedTabIndex + 1) % items.size
             }) {
-                Text(text = "Next")
+                Text(text = "Current:$selectedTabIndex Next")
             }
         }
     }

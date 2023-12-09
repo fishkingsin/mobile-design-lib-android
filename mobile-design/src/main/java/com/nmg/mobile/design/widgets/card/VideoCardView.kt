@@ -17,8 +17,10 @@ public fun <Data : CardDataProtocol> VideoCardView(data: Data) {
             .background(Color.White)
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
-        TopImageCardView(data.imageURL, overlay = {
-            CardViewTimeCodeOverlay(data.timecode, it)
+        TopImageCardView(data.imageURL, overlay = { boxScope ->
+            data.timecode?.also {
+                CardViewTimeCodeOverlay(it, boxScope)
+            }
         }) {
             CardViewHeadline(data)
             CardViewFootnote(data)

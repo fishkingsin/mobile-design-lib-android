@@ -8,8 +8,7 @@ public abstract class CardDataProtocol(
     override val tag: String? = null,
     private val _timecode: String? = null
 ) : CardDisplayable, TimecodeDisplayable {
-    override val timecode: String
-        get() = _timecode ?: "--:--"
+    override val timecode: String? get() = _timecode
 }
 
 public data class CardData(

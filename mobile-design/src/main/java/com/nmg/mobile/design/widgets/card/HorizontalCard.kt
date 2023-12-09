@@ -58,7 +58,9 @@ public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boole
                 )
 
                 if (!isPlaying) {
-                    CardViewTimeCodeOverlay(data.timecode, this)
+                    data.timecode?.also {
+                        CardViewTimeCodeOverlay(it, this)
+                    }
                 } else {
                     PlayNowOverlay(this)
                 }
@@ -90,7 +92,7 @@ fun horizontalCardView_Preview() {
                         "｜用科技顛覆金融 李小加革新小店投資模式",
                     leadingFootnote = "4小時前",
                     secondFootnote = "經人觀點",
-                    _timecode = "22:22"
+                    _timecode = null
                 ),
                 isPlaying = it == 1
             )
