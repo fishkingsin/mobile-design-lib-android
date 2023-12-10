@@ -226,7 +226,8 @@ public fun VideoPlayerControl(
 
             VideoPlayerControlState.COMPLETED -> {
                 upcomingItem?.let {
-                    UpcomingVideoView(item = upcomingItem,
+                    UpcomingVideoView(
+                        item = upcomingItem,
                         onClickCancel = null,
                         onClickPlay = {
                             Log.i("VideoPlayerControl", "UpcomingVideoView#onClickPlay")
@@ -237,7 +238,8 @@ public fun VideoPlayerControl(
             }
             VideoPlayerControlState.ERROR -> {
                 upcomingItem?.let {
-                    UpcomingVideoView(item = upcomingItem,
+                    UpcomingVideoView(
+                        item = upcomingItem,
                         onClickCancel = null,
                         onClickPlay = {
                             onClickPlay?.let { it() }
@@ -246,7 +248,10 @@ public fun VideoPlayerControl(
                 }
             }
             else -> {
-                Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(), contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                    contentAlignment = Alignment.Center
+                ) {
                     Text(text = "UNKNOWN STATE")
                 }
             }
