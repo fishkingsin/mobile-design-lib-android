@@ -27,6 +27,7 @@ import androidx.compose.material.SliderDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -58,6 +59,8 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.reel.UpcomingItem
 import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.StateFlow
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
@@ -68,6 +71,11 @@ public fun VideoPlayerControl(
     nextItem: VideoPlayerControlData? = null,
     upcomingItem: UpcomingItem? = null,
     onClickPlay: (() -> Unit)? = null,
+    onClickPlayPre: (() -> Unit)? = null,
+    onClickPlayNext: (() -> Unit)? = null,
+    secCountDown: Int = 10,
+    autoPlayNext: (() -> Job)? = null,
+    playStateFlow: StateFlow<VideoPlayerControlState>? = null,
 ) {
     val tag = "[VideoPlayerControl]"
 
@@ -112,6 +120,14 @@ public fun VideoPlayerControl(
     var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
     var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
 
+    LaunchedEffect(Unit) {
+        playStateFlow?.collect {
+            Log.i(tag, "${tag}playStateFlow collect it=${it}")
+            playState = it
+        }
+    }
+
+    Log.i(tag, "${tag}current playstate=${playState}")
     Box(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -127,8 +143,13 @@ public fun VideoPlayerControl(
             val listener : Player.Listener = object : Player.Listener {
                 override fun onPlayerError(error: PlaybackException) {
                     super.onPlayerError(error)
+                    Log.i(tag, "${tag}onPlayerError")
                     error.printStackTrace()
                     playState = VideoPlayerControlState.ERROR
+                    autoPlayNext?.let {
+                        Log.i(tag, "${tag}error autoPlayNext")
+                        it()
+                    }
 //                    Log.i(tag, "playState= ${playState} error ${error}")
                 }
 
@@ -164,10 +185,18 @@ public fun VideoPlayerControl(
                             // The player has completed media playback
                             Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
                             playState = VideoPlayerControlState.COMPLETED
+                            autoPlayNext?.let {
+                                Log.i(tag, "${tag}autoPlayNext")
+                                it()
+                            }
                         }
                         ExoPlayer.EVENT_PLAYER_ERROR -> {
                             Log.i(tag, "${tag}ExoPlayer.EVENT_PLAYER_ERROR")
                             playState = VideoPlayerControlState.ERROR
+                            autoPlayNext?.let {
+                                Log.i(tag, "${tag}autoPlayNext")
+                                it()
+                            }
                         }
                         else -> {
                             Log.i(tag, "${tag}UNKNOWN_STATE")
@@ -207,12 +236,20 @@ public fun VideoPlayerControl(
                     videoPlayerControlState = playState,
                     //https://gist.github.com/rubenquadros/f2af69972984b13273edd01825c5695e
                     onClickPlay = {
-                        exoPlayer.play()
                         playState = VideoPlayerControlState.PLAYING
+                        exoPlayer.play()
                     },
                     onClickPause = {
-                        exoPlayer.pause()
                         playState = VideoPlayerControlState.PAUSED
+                        exoPlayer.pause()
+                    },
+                    onClickNext = {
+                        playState = VideoPlayerControlState.LOADING
+                        onClickPlayNext?.let { it() }
+                    },
+                    onClickPrevious = {
+                        playState = VideoPlayerControlState.LOADING
+                        onClickPlayPre?.let { it() }
                     },
                     hasNextMediaItem = hasNextMediaItem,
                     hasPreviousMediaItem = hasPreviousMediaItem,
@@ -233,6 +270,7 @@ public fun VideoPlayerControl(
                             Log.i("VideoPlayerControl", "UpcomingVideoView#onClickPlay")
                             onClickPlay?.let { it() }
                         },
+                        secCountDown = secCountDown
                     )
                 }
             }
@@ -244,12 +282,15 @@ public fun VideoPlayerControl(
                         onClickPlay = {
                             onClickPlay?.let { it() }
                         },
+                        secCountDown = secCountDown
                     )
                 }
             }
             else -> {
                 Box(
-                    modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(text = "UNKNOWN STATE")
@@ -331,6 +372,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
     hasPreviousMediaItem: Boolean,
     hasNextMediaItem: Boolean,
     onClickPrevious: (() -> Unit)? = null,
+    onClickNext: (() -> Unit)? = null,
     onClickPlay: (() -> Unit)? = null,
     onClickPause: (() -> Unit)? = null,
     onClickReplay: (() -> Unit)? = null,
@@ -407,7 +449,7 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
             }
             Spacer(modifier = Modifier.width(32.dp))
             if (hasNextMediaItem) {
-                IconButton(onClick = { }) {
+                IconButton(onClick = { onClickNext?.let { it() }}) {
                     Icon(
                         modifier = Modifier
                             .width(44.dp)

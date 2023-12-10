@@ -44,8 +44,8 @@ import com.nmg.mobile.design.theme.NMGTheme
 public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                                                    onClickCancel: (() -> Unit)? = null,
                                                    onClickPlay: (() -> Unit)? = null,
+                                                   secCountDown: Int = 10,
                                                    ) {
-    val secCountDown by remember { mutableStateOf(10) }
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
