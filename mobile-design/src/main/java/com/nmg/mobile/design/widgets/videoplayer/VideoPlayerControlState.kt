@@ -8,5 +8,5 @@ enum class VideoPlayerControlState {
     COMPLETED,
     COMPLETED_CANCEL_AUTOPLAY,
 
-    REPLAY
+    ERROR,
 }

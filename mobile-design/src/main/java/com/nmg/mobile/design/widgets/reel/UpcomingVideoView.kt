@@ -1,5 +1,6 @@
 package com.nmg.mobile.design.widgets.reel
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -40,7 +41,10 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVideoViewEvent?) {
+public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
+                                                   onClickCancel: (() -> Unit)? = null,
+                                                   onClickPlay: (() -> Unit)? = null,
+                                                   ) {
     val secCountDown by remember { mutableStateOf(10) }
     Column(
         modifier = Modifier
@@ -124,12 +128,13 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 color = NMGTheme.colors.commonNeutralGray2,
                 modifier = Modifier
                     .weight(1f)
+                    .clickable(true, onClick = {
+                        Log.i("UpcomingVideoView", "onClickCancel")
+                        onClickCancel?.let { it() }
+                    })
                     .border(width = 1.dp, color = NMGTheme.colors.commonNeutralGray2)
                     .background(color = Color.Transparent)
                     .padding(top = 9.dp, bottom = 9.dp)
-                    .clickable(true, onClick = {
-                        event?.onClickCancel()
-                    })
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -139,12 +144,16 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 color = NMGTheme.colors.commonNeutralGray90,
                 modifier = Modifier
                     .weight(1f)
+                    .clickable(true, onClick = {
+                        Log.i("UpcomingVideoView", "onClickPlay")
+                        onClickPlay?.let {
+                            Log.i("UpcomingVideoView", "onClickPlay let")
+                            it()
+                        }
+                    })
                     .border(width = 1.dp, color = NMGTheme.colors.commonNeutralGray2)
                     .background(color = Color.White)
                     .padding(top = 9.dp, bottom = 9.dp)
-                    .clickable(true, onClick = {
-                        event?.onClickPlay()
-                    })
             )
         }
     }
@@ -160,6 +169,5 @@ fun UpcomingVideoViewPreview() {
             override var timeCode: String = "22:22"
             override var secCountDown: Int = 10
         },
-        null
     )
 }

@@ -1,7 +1,6 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -10,19 +9,17 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Slider
@@ -30,7 +27,6 @@ import androidx.compose.material.SliderDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,8 +41,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -62,21 +56,20 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.launch
+import com.nmg.mobile.design.widgets.reel.UpcomingItem
+import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 public fun VideoPlayerControl(
     context: Context = LocalContext.current,
-    data: VideoPlayerControlData,
-    onVideoPlayerCompletedLayer: (@Composable (BoxScope) -> Unit)? = null,
-    videoUrl: String? = null,
+    currentItem: VideoPlayerControlData,
+    preItem: VideoPlayerControlData? = null,
+    nextItem: VideoPlayerControlData? = null,
+    upcomingItem: UpcomingItem? = null,
+    onClickPlay: (() -> Unit)? = null,
 ) {
     val tag = "[VideoPlayerControl]"
-    var videoUrl = "https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8"
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
@@ -84,16 +77,18 @@ public fun VideoPlayerControl(
             .apply {
                 val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
 
-                val source = with(videoUrl) {
+                val source = with(currentItem.videoURL) {
                     when {
                         this?.contains(".m3u8") == true -> {
-                            androidx.media3.exoplayer.hls.HlsMediaSource.Factory(
+                            HlsMediaSource.Factory(
                                 dataSourceFactory
-                            ).createMediaSource(MediaItem.fromUri(videoUrl))
+                            ).createMediaSource(MediaItem.fromUri(currentItem.videoURL))
                         }
                         else -> {
-                            androidx.media3.exoplayer.source.ProgressiveMediaSource.Factory(dataSourceFactory)
-                                .createMediaSource(MediaItem.fromUri(videoUrl))
+                            ProgressiveMediaSource.Factory(
+                                dataSourceFactory
+                            )
+                                .createMediaSource(MediaItem.fromUri(currentItem.videoURL))
                         }
                     }
                 }
@@ -114,6 +109,8 @@ public fun VideoPlayerControl(
     var bufferedPercentage by remember { mutableStateOf(0) }
     var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
     var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
+    var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
+    var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
 
     Box(
         modifier = Modifier
@@ -121,11 +118,20 @@ public fun VideoPlayerControl(
             .size(390.dp, 219.dp)
             .background(Color.Black)
             .clickable(enabled = true, onClick = {
-                playState = VideoPlayerControlState.PLAYING_TAB
+                if (isPlaying) {
+                    playState = VideoPlayerControlState.PLAYING_TAB
+                }
             })
     ) {
         DisposableEffect(Unit) {
             val listener : Player.Listener = object : Player.Listener {
+                override fun onPlayerError(error: PlaybackException) {
+                    super.onPlayerError(error)
+                    error.printStackTrace()
+                    playState = VideoPlayerControlState.ERROR
+//                    Log.i(tag, "playState= ${playState} error ${error}")
+                }
+
                 override fun onEvents(
                     player: Player,
                     events: Player.Events
@@ -136,33 +142,37 @@ public fun VideoPlayerControl(
                     bufferedPercentage = player.bufferedPercentage
                     isPlaying = player.isPlaying
                     playbackState = player.playbackState
-//                    when (playbackState) {
-//                        ExoPlayer.STATE_IDLE -> {
-//                            // The player has been instantiated but is not ready yet.
-//                            Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
-//                        }
-//                        ExoPlayer.STATE_BUFFERING -> {
-//                            // The player cannot start playback from the current position
-//                            // because there is insufficient data buffered
-//                            Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
-//                        }
-//                        ExoPlayer.STATE_READY -> {
-//                            // The player can immediately start playing from the current position.
-//                            // This means that the player will automatically start playing media
-//                            // if its playWhenReady property is true. If this property is false,
-//                            // the player will pause playback.
-//                            Log.i(tag, "${tag}ExoPlayer.STATE_READY")
-//                            playState = VideoPlayerControlState.PLAYING
-//                        }
-//                        ExoPlayer.STATE_ENDED -> {
-//                            // The player has completed media playback
-//                            Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
-//                            playState = VideoPlayerControlState.COMPLETED
-//                        }
-//                        else -> {
-//                            Log.i(tag, "${tag}UNKNOWN_STATE")
-//                        }
-//                    }
+                    when (playbackState) {
+                        ExoPlayer.STATE_IDLE -> {
+                            // The player has been instantiated but is not ready yet.
+                            Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
+                        }
+                        ExoPlayer.STATE_BUFFERING -> {
+                            // The player cannot start playback from the current position
+                            // because there is insufficient data buffered
+                            Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
+                        }
+                        ExoPlayer.STATE_READY -> {
+                            // The player can immediately start playing from the current position.
+                            // This means that the player will automatically start playing media
+                            // if its playWhenReady property is true. If this property is false,
+                            // the player will pause playback.
+                            Log.i(tag, "${tag}ExoPlayer.STATE_READY")
+                            playState = VideoPlayerControlState.PLAYING
+                        }
+                        ExoPlayer.STATE_ENDED -> {
+                            // The player has completed media playback
+                            Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
+                            playState = VideoPlayerControlState.COMPLETED
+                        }
+                        ExoPlayer.EVENT_PLAYER_ERROR -> {
+                            Log.i(tag, "${tag}ExoPlayer.EVENT_PLAYER_ERROR")
+                            playState = VideoPlayerControlState.ERROR
+                        }
+                        else -> {
+                            Log.i(tag, "${tag}UNKNOWN_STATE")
+                        }
+                    }
                 }
             }
             exoPlayer.addListener(listener)
@@ -180,12 +190,15 @@ public fun VideoPlayerControl(
         })
         when (playState) {
             VideoPlayerControlState.LOADING -> {
-                VideoPlayerControlInitView(boxScope = this, data = data)
+                VideoPlayerControlInitView(boxScope = this, data = currentItem)
             }
 
             VideoPlayerControlState.PLAYING -> {
-                val progressValue = exoPlayer.currentPosition * 1.0 / exoPlayer.duration
-                VideoPlayerControlPlayingView(boxScope = this, progressValue = progressValue.toFloat())
+                val progressValue = currentTime * 1.0 / totalDuration
+                VideoPlayerControlPlayingView(
+                    boxScope = this,
+                    progressValue = progressValue.toFloat()
+                )
             }
 
             VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
@@ -200,20 +213,42 @@ public fun VideoPlayerControl(
                     onClickPause = {
                         exoPlayer.pause()
                         playState = VideoPlayerControlState.PAUSED
-                    }
+                    },
+                    hasNextMediaItem = hasNextMediaItem,
+                    hasPreviousMediaItem = hasPreviousMediaItem,
                 )
                 val progressValue = exoPlayer.currentPosition * 1.0 / exoPlayer.duration
-                VideoPlayerControlPlayingView(boxScope = this, progressValue = progressValue.toFloat())
+                VideoPlayerControlPlayingView(
+                    boxScope = this,
+                    progressValue = progressValue.toFloat()
+                )
             }
 
             VideoPlayerControlState.COMPLETED -> {
-                onVideoPlayerCompletedLayer?.let { it ->
-                    it(this)
+                upcomingItem?.let {
+                    UpcomingVideoView(item = upcomingItem,
+                        onClickCancel = null,
+                        onClickPlay = {
+                            Log.i("VideoPlayerControl", "UpcomingVideoView#onClickPlay")
+                            onClickPlay?.let { it() }
+                        },
+                    )
                 }
             }
-
+            VideoPlayerControlState.ERROR -> {
+                upcomingItem?.let {
+                    UpcomingVideoView(item = upcomingItem,
+                        onClickCancel = null,
+                        onClickPlay = {
+                            onClickPlay?.let { it() }
+                        },
+                    )
+                }
+            }
             else -> {
-                Text(text = "UNKNOWN STATE")
+                Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(), contentAlignment = Alignment.Center) {
+                    Text(text = "UNKNOWN STATE")
+                }
             }
         }
     }
@@ -288,6 +323,8 @@ fun VideoPlayerControlPlayingView(boxScope: BoxScope, progressValue: Float) {
 fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
     boxScope: BoxScope,
     videoPlayerControlState: VideoPlayerControlState,
+    hasPreviousMediaItem: Boolean,
+    hasNextMediaItem: Boolean,
     onClickPrevious: (() -> Unit)? = null,
     onClickPlay: (() -> Unit)? = null,
     onClickPause: (() -> Unit)? = null,
@@ -299,15 +336,17 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { onClickPrevious?.let { it() } }) {
-                Icon(
-                    modifier = Modifier
-                        .width(44.dp)
-                        .height(44.dp),
-                    tint = Color.White,
-                    painter = painterResource(id = R.drawable.video_player_pre),
-                    contentDescription = ""
-                )
+            if (hasPreviousMediaItem) {
+                IconButton(onClick = { onClickPrevious?.let { it() } }) {
+                    Icon(
+                        modifier = Modifier
+                            .width(44.dp)
+                            .height(44.dp),
+                        tint = Color.White,
+                        painter = painterResource(id = R.drawable.video_player_pre),
+                        contentDescription = ""
+                    )
+                }
             }
             Spacer(modifier = Modifier.width(32.dp))
             IconButton(onClick = {
@@ -362,15 +401,17 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
                 }
             }
             Spacer(modifier = Modifier.width(32.dp))
-            IconButton(onClick = {  }) {
-                Icon(
-                    modifier = Modifier
-                        .width(44.dp)
-                        .height(44.dp),
-                    tint = Color.White,
-                    painter = painterResource(id = R.drawable.video_player_next),
-                    contentDescription = ""
-                )
+            if (hasNextMediaItem) {
+                IconButton(onClick = { }) {
+                    Icon(
+                        modifier = Modifier
+                            .width(44.dp)
+                            .height(44.dp),
+                        tint = Color.White,
+                        painter = painterResource(id = R.drawable.video_player_next),
+                        contentDescription = ""
+                    )
+                }
             }
         }
 
@@ -401,22 +442,24 @@ fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
 @Composable
 fun VideoPlayerControlPreview() {
     // Define the UI element expanded state
-    var item: VideoPlayerControlData = object : VideoPlayerControlData {
-        override var playState = VideoPlayerControlState.LOADING
-        override var imageURL: String = "https://placehold.co/390x219/png"
-        override var totalTime: String = "22:22"
-        override var sliderValue by remember {
-            mutableStateOf(0f)
-        }
-    }
-
-    NMGTheme {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
-        ) {
-            VideoPlayerControl(
-                data = item,
-            )
-        }
-    }
+//    var item: VideoPlayerControlData = object : VideoPlayerControlData {
+//        override var playState = VideoPlayerControlState.LOADING
+//        override var imageURL: String = "https://placehold.co/390x219/png"
+//        override var totalTime: String = "22:22"
+//        override var sliderValue by remember {
+//            mutableStateOf(0f)
+//        }
+//    }
+//    val videoUrl = "https://cdn.theoplayer.com/video/big_buck_bunny/big_buck_bunny.m3u8"
+//
+//    NMGTheme {
+//        Column(
+//            verticalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding)
+//        ) {
+//            VideoPlayerControl(
+//                data = item,
+//                videoUrl = videoUrl
+//            )
+//        }
+//    }
 }
