@@ -78,74 +78,83 @@ public fun VideoPlayerControl(
     playStateFlow: StateFlow<VideoPlayerControlState>? = null,
 ) {
     val tag = "[VideoPlayerControl]"
+    val videoURL = currentItem.videoURL
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
             .build()
             .apply {
-                val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
-
-                val source = with(currentItem.videoURL) {
-                    when {
-                        this?.contains(".m3u8") == true -> {
-                            HlsMediaSource.Factory(
-                                dataSourceFactory
-                            ).createMediaSource(MediaItem.fromUri(currentItem.videoURL))
-                        }
-                        else -> {
-                            ProgressiveMediaSource.Factory(
-                                dataSourceFactory
-                            )
-                                .createMediaSource(MediaItem.fromUri(currentItem.videoURL))
-                        }
-                    }
-                }
-
-                this.setMediaSource(source)
-                this.prepare()
-
                 playWhenReady = true
                 videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
-                repeatMode = Player.REPEAT_MODE_ONE
+                repeatMode = Player.REPEAT_MODE_OFF
             }
     }
 
+    LaunchedEffect(videoURL) {
+        val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
+        val source = when {
+            videoURL.contains(".m3u8") -> {
+                HlsMediaSource.Factory(
+                    dataSourceFactory
+                ).createMediaSource(MediaItem.fromUri(videoURL))
+            }
+
+            else -> {
+                ProgressiveMediaSource.Factory(
+                    dataSourceFactory
+                )
+                    .createMediaSource(MediaItem.fromUri(videoURL))
+            }
+        }
+        exoPlayer.setMediaSource(source)
+        exoPlayer.prepare()
+        Log.i(tag, "update videoURL=${videoURL}")
+    }
+    Log.i(tag, "videoURL=${videoURL}")
+    Log.i(tag, "currentItem.videoURL=${currentItem.videoURL}")
+    Log.i(tag, "currentItem.videoURL=${exoPlayer.currentMediaItem?.localConfiguration?.uri.toString()}")
+
     var shouldShowControls by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(exoPlayer.isLoading) }
     var isPlaying by remember { mutableStateOf(exoPlayer.isPlaying) }
     var totalDuration by remember { mutableStateOf(0L) }
     var currentTime by remember { mutableStateOf(0L) }
     var bufferedPercentage by remember { mutableStateOf(0) }
     var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
-    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
+//    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
     var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
     var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
+    var isPlayToEnd by remember {
+        mutableStateOf(false)
+    }
 
+//    LaunchedEffect(currentItem.videoURL) {
+//
+//    }
     LaunchedEffect(Unit) {
         playStateFlow?.collect {
             Log.i(tag, "${tag}playStateFlow collect it=${it}")
-            playState = it
+//            playState = it
         }
     }
 
-    Log.i(tag, "${tag}current playstate=${playState}")
+//    Log.i(tag, "${tag}current playstate=${playState}")
     Box(
         modifier = Modifier
             .aspectRatio(390f / 219f)
             .size(390.dp, 219.dp)
             .background(Color.Black)
             .clickable(enabled = true, onClick = {
-                if (isPlaying) {
-                    playState = VideoPlayerControlState.PLAYING_TAB
-                }
+                shouldShowControls = !shouldShowControls
             })
     ) {
         DisposableEffect(Unit) {
-            val listener : Player.Listener = object : Player.Listener {
+            val listener: Player.Listener = object : Player.Listener {
                 override fun onPlayerError(error: PlaybackException) {
                     super.onPlayerError(error)
                     Log.i(tag, "${tag}onPlayerError")
                     error.printStackTrace()
-                    playState = VideoPlayerControlState.ERROR
+//                    playState = VideoPlayerControlState.ERROR
                     autoPlayNext?.let {
                         Log.i(tag, "${tag}error autoPlayNext")
                         it()
@@ -168,36 +177,41 @@ public fun VideoPlayerControl(
                             // The player has been instantiated but is not ready yet.
                             Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
                         }
+
                         ExoPlayer.STATE_BUFFERING -> {
                             // The player cannot start playback from the current position
                             // because there is insufficient data buffered
                             Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
                         }
+
                         ExoPlayer.STATE_READY -> {
                             // The player can immediately start playing from the current position.
                             // This means that the player will automatically start playing media
                             // if its playWhenReady property is true. If this property is false,
                             // the player will pause playback.
                             Log.i(tag, "${tag}ExoPlayer.STATE_READY")
-                            playState = VideoPlayerControlState.PLAYING
+//                            playState = VideoPlayerControlState.PLAYING
                         }
+
                         ExoPlayer.STATE_ENDED -> {
                             // The player has completed media playback
                             Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
-                            playState = VideoPlayerControlState.COMPLETED
+//                            playState = VideoPlayerControlState.COMPLETED
                             autoPlayNext?.let {
                                 Log.i(tag, "${tag}autoPlayNext")
                                 it()
                             }
                         }
+
                         ExoPlayer.EVENT_PLAYER_ERROR -> {
                             Log.i(tag, "${tag}ExoPlayer.EVENT_PLAYER_ERROR")
-                            playState = VideoPlayerControlState.ERROR
+//                            playState = VideoPlayerControlState.ERROR
                             autoPlayNext?.let {
                                 Log.i(tag, "${tag}autoPlayNext")
                                 it()
                             }
                         }
+
                         else -> {
                             Log.i(tag, "${tag}UNKNOWN_STATE")
                         }
@@ -214,87 +228,125 @@ public fun VideoPlayerControl(
                 resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
 
                 player = exoPlayer
-                layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                layoutParams = FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
             }
         })
-        when (playState) {
-            VideoPlayerControlState.LOADING -> {
+        if (!isPlayToEnd) {
+            if (isLoading) {
                 VideoPlayerControlInitView(boxScope = this, data = currentItem)
             }
 
-            VideoPlayerControlState.PLAYING -> {
+            if (shouldShowControls) {
+                Row(
+                    modifier = Modifier.align(Alignment.Center),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    if (hasPreviousMediaItem) {
+                        IconButton(onClick = { onClickPlayPre?.let { it() } }) {
+                            Icon(
+                                modifier = Modifier
+                                    .width(44.dp)
+                                    .height(44.dp),
+                                tint = Color.White,
+                                painter = painterResource(id = R.drawable.video_player_pre),
+                                contentDescription = ""
+                            )
+                        }
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .width(44.dp)
+                                .height(44.dp)
+                        ) {
+                        }
+                    }
+                    Spacer(modifier = Modifier.width(32.dp))
+                    IconButton(onClick = {
+                        if (isLoading) {
+                            return@IconButton
+                        }
+                        if (isPlaying) {
+                            exoPlayer.pause()
+                        } else {
+                            exoPlayer.play()
+                        }
+                    }) {
+                        val painter = if (isLoading) {
+                            painterResource(id = R.drawable.video_player_loading)
+                        } else if (isPlaying) {
+                            painterResource(id = R.drawable.video_player_pause)
+                        } else {
+                            painterResource(id = R.drawable.video_player_play)
+                        }
+                        Icon(
+                            modifier = Modifier
+                                .width(60.dp)
+                                .height(60.dp),
+                            tint = Color.White,
+                            painter = painter,
+                            contentDescription = ""
+                        )
+
+//                    painter = painterResource(id = R.drawable.video_player_replay),
+                    }
+                    Spacer(modifier = Modifier.width(32.dp))
+                    if (hasNextMediaItem) {
+                        IconButton(onClick = { onClickPlayNext?.let { it() } }) {
+                            Icon(
+                                modifier = Modifier
+                                    .width(44.dp)
+                                    .height(44.dp),
+                                tint = Color.White,
+                                painter = painterResource(id = R.drawable.video_player_next),
+                                contentDescription = ""
+                            )
+                        }
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .width(44.dp)
+                                .height(44.dp)
+                        ) {
+                        }
+                    }
+                }
+
+                IconButton(
+                    onClick = { },
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .width(16.dp)
+                            .height(16.dp),
+                        tint = Color.White,
+                        painter = painterResource(id = R.drawable.video_player_expand),
+                        contentDescription = ""
+                    )
+                }
                 val progressValue = currentTime * 1.0 / totalDuration
                 VideoPlayerControlPlayingView(
                     boxScope = this,
                     progressValue = progressValue.toFloat()
                 )
             }
-
-            VideoPlayerControlState.PLAYING_TAB, VideoPlayerControlState.PAUSED, VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
-                VideoPlayerControlPlayingTabOrPauseOrCompletedView(
-                    boxScope = this,
-                    videoPlayerControlState = playState,
-                    //https://gist.github.com/rubenquadros/f2af69972984b13273edd01825c5695e
+        } else {
+            upcomingItem?.let {
+                UpcomingVideoView(
+                    item = upcomingItem,
+                    onClickCancel = null,
                     onClickPlay = {
-                        playState = VideoPlayerControlState.PLAYING
-                        exoPlayer.play()
+                        Log.i("VideoPlayerControl", "UpcomingVideoView#onClickPlay")
+                        onClickPlay?.let { it() }
                     },
-                    onClickPause = {
-                        playState = VideoPlayerControlState.PAUSED
-                        exoPlayer.pause()
-                    },
-                    onClickNext = {
-                        playState = VideoPlayerControlState.LOADING
-                        onClickPlayNext?.let { it() }
-                    },
-                    onClickPrevious = {
-                        playState = VideoPlayerControlState.LOADING
-                        onClickPlayPre?.let { it() }
-                    },
-                    hasNextMediaItem = hasNextMediaItem,
-                    hasPreviousMediaItem = hasPreviousMediaItem,
+                    secCountDown = secCountDown
                 )
-                val progressValue = exoPlayer.currentPosition * 1.0 / exoPlayer.duration
-                VideoPlayerControlPlayingView(
-                    boxScope = this,
-                    progressValue = progressValue.toFloat()
-                )
-            }
-
-            VideoPlayerControlState.COMPLETED -> {
-                upcomingItem?.let {
-                    UpcomingVideoView(
-                        item = upcomingItem,
-                        onClickCancel = null,
-                        onClickPlay = {
-                            Log.i("VideoPlayerControl", "UpcomingVideoView#onClickPlay")
-                            onClickPlay?.let { it() }
-                        },
-                        secCountDown = secCountDown
-                    )
-                }
-            }
-            VideoPlayerControlState.ERROR -> {
-                upcomingItem?.let {
-                    UpcomingVideoView(
-                        item = upcomingItem,
-                        onClickCancel = null,
-                        onClickPlay = {
-                            onClickPlay?.let { it() }
-                        },
-                        secCountDown = secCountDown
-                    )
-                }
-            }
-            else -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "UNKNOWN STATE")
-                }
             }
         }
     }
@@ -362,126 +414,6 @@ fun VideoPlayerControlPlayingView(boxScope: BoxScope, progressValue: Float) {
                 inactiveTrackColor = Color.White
             )
         )
-    }
-}
-
-@Composable
-fun VideoPlayerControlPlayingTabOrPauseOrCompletedView(
-    boxScope: BoxScope,
-    videoPlayerControlState: VideoPlayerControlState,
-    hasPreviousMediaItem: Boolean,
-    hasNextMediaItem: Boolean,
-    onClickPrevious: (() -> Unit)? = null,
-    onClickNext: (() -> Unit)? = null,
-    onClickPlay: (() -> Unit)? = null,
-    onClickPause: (() -> Unit)? = null,
-    onClickReplay: (() -> Unit)? = null,
-) {
-    boxScope.apply {
-        Row(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (hasPreviousMediaItem) {
-                IconButton(onClick = { onClickPrevious?.let { it() } }) {
-                    Icon(
-                        modifier = Modifier
-                            .width(44.dp)
-                            .height(44.dp),
-                        tint = Color.White,
-                        painter = painterResource(id = R.drawable.video_player_pre),
-                        contentDescription = ""
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.width(32.dp))
-            IconButton(onClick = {
-                when (videoPlayerControlState) {
-                    VideoPlayerControlState.PLAYING_TAB -> {
-                        onClickPause?.let { it() }
-                    }
-                    VideoPlayerControlState.PAUSED -> {
-                        onClickPlay?.let { it() }
-                    }
-                    VideoPlayerControlState.COMPLETED -> onClickReplay?.let { it() }
-                    else -> {
-                        // pass
-                    }
-                }
-            }) {
-                when (videoPlayerControlState) {
-                    VideoPlayerControlState.PLAYING_TAB -> {
-                        Icon(
-                            modifier = Modifier
-                                .width(60.dp)
-                                .height(60.dp),
-                            tint = Color.White,
-                            painter = painterResource(id = R.drawable.video_player_pause),
-                            contentDescription = ""
-                        )
-                    }
-
-                    VideoPlayerControlState.PAUSED -> {
-                        Icon(
-                            modifier = Modifier
-                                .width(60.dp)
-                                .height(60.dp),
-                            tint = Color.White,
-                            painter = painterResource(id = R.drawable.video_player_play),
-                            contentDescription = ""
-                        )
-                    }
-
-                    VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY -> {
-                        Icon(
-                            modifier = Modifier
-                                .width(60.dp)
-                                .height(60.dp),
-                            tint = Color.White,
-                            painter = painterResource(id = R.drawable.video_player_replay),
-                            contentDescription = ""
-                        )
-                    }
-
-                    else -> {}
-                }
-            }
-            Spacer(modifier = Modifier.width(32.dp))
-            if (hasNextMediaItem) {
-                IconButton(onClick = { onClickNext?.let { it() }}) {
-                    Icon(
-                        modifier = Modifier
-                            .width(44.dp)
-                            .height(44.dp),
-                        tint = Color.White,
-                        painter = painterResource(id = R.drawable.video_player_next),
-                        contentDescription = ""
-                    )
-                }
-            }
-        }
-
-        if (VideoPlayerControlState.PAUSED == videoPlayerControlState ||
-            VideoPlayerControlState.PLAYING == videoPlayerControlState ||
-            VideoPlayerControlState.PLAYING_TAB == videoPlayerControlState
-        ) {
-            IconButton(
-                onClick = {  },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .width(16.dp)
-                        .height(16.dp),
-                    tint = Color.White,
-                    painter = painterResource(id = R.drawable.video_player_expand),
-                    contentDescription = ""
-                )
-            }
-        }
     }
 }
 

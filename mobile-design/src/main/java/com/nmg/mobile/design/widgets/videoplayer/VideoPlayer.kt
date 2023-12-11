@@ -34,7 +34,6 @@ public fun VideoPlayer(
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier,
-    playerState: VideoPlayerControlState = VideoPlayerControlState.LOADING,
 ) {
 
     val tag = "[VideoPlayer]"
@@ -130,33 +129,22 @@ public fun VideoPlayer(
                     // if its playWhenReady property is true. If this property is false,
                     // the player will pause playback.
                     Log.i(tag, "${tag}ExoPlayer.STATE_READY")
-                    onStateChange(VideoPlayerControlState.PLAYING)
                 }
                 ExoPlayer.STATE_ENDED -> {
                     // The player has completed media playback
                     Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
-                    onStateChange(VideoPlayerControlState.COMPLETED)
                 }
                 else -> {
                     Log.i(tag, "${tag}UNKNOWN_STATE")
                 }
             }
-            Log.i(tag, "${tag}onStateChange playerState=$playerState")
+            Log.i(tag, "${tag}playbackState=$playbackState")
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
         }
     })
-    Log.i("VideoPlayer", "clickevent ${playerState}")
-    if (playerState == VideoPlayerControlState.PLAYING) {
-        exoPlayer.play()
-        Log.i("VideoPlayer", "clickevent play")
-    }
-    if (playerState == VideoPlayerControlState.PAUSED) {
-        exoPlayer.pause()
-        Log.i("VideoPlayer", "clickevent pause")
-    }
 
     LaunchedEffect(Unit) {
         while (true) {
