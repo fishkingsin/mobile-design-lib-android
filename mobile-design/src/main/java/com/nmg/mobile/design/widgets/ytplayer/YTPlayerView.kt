@@ -4,6 +4,8 @@ import android.view.View
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -16,7 +18,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrC
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 @Composable
-fun YTPlayerView(lifecycleOwner: LifecycleOwner, videoId: String, modifier: Modifier = Modifier) {
+fun YTPlayerView(lifecycleOwner: LifecycleOwner, videoId: String, modifier: Modifier = Modifier,) {
     var isFullscreen by remember { mutableStateOf(false) }
     var youTubePlayerView by remember { mutableStateOf<YouTubePlayerView?>(null) }
     var lifecycleEvent by remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
@@ -109,4 +111,11 @@ fun YTPlayerView(lifecycleOwner: LifecycleOwner, videoId: String, modifier: Modi
             // Example of Compose -> View communication
         }
     )
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun YTPlayerViewPreview() {
+    YTPlayerView(lifecycleOwner = LocalLifecycleOwner.current ,videoId = "https://www.youtube.com/watch?v=y5QW38jqPCI")
 }

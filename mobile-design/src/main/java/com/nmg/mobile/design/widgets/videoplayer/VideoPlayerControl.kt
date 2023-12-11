@@ -112,13 +112,17 @@ public fun VideoPlayerControl(
     }
     Log.i(tag, "videoURL=${videoURL}")
     Log.i(tag, "currentItem.videoURL=${currentItem.videoURL}")
-    Log.i(tag, "currentItem.videoURL=${exoPlayer.currentMediaItem?.localConfiguration?.uri.toString()}")
+    Log.i(
+        tag,
+        "currentItem.videoURL=${exoPlayer.currentMediaItem?.localConfiguration?.uri.toString()}"
+    )
 
     var shouldShowControls by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(exoPlayer.isLoading) }
     var isPlaying by remember { mutableStateOf(exoPlayer.isPlaying) }
     var totalDuration by remember { mutableStateOf(0L) }
     var currentTime by remember { mutableStateOf(0L) }
+    var progressValue: Double by remember { mutableStateOf(0.0) }
     var bufferedPercentage by remember { mutableStateOf(0) }
     var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
 //    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
@@ -169,6 +173,11 @@ public fun VideoPlayerControl(
                     super.onEvents(player, events)
                     totalDuration = player.duration.coerceAtLeast(0L)
                     currentTime = player.currentPosition.coerceAtLeast(0L)
+                    progressValue = if (totalDuration == 0L) {
+                        0.0
+                    } else {
+                        currentTime * 1.0 / totalDuration
+                    }
                     bufferedPercentage = player.bufferedPercentage
                     isPlaying = player.isPlaying
                     playbackState = player.playbackState
@@ -330,7 +339,7 @@ public fun VideoPlayerControl(
                         contentDescription = ""
                     )
                 }
-                val progressValue = currentTime * 1.0 / totalDuration
+
                 VideoPlayerControlPlayingView(
                     boxScope = this,
                     progressValue = progressValue.toFloat()
