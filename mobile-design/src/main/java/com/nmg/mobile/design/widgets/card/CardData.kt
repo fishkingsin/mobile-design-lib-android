@@ -26,4 +26,3 @@ public data class CardData(
     secondFootnote = secondFootnote,
     _timecode = _timecode
 )
-
