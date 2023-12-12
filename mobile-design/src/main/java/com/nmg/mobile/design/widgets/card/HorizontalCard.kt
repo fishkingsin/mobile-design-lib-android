@@ -57,11 +57,7 @@ public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boole
                         .clip(shape)
                 )
 
-                if (!isPlaying) {
-                    data.timecode?.also {
-                        CardViewTimeCodeOverlay(it, this)
-                    }
-                } else {
+                if (isPlaying) {
                     PlayNowOverlay(this)
                 }
             }
