@@ -2,6 +2,7 @@ package com.nmg.mobile.design.widgets.card
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,7 +29,11 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boolean = false) {
+public fun <Data : CardDataProtocol> HorizontalCard(
+    data: Data,
+    isPlaying: Boolean = false,
+    overlay: @Composable ((BoxScope) -> Unit)? = null
+) {
     Box(
         modifier = Modifier
             .background(if (isPlaying) NMGTheme.colors.commonNeutralGray5 else Color.White)
@@ -57,7 +62,11 @@ public fun <Data : CardDataProtocol> HorizontalCard(data: Data, isPlaying: Boole
                         .clip(shape)
                 )
 
-                if (isPlaying) {
+                if (!isPlaying) {
+                    overlay?.let {
+                        it(this)
+                    }
+                } else {
                     PlayNowOverlay(this)
                 }
             }
@@ -88,7 +97,7 @@ fun horizontalCardView_Preview() {
                         "｜用科技顛覆金融 李小加革新小店投資模式",
                     leadingFootnote = "4小時前",
                     secondFootnote = "經人觀點",
-                    _timecode = null
+                    _timecode = "22:22"
                 ),
                 isPlaying = it == 1
             )

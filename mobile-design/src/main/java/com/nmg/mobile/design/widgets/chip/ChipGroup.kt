@@ -143,7 +143,7 @@ fun ChipGroup_Selected_Tab_Preview() {
             Button(onClick = {
                 selectedTabIndex = (selectedTabIndex + 1) % items.size
             }) {
-                Text(text = "Current:$selectedTabIndex Next")
+                Text(text = "Next")
             }
         }
     }
