@@ -24,7 +24,7 @@ public interface ChipData {
 public fun <Items : List<ChipData>> ChipGroup(
     items: Items,
     selectedTabIndex: Int = 0,
-    selectedEnable: Boolean = true,
+    chipGroupMode: ChipGroupMode = ChipGroupMode.ENABLE_SELECT,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     onTapChip: (Int) -> Unit
 ) {
@@ -41,7 +41,7 @@ public fun <Items : List<ChipData>> ChipGroup(
     ) {
         items(items.size) { index ->
             Chip(
-                selected = selectedEnable && tabIndex == index,
+                selected = chipGroupMode == ChipGroupMode.ENABLE_SELECT && tabIndex == index,
                 onClick = {
                     tabIndex = index
                     onTapChip(index)
@@ -65,6 +65,11 @@ public fun <Items : List<ChipData>> ChipGroup(
 }
 
 data class DemoChipData(override val title: String) : ChipData
+
+enum class ChipGroupMode {
+    ENABLE_SELECT,
+    DISABLE_SELECT
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -135,7 +140,7 @@ fun ChipGroup_Selected_Tab_Preview() {
             ChipGroup(
                 items = items,
                 selectedTabIndex = selectedTabIndex,
-                selectedEnable = false
+                chipGroupMode = ChipGroupMode.DISABLE_SELECT
             ) {
                 selectedTabIndex = it
             }
