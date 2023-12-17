@@ -52,40 +52,43 @@ public fun ExpandTextView(
             }
             .then(modifier)
     ) {
-        Text(
-            modifier = textModifier
-                .fillMaxWidth()
-                .animateContentSize(),
-            text = buildAnnotatedString {
-                if (clickable) {
-                    if (isExpanded) {
-                        append(text)
-                        withStyle(style = showLessStyle) { append(showLessText) }
+        if (text.length > 0) {
+            Text(
+                modifier = textModifier
+                    .fillMaxWidth()
+                    .animateContentSize(),
+                text = buildAnnotatedString {
+                    if (clickable) {
+                        if (isExpanded) {
+                            append(text)
+                            withStyle(style = showLessStyle) { append(showLessText) }
+                        } else {
+                            val adjustText =
+                                text.substring(startIndex = 0, endIndex = lastCharIndex)
+                                    .dropLast(showMoreText.length)
+                                    .dropLastWhile { Character.isWhitespace(it) || it == '.' }
+                            append(adjustText)
+                            withStyle(style = showMoreStyle) { append(showMoreText) }
+                        }
                     } else {
-                        val adjustText = text.substring(startIndex = 0, endIndex = lastCharIndex)
-                            .dropLast(showMoreText.length)
-                            .dropLastWhile { Character.isWhitespace(it) || it == '.' }
-                        append(adjustText)
-                        withStyle(style = showMoreStyle) { append(showMoreText) }
+                        append(text)
                     }
-                } else {
-                    append(text)
-                }
-            },
-            maxLines = if (isExpanded) Int.MAX_VALUE else collapsedMaxLine,
-            fontStyle = fontStyle,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.W400,
-            color = textColor,
-            onTextLayout = { textLayoutResult ->
-                if (!isExpanded && textLayoutResult.hasVisualOverflow) {
-                    clickable = true
-                    lastCharIndex = textLayoutResult.getLineEnd(collapsedMaxLine - 1)
-                }
-            },
-            style = style,
-            textAlign = textAlign
-        )
+                },
+                maxLines = if (isExpanded) Int.MAX_VALUE else collapsedMaxLine,
+                fontStyle = fontStyle,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.W400,
+                color = textColor,
+                onTextLayout = { textLayoutResult ->
+                    if (!isExpanded && textLayoutResult.hasVisualOverflow) {
+                        clickable = true
+                        lastCharIndex = textLayoutResult.getLineEnd(collapsedMaxLine - 1)
+                    }
+                },
+                style = style,
+                textAlign = textAlign
+            )
+        }
     }
 }
 
