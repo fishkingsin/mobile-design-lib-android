@@ -72,7 +72,7 @@ public fun VideoPlayerControl(
     upcomingItem: UpcomingItem? = null,
     onClickPlay: (() -> Unit)? = null,
     onClickPlayPre: (() -> Unit)? = null,
-    onClickPlayNext: (() -> Unit)? = null,
+    onClickPlayNext: (() -> Unit) = { },
     secCountDown: Int = 10,
     autoPlayNext: (() -> Job)? = null,
     onStateChange: ((VideoPlayerControlState) -> Unit) = {}
@@ -307,7 +307,9 @@ public fun VideoPlayerControl(
                     }
                     Spacer(modifier = Modifier.width(32.dp))
                     if (hasNextMediaItem) {
-                        IconButton(onClick = { onClickPlayNext?.let { it() } }) {
+                        IconButton(onClick = {
+                            onClickPlayNext()
+                        }) {
                             Icon(
                                 modifier = Modifier
                                     .width(44.dp)
