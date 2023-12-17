@@ -5,9 +5,6 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.theme.NMGTheme
-import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControl
-import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlData
-import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlState
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

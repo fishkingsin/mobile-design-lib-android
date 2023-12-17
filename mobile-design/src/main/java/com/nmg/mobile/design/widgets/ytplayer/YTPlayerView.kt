@@ -119,6 +119,6 @@ fun YTPlayerView(lifecycleOwner: LifecycleOwner, videoId: String, modifier: Modi
 fun YTPlayerViewPreview() {
     YTPlayerView(
         lifecycleOwner = LocalLifecycleOwner.current,
-        videoId = "https://www.youtube.com/watch?v=y5QW38jqPCI"
+        videoId = "y5QW38jqPCI"
     )
 }

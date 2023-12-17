@@ -1,10 +1,10 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -20,7 +20,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,7 +42,6 @@ import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.widgets.reel.UpcomingItem
 import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
-import com.nmg.mobile.design.widgets.ytplayer.YTPlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -52,6 +50,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import kotlinx.coroutines.Job
+
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
@@ -134,7 +133,12 @@ public fun VideoPlayerControlYT(
 
                     val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.loadOrCueVideo(lifecycleOwner.lifecycle, videoURL, 0f)
+                            val uri = Uri.parse(videoURL)
+                            val videoId = uri.getQueryParameter("v")
+                            videoId?.let {
+                                Log.i(tag, "videoId=${videoId}")
+                                youTubePlayer.loadOrCueVideo(lifecycleOwner.lifecycle, videoId, 0f)
+                            }
                         }
 
                         override fun onPlaybackRateChange(

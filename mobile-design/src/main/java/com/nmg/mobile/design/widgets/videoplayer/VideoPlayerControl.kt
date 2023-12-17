@@ -132,17 +132,6 @@ public fun VideoPlayerControl(
         mutableStateOf(false)
     }
 
-//    LaunchedEffect(currentItem.videoURL) {
-//
-//    }
-    LaunchedEffect(Unit) {
-        playStateFlow?.collect {
-            Log.i(tag, "${tag}playStateFlow collect it=${it}")
-//            playState = it
-        }
-    }
-
-//    Log.i(tag, "${tag}current playstate=${playState}")
     Box(
         modifier = Modifier
             .aspectRatio(390f / 219f)
