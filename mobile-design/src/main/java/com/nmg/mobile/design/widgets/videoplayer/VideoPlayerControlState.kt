@@ -16,7 +16,7 @@ sealed class VideoPlayerControlState(
         @DrawableRes override val icon: Int = R.drawable.video_player_pause
     ): VideoPlayerControlState(icon = icon)
     class PAUSED(
-        @DrawableRes override val icon: Int = R.drawable.video_player_pause
+        @DrawableRes override val icon: Int = R.drawable.video_player_play
     ): VideoPlayerControlState(icon = icon)
     class COMPLETED(
         @DrawableRes override val icon: Int = R.drawable.video_player_replay
@@ -26,7 +26,7 @@ sealed class VideoPlayerControlState(
         @DrawableRes override val icon: Int = R.drawable.video_player_play
     ): VideoPlayerControlState(icon = icon)
     class ERROR(
-        @DrawableRes override val icon: Int = R.drawable.video_player_replay
+        @DrawableRes override val icon: Int = R.drawable.video_player_loading
     ): VideoPlayerControlState(icon = icon)
     class READY(
         @DrawableRes override val icon: Int = R.drawable.video_player_play
