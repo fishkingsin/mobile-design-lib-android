@@ -21,7 +21,7 @@ import com.nmg.mobile.design.R
 @Composable
 fun ViewPlayerControlUI(
     boxScope: BoxScope,
-    state: VideoPlayerControlState = VideoPlayerControlState.LOADING(),
+    state: VideoPlayerControlState,
     onClickPlayPrevious: (() -> Unit)? = null,
     onClickPlay: (() -> Unit) = {},
     onClickPlayNext: (() -> Unit)? = null,
