@@ -13,15 +13,18 @@ fun VideoPlayerOverlayView(
     currentItem: VideoPlayerControlData,
     ShouldShowUpComingView: @Composable () -> Unit = { }
 ) {
-    when (playerControlState.javaClass) {
-        VideoPlayerControlState.LOADING::class.java -> {
+    when (playerControlState) {
+        is VideoPlayerControlState.LOADING -> {
             VideoPlayerControlInitViewYT(boxScope, data = currentItem)
         }
-        VideoPlayerControlState.COMPLETED::class.java -> {
+
+        is VideoPlayerControlState.COMPLETED -> {
             ShouldShowUpComingView()
         }
+
         else -> {
-            Box(modifier = Modifier.fillMaxSize())
+            // empty
         }
     }
+
 }

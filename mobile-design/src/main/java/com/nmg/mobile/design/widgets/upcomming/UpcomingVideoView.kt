@@ -53,7 +53,9 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
     var isVisible by remember {
         mutableStateOf(true)
     }
-
+    if (!isVisible) {
+        return
+    }
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -62,9 +64,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
             .background(color = Color.Black)
             .padding(NMGTheme.customSystem.padding)
     ) {
-        if (!isVisible) {
-            return
-        }
+
         TimerScreen(count = secCountDown) {
             onCountdownCompleted?.let { it() }
         }
