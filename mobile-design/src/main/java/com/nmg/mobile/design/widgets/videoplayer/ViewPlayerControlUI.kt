@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.R
 
@@ -54,14 +55,12 @@ fun ViewPlayerControlUI(
             }
             Spacer(modifier = Modifier.width(32.dp))
 
-            val playableStates = listOf(
-                VideoPlayerControlState.PLAYING::class,
-                VideoPlayerControlState.PAUSED::class,
-                VideoPlayerControlState.COMPLETED::class,
-                VideoPlayerControlState.READY::class,
-            )
             IconButton(
-                enabled = playableStates.any { it.isInstance(state) },
+                enabled = when (state) {
+                    is VideoPlayerControlState.LOADING -> false
+                    is VideoPlayerControlState.ERROR -> false
+                    else -> true
+                },
                 onClick = onClickPlay
             ) {
                 Icon(
@@ -116,5 +115,59 @@ fun ViewPlayerControlUI(
                 contentDescription = ""
             )
         }
+    }
+}
+
+@Composable
+@Preview
+fun ViewPlayerControlUI_Playing_Preview() {
+    Box(Modifier.width(640.dp).height(360.dp)) {
+        ViewPlayerControlUI(
+            boxScope = this,
+            state = VideoPlayerControlState.PLAYING(),
+            onClickPlay = {},
+            onFullScreenClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview
+fun ViewPlayerControlUI_Paused_Preview() {
+    Box(Modifier.width(640.dp).height(360.dp)) {
+        ViewPlayerControlUI(
+            boxScope = this,
+            state = VideoPlayerControlState.PAUSED(),
+            onClickPlay = {},
+            onFullScreenClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview
+fun ViewPlayerControlUI_Loading_Preview() {
+    Box(Modifier.width(640.dp).height(360.dp)) {
+        ViewPlayerControlUI(
+            boxScope = this,
+            state = VideoPlayerControlState.LOADING(),
+            onClickPlay = {},
+            onFullScreenClick = {}
+        )
+    }
+}
+
+@Composable
+@Preview
+fun ViewPlayerControlUI_Previous_Preview() {
+    Box(Modifier.width(640.dp).height(360.dp)) {
+        ViewPlayerControlUI(
+            boxScope = this,
+            state = VideoPlayerControlState.PLAYING(),
+            onClickPlayPrevious = {},
+            onClickPlay = {},
+            onClickPlayNext = {},
+            onFullScreenClick = {}
+        )
     }
 }
