@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,9 +22,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Slider
-import androidx.compose.material.SliderDefaults
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -58,11 +53,9 @@ import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
-import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.reel.UpcomingItem
 import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.StateFlow
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
@@ -407,34 +400,6 @@ fun VideoPlayerControlInitView(boxScope: BoxScope, data: VideoPlayerControlData)
                 )
             }
         }
-    }
-}
-
-@Composable
-fun VideoPlayerControlPlayingView(boxScope: BoxScope, progressValue: Float) {
-    Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${progressValue}")
-    boxScope.apply {
-        Slider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(3.dp)
-                .align(Alignment.BottomCenter),
-            value = progressValue,
-            onValueChange = { itValue ->
-                Log.i("progress", "onValueChange#itValue ${itValue}")
-            },
-            onValueChangeFinished = {
-                // launch some business logic update with the state you hold
-                // viewModel.updateSelectedSliderValue(sliderPosition)
-                Log.i("progress", "onValueChangeFinished")
-
-            },
-            colors = SliderDefaults.colors(
-                thumbColor = NMGTheme.colors.primaryMain,
-                activeTrackColor = NMGTheme.colors.primaryMain,
-                inactiveTrackColor = Color.White
-            )
-        )
     }
 }
 
