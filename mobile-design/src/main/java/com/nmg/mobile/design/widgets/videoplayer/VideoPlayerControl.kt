@@ -99,7 +99,9 @@ public fun VideoPlayerControl(
     var progressValue: Double by remember { mutableStateOf(0.0) }
     var bufferedPercentage by remember { mutableStateOf(0) }
     var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
-    var playState: VideoPlayerControlState by remember { mutableStateOf(VideoPlayerControlState.LOADING()) }
+    var playState: VideoPlayerControlState by remember { mutableStateOf(
+        VideoPlayerControlState.LOADING()
+    ) }
     var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
     var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
     var isPlayToEnd by remember {
