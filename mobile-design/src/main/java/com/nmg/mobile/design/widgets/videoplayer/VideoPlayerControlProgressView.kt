@@ -25,7 +25,7 @@ fun VideoPlayerControlProgressView(
 ) {
     var onValueChanging by remember { mutableStateOf(false) }
     var cachedProgressValue by remember { mutableStateOf(progressValue) }
-    Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${progressValue}")
+//    Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${progressValue}")
     boxScope.apply {
         Slider(
             modifier = Modifier

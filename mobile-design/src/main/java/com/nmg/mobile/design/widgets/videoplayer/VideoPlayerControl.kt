@@ -55,7 +55,8 @@ public fun VideoPlayerControl(
     onClickPlayNext: (() -> Unit) = { },
     secCountDown: Int = 10,
     autoPlayNext: (() -> Job)? = null,
-    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
+    onStateChange: ((VideoPlayerControlState) -> Unit) = {},
+    onFullScreenClick: (() -> Unit) = {}
 ) {
     val tag = "[VideoPlayerControl]"
     val videoURL = currentItem.videoURL
@@ -267,9 +268,7 @@ public fun VideoPlayerControl(
                         }
                     },
                     onClickPlayNext = onClickPlayNext,
-                    onFullScreenClick = {
-                        Log.i(tag, "onFullScreenClick")
-                    },
+                    onFullScreenClick = onFullScreenClick,
 
                 )
 
