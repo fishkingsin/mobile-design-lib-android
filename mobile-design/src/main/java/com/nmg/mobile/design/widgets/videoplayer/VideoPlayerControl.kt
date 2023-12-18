@@ -348,7 +348,9 @@ public fun VideoPlayerControl(
                 VideoPlayerControlProgressView(
                     boxScope = this,
                     progressValue = progressValue.toFloat()
-                )
+                ) {
+                    exoPlayer.seekTo((totalDuration * it).toLong())
+                }
             }
         } else {
             upcomingItem?.let {
