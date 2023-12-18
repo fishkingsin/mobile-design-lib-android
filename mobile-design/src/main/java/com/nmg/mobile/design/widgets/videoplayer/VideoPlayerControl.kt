@@ -14,12 +14,10 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -32,13 +30,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -50,8 +50,6 @@ import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.widgets.reel.UpcomingItem
 import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
@@ -60,18 +58,18 @@ import kotlinx.coroutines.Job
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 public fun VideoPlayerControl(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     context: Context = LocalContext.current,
-    activity: Activity? = null,
     currentItem: VideoPlayerControlData,
     preItem: VideoPlayerControlData? = null,
     nextItem: VideoPlayerControlData? = null,
     upcomingItem: UpcomingItem? = null,
     onClickPlay: (() -> Unit)? = null,
-    onClickPlayPre: (() -> Unit)? = null,
+    onClickPlayPrevious: (() -> Unit)? = null,
     onClickPlayNext: (() -> Unit) = { },
     secCountDown: Int = 10,
     autoPlayNext: (() -> Job)? = null,
-//    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
+    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
 ) {
     val tag = "[VideoPlayerControl]"
     val videoURL = currentItem.videoURL
@@ -85,13 +83,14 @@ public fun VideoPlayerControl(
                 repeatMode = Player.REPEAT_MODE_OFF
             }
     }
+
 //    Log.i(tag, "videoURL=${videoURL}")
 //    Log.i(tag, "currentItem.videoURL=${currentItem.videoURL}")
 //    Log.i(
 //        tag,
 //        "currentItem.videoURL=${exoPlayer.currentMediaItem?.localConfiguration?.uri.toString()}"
 //    )
-
+    var lifecycleEvent by remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
     var shouldShowControls by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
     var isPlaying by remember { mutableStateOf(exoPlayer.isPlaying) }
@@ -100,13 +99,26 @@ public fun VideoPlayerControl(
     var progressValue: Double by remember { mutableStateOf(0.0) }
     var bufferedPercentage by remember { mutableStateOf(0) }
     var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
-//    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
+    var playState: VideoPlayerControlState by remember { mutableStateOf(VideoPlayerControlState.LOADING()) }
     var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
     var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
     var isPlayToEnd by remember {
         mutableStateOf(false)
     }
 
+    DisposableEffect(lifecycleOwner) {
+        val lifecycleObserver = LifecycleEventObserver { _, event ->
+            lifecycleEvent = event
+        }
+
+        lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
+            exoPlayer.release()
+        }
+
+    }
     LaunchedEffect(videoURL) {
         Log.i(tag, "update isLoading=${isLoading}")
         val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
@@ -169,14 +181,16 @@ public fun VideoPlayerControl(
                         ExoPlayer.STATE_IDLE -> {
                             // The player has been instantiated but is not ready yet.
                             Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
-//                            onStateChange(VideoPlayerControlState.LOADING)
+                            playState = VideoPlayerControlState.LOADING()
+                            onStateChange(playState)
                         }
 
                         ExoPlayer.STATE_BUFFERING -> {
                             // The player cannot start playback from the current position
                             // because there is insufficient data buffered
                             Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
-//                            onStateChange(VideoPlayerControlState.LOADING)
+                            playState = VideoPlayerControlState.LOADING()
+                            onStateChange(playState)
                         }
 
                         ExoPlayer.STATE_READY -> {
@@ -186,8 +200,8 @@ public fun VideoPlayerControl(
                             // the player will pause playback.
                             Log.i(tag, "${tag}ExoPlayer.STATE_READY")
                             isLoading = false
-//                            playState = VideoPlayerControlState.PLAYING
-//                            onStateChange(VideoPlayerControlState.READY)
+                            playState = VideoPlayerControlState.PLAYING()
+                            onStateChange(playState)
                         }
 
                         ExoPlayer.STATE_ENDED -> {
@@ -199,7 +213,8 @@ public fun VideoPlayerControl(
                                 Log.i(tag, "${tag}autoPlayNext")
                                 it()
                             }
-//                            onStateChange(VideoPlayerControlState.COMPLETED)
+                            playState = VideoPlayerControlState.COMPLETED()
+                            onStateChange(playState)
                         }
 
                         ExoPlayer.EVENT_PLAYER_ERROR -> {
@@ -209,7 +224,8 @@ public fun VideoPlayerControl(
                                 Log.i(tag, "${tag}autoPlayNext")
                                 it()
                             }
-//                            onStateChange(VideoPlayerControlState.ERROR)
+                            playState = VideoPlayerControlState.ERROR()
+                            onStateChange(playState)
                         }
 
                         else -> {
@@ -242,108 +258,28 @@ public fun VideoPlayerControl(
                 VideoPlayerControlInitView(boxScope = this, data = currentItem)
             }
             if (shouldShowControls) {
-                Row(
-                    modifier = Modifier.align(Alignment.Center),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    if (hasPreviousMediaItem) {
-                        IconButton(onClick = { onClickPlayPre?.let { it() } }) {
-                            Icon(
-                                modifier = Modifier
-                                    .width(44.dp)
-                                    .height(44.dp),
-                                tint = Color.White,
-                                painter = painterResource(id = R.drawable.video_player_pre),
-                                contentDescription = ""
-                            )
-                        }
-                    } else {
-                        Box(
-                            modifier = Modifier
-                                .width(44.dp)
-                                .height(44.dp)
-                        ) {
-                        }
-                    }
-                    Spacer(modifier = Modifier.width(32.dp))
-                    IconButton(onClick = {
-                        if (isLoading) {
-                            return@IconButton
-                        }
-                        if (isPlaying) {
-                            exoPlayer.pause()
-//                            onStateChange(VideoPlayerControlState.PAUSED)
-                        } else {
-                            exoPlayer.play()
-//                            onStateChange(VideoPlayerControlState.PLAYING)
-                        }
-                    }) {
-                        val painter = if (isLoading) {
-                            painterResource(id = R.drawable.video_player_loading)
-                        } else if (isPlaying) {
-                            painterResource(id = R.drawable.video_player_pause)
-                        } else {
-                            painterResource(id = R.drawable.video_player_play)
-                        }
-                        Icon(
-                            modifier = Modifier
-                                .width(60.dp)
-                                .height(60.dp),
-                            tint = Color.White,
-                            painter = painter,
-                            contentDescription = ""
-                        )
+                ViewPlayerControlUI(
+                    this,
+                    onClickPlayPrevious = onClickPlayPrevious,
+                    onClickPlay = {
+                        when (playState) {
+                            VideoPlayerControlState.LOADING() -> {
+                                return@ViewPlayerControlUI
+                            }
+                            VideoPlayerControlState.PLAYING() -> {
+                                exoPlayer.pause()
+                                onStateChange(VideoPlayerControlState.PAUSED())
+                            }
 
-//                    painter = painterResource(id = R.drawable.video_player_replay),
-                    }
-                    Spacer(modifier = Modifier.width(32.dp))
-                    if (hasNextMediaItem) {
-                        IconButton(onClick = {
-                            onClickPlayNext()
-                        }) {
-                            Icon(
-                                modifier = Modifier
-                                    .width(44.dp)
-                                    .height(44.dp),
-                                tint = Color.White,
-                                painter = painterResource(id = R.drawable.video_player_next),
-                                contentDescription = ""
-                            )
-                        }
-                    } else {
-                        Box(
-                            modifier = Modifier
-                                .width(44.dp)
-                                .height(44.dp)
-                        ) {
-                        }
-                    }
-                }
-
-                IconButton(
-                    onClick = {
-                        activity?.let {
-                            if (it.requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                            } else {
-                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                            else -> {
+                                exoPlayer.play()
+                                onStateChange(VideoPlayerControlState.PLAYING())
                             }
                         }
                     },
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .width(16.dp)
-                            .height(16.dp),
-                        tint = Color.White,
-                        painter = painterResource(id = R.drawable.video_player_expand),
-                        contentDescription = ""
-                    )
-                }
+                    onClickPlayNext = onClickPlayNext,
+                )
+
 
                 VideoPlayerControlProgressView(
                     boxScope = this,
@@ -369,38 +305,102 @@ public fun VideoPlayerControl(
 }
 
 @Composable
-fun VideoPlayerControlInitView(boxScope: BoxScope, data: VideoPlayerControlData) {
+fun ViewPlayerControlUI(
+    boxScope: BoxScope,
+    state: VideoPlayerControlState = VideoPlayerControlState.LOADING(),
+    onClickPlayPrevious: (() -> Unit)? = null,
+    onClickPlay: (() -> Unit) = {},
+    onClickPlayNext: (() -> Unit)? = null,
+    onFullScreenClick: (() -> Unit) = {}
+) {
     boxScope.apply {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
-                .crossfade(true).build(),
-            placeholder = painterResource(R.drawable.placeholder),
-            contentDescription = stringResource(R.string.description),
-            contentScale = ContentScale.FillHeight,
-            modifier = Modifier
-                .background(
-                    color = Color.Black,
-                    shape = RoundedCornerShape(4.dp)
-                )
-                .fillMaxSize()
-                .aspectRatio(390f / 219f)
-                .size(390.dp, 219.dp)
-        )
         Row(
             modifier = Modifier.align(Alignment.Center),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(enabled = false, onClick = {}) {
+            if (onClickPlayPrevious != null) {
+                IconButton(onClick = onClickPlayPrevious) {
+                    Icon(
+                        modifier = Modifier
+                            .width(44.dp)
+                            .height(44.dp),
+                        tint = Color.White,
+                        painter = painterResource(id = R.drawable.video_player_pre),
+                        contentDescription = ""
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .width(44.dp)
+                        .height(44.dp)
+                ) {
+                }
+            }
+            Spacer(modifier = Modifier.width(32.dp))
+
+            val playableState = listOf(
+                VideoPlayerControlState.PLAYING(),
+                VideoPlayerControlState.PAUSED(),
+                VideoPlayerControlState.COMPLETED(),
+                VideoPlayerControlState.READY(),
+            )
+            IconButton(
+                enabled = playableState.contains(state),
+                onClick = onClickPlay
+            ) {
                 Icon(
                     modifier = Modifier
                         .width(60.dp)
                         .height(60.dp),
                     tint = Color.White,
-                    painter = painterResource(id = R.drawable.video_player_loading),
+                    painter = painterResource(state.icon),
                     contentDescription = ""
                 )
+
+//                    painter = painterResource(id = R.drawable.video_player_replay),
             }
+            Spacer(modifier = Modifier.width(32.dp))
+            if (onClickPlayNext != null) {
+                IconButton(onClick = {
+                    onClickPlayNext()
+                }) {
+                    Icon(
+                        modifier = Modifier
+                            .width(44.dp)
+                            .height(44.dp),
+                        tint = Color.White,
+                        painter = painterResource(id = R.drawable.video_player_next),
+                        contentDescription = ""
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .width(44.dp)
+                        .height(44.dp)
+                ) {
+                }
+            }
+        }
+
+        IconButton(
+            onClick = {
+                onFullScreenClick()
+            },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+        ) {
+            Icon(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .width(16.dp)
+                    .height(16.dp),
+                tint = Color.White,
+                painter = painterResource(id = R.drawable.video_player_expand),
+                contentDescription = ""
+            )
         }
     }
 }

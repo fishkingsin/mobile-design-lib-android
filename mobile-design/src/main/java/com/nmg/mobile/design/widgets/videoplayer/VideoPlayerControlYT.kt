@@ -59,7 +59,6 @@ import kotlinx.coroutines.Job
 public fun VideoPlayerControlYT(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     context: Context = LocalContext.current,
-    activity: Activity? = null,
     currentItem: VideoPlayerControlData,
     preItem: VideoPlayerControlData? = null,
     nextItem: VideoPlayerControlData? = null,
@@ -128,16 +127,12 @@ public fun VideoPlayerControlYT(
                             exitFullscreen: () -> Unit
                         ) {
                             isFullscreen = true
-                            activity?.let {
-                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                            }
+                            Log.d(tag, "onEnterFullscreen")
                         }
 
                         override fun onExitFullscreen() {
                             isFullscreen = false
-                            activity?.let {
-                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                            }
+                            Log.d(tag, "onExitFullscreen")
                         }
                     })
 
@@ -189,7 +184,7 @@ public fun VideoPlayerControlYT(
 
                     val iFramePlayerOptions = IFramePlayerOptions.Builder()
                         .controls(1)
-                        .fullscreen(1) // enable full screen button
+                        .fullscreen(0) // enable full screen button
                         .build()
 
                     this.enableAutomaticInitialization = false
