@@ -248,6 +248,7 @@ public fun VideoPlayerControl(
             if (shouldShowControls) {
                 ViewPlayerControlUI(
                     this,
+                    state = playState,
                     onClickPlayPrevious = onClickPlayPrevious,
                     onClickPlay = {
                         when (playState) {
@@ -266,6 +267,10 @@ public fun VideoPlayerControl(
                         }
                     },
                     onClickPlayNext = onClickPlayNext,
+                    onFullScreenClick = {
+                        Log.i(tag, "onFullScreenClick")
+                    },
+
                 )
 
 
