@@ -1,4 +1,4 @@
-package com.nmg.mobile.design.widgets.reel
+package com.nmg.mobile.design.widgets.upcomming
 
 public interface UpcomingItem {
     var imageURL: String

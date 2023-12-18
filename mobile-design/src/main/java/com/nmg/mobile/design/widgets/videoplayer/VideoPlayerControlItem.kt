@@ -1,7 +1,7 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
-import com.nmg.mobile.design.widgets.reel.UpcomingItem
-import com.nmg.mobile.design.widgets.reel.UpcomingItemData
+import com.nmg.mobile.design.widgets.upcomming.UpcomingItem
+import com.nmg.mobile.design.widgets.upcomming.UpcomingItemData
 
 class VideoPlayerControlItem(
     override var title: String = "",
