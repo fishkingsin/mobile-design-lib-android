@@ -7,3 +7,5 @@ interface VideoPlayerControlData {
     var totalTime: String
     var sliderValue: Float
 }
+
+

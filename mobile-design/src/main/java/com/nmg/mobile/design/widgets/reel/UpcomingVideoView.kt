@@ -19,9 +19,11 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,13 +42,66 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+
+@Composable
+fun TimerScreen(count: Int, onCountChange: () -> Unit) {
+    val elapsedTime = remember { mutableStateOf(0) }
+
+    DisposableEffect(Unit) {
+        val scope = CoroutineScope(Dispatchers.Default)
+        val job = scope.launch {
+            while (true) {
+                delay(1000)
+                elapsedTime.value += 1
+                if (elapsedTime.value == count) {
+                    onCountChange()
+                    break
+                }
+                Log.d("TimerScreen","Timer is still working ${elapsedTime.value}")
+            }
+        }
+
+        onDispose {
+            job.cancel()
+        }
+    }
+
+    Row {
+        Text(
+            text = "將於",
+            style = NMGTheme.typography.eleRegular14,
+            color = NMGTheme.colors.commonNeutralGray50
+        )
+        Text(
+            text = "$count",
+            style = NMGTheme.typography.eleRegular14,
+            color = NMGTheme.colors.commonNeutralGray2,
+            modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
+        )
+        Text(
+            text = "秒後播放",
+            style = NMGTheme.typography.eleRegular14,
+            color = NMGTheme.colors.commonNeutralGray50
+        )
+    }
+}
+
 
 @Composable
 public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                                                    onClickCancel: (() -> Unit)? = null,
                                                    onClickPlay: (() -> Unit)? = null,
+                                                   onCountdownCompleted: (() -> Unit)? = null,
                                                    secCountDown: Int = 10,
                                                    ) {
+    var isTimerVisible by remember {
+        mutableStateOf(true)
+    }
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -55,24 +110,31 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
             .background(color = Color.Black)
             .padding(NMGTheme.customSystem.padding)
     ) {
-        Row {
-            Text(
-                text = "將於",
-                style = NMGTheme.typography.eleRegular14,
-                color = NMGTheme.colors.commonNeutralGray50
-            )
-            Text(
-                text = "$secCountDown",
-                style = NMGTheme.typography.eleRegular14,
-                color = NMGTheme.colors.commonNeutralGray2,
-                modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
-            )
-            Text(
-                text = "秒後播放",
-                style = NMGTheme.typography.eleRegular14,
-                color = NMGTheme.colors.commonNeutralGray50
-            )
+        if (isTimerVisible) {
+            TimerScreen(count = secCountDown) {
+                onCountdownCompleted?.let { it() }
+                isTimerVisible = false
+            }
         }
+
+//        Row {
+//            Text(
+//                text = "將於",
+//                style = NMGTheme.typography.eleRegular14,
+//                color = NMGTheme.colors.commonNeutralGray50
+//            )
+//            Text(
+//                text = "$secCountDown",
+//                style = NMGTheme.typography.eleRegular14,
+//                color = NMGTheme.colors.commonNeutralGray2,
+//                modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
+//            )
+//            Text(
+//                text = "秒後播放",
+//                style = NMGTheme.typography.eleRegular14,
+//                color = NMGTheme.colors.commonNeutralGray50
+//            )
+//        }
         Row(modifier = Modifier.padding(top = 18.dp)) {
             Box(contentAlignment = Alignment.BottomEnd) {
                 val shape = RoundedCornerShape(4.dp)
@@ -130,6 +192,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                 modifier = Modifier
                     .weight(1f)
                     .clickable(true, onClick = {
+                        isTimerVisible = false
                         Log.i("UpcomingVideoView", "onClickCancel")
                         onClickCancel?.let { it() }
                     })
@@ -146,6 +209,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                 modifier = Modifier
                     .weight(1f)
                     .clickable(true, onClick = {
+                        isTimerVisible = false
                         Log.i("UpcomingVideoView", "onClickPlay")
                         onClickPlay?.let {
                             Log.i("UpcomingVideoView", "onClickPlay let")

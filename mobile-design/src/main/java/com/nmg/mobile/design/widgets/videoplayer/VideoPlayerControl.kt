@@ -38,7 +38,6 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.nmg.mobile.design.widgets.reel.UpcomingItem
-import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
 import kotlinx.coroutines.Job
 
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
@@ -46,20 +45,17 @@ import kotlinx.coroutines.Job
 public fun VideoPlayerControl(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     context: Context = LocalContext.current,
-    currentItem: VideoPlayerControlData,
-    preItem: VideoPlayerControlData? = null,
-    nextItem: VideoPlayerControlData? = null,
-    upcomingItem: UpcomingItem? = null,
+    playableItems: VideoPlayerControlItems,
     onClickPlay: (() -> Unit)? = null,
     onClickPlayPrevious: (() -> Unit)? = null,
     onClickPlayNext: (() -> Unit) = { },
-    secCountDown: Int = 10,
     autoPlayNext: (() -> Job)? = null,
     onStateChange: ((VideoPlayerControlState) -> Unit) = {},
-    onFullScreenClick: (() -> Unit) = {}
+    onFullScreenClick: (() -> Unit) = {},
+    ShouldShowUpComingView: @Composable () -> Unit = { },
 ) {
     val tag = "[VideoPlayerControl]"
-    val videoURL = currentItem.videoURL
+    val videoURL = playableItems.current?.videoURL ?: ""
 
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
@@ -89,8 +85,8 @@ public fun VideoPlayerControl(
     var playState: VideoPlayerControlState by remember { mutableStateOf(
         VideoPlayerControlState.LOADING()
     ) }
-    var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
-    var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
+    var hasPreviousMediaItem by remember { mutableStateOf(playableItems.previous != null) }
+    var hasNextMediaItem by remember { mutableStateOf(playableItems.next != null) }
     var isPlayToEnd by remember {
         mutableStateOf(false)
     }
@@ -243,8 +239,9 @@ public fun VideoPlayerControl(
             }
         })
         if (!isPlayToEnd) {
-            if (isLoading) {
-                VideoPlayerControlInitView(boxScope = this, data = currentItem)
+            val current  = playableItems.current
+            if (isLoading && current != null) {
+                VideoPlayerControlInitView(boxScope = this, data = current)
             }
             if (shouldShowControls) {
                 ViewPlayerControlUI(
@@ -281,17 +278,7 @@ public fun VideoPlayerControl(
                 }
             }
         } else {
-            upcomingItem?.let {
-                UpcomingVideoView(
-                    item = upcomingItem,
-                    onClickCancel = null,
-                    onClickPlay = {
-                        Log.i("VideoPlayerControl", "UpcomingVideoView#onClickPlay")
-                        onClickPlay?.let { it() }
-                    },
-                    secCountDown = secCountDown
-                )
-            }
+            ShouldShowUpComingView()
         }
     }
 }

@@ -6,3 +6,10 @@ public interface UpcomingItem {
     var timeCode: String
     var secCountDown: Int
 }
+
+data class UpcomingItemData(
+    override var imageURL: String,
+    override var headline: String,
+    override var timeCode: String,
+    override var secCountDown: Int
+): UpcomingItem
