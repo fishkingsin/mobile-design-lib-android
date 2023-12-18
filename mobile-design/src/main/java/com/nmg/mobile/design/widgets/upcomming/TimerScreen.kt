@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 import kotlinx.coroutines.CoroutineScope
@@ -59,4 +60,10 @@ fun TimerScreen(count: Int, onCountChange: () -> Unit) {
             color = NMGTheme.colors.commonNeutralGray50
         )
     }
+}
+
+@Composable
+@Preview
+fun TimerScreenPreview() {
+    TimerScreen(count = 10, onCountChange = {})
 }

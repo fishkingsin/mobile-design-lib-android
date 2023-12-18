@@ -44,12 +44,13 @@ import com.nmg.mobile.design.theme.NMGTheme
 
 
 @Composable
-public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
-                                                   onClickCancel: (() -> Unit)? = null,
-                                                   onClickPlay: (() -> Unit)? = null,
-                                                   onCountdownCompleted: (() -> Unit)? = null,
-                                                   secCountDown: Int = 10,
-                                                   ) {
+public fun <Item : UpcomingItem> UpcomingVideoView(
+    item: Item,
+    onClickCancel: (() -> Unit)? = null,
+    onClickPlay: (() -> Unit)? = null,
+    onCountdownCompleted: (() -> Unit)? = null,
+    secCountDown: Int = 10,
+) {
     var isVisible by remember {
         mutableStateOf(true)
     }
