@@ -1,6 +1,8 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
+import android.app.Activity
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.util.Log
 import android.view.View
@@ -57,6 +59,7 @@ import kotlinx.coroutines.Job
 public fun VideoPlayerControlYT(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     context: Context = LocalContext.current,
+    activity: Activity? = null,
     currentItem: VideoPlayerControlData,
     preItem: VideoPlayerControlData? = null,
     nextItem: VideoPlayerControlData? = null,
@@ -125,10 +128,16 @@ public fun VideoPlayerControlYT(
                             exitFullscreen: () -> Unit
                         ) {
                             isFullscreen = true
+                            activity?.let {
+                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                            }
                         }
 
                         override fun onExitFullscreen() {
                             isFullscreen = false
+                            activity?.let {
+                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                            }
                         }
                     })
 

@@ -1,6 +1,8 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
+import android.app.Activity
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -66,6 +68,7 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 public fun VideoPlayerControl(
     context: Context = LocalContext.current,
+    activity: Activity? = null,
     currentItem: VideoPlayerControlData,
     preItem: VideoPlayerControlData? = null,
     nextItem: VideoPlayerControlData? = null,
@@ -324,7 +327,15 @@ public fun VideoPlayerControl(
                 }
 
                 IconButton(
-                    onClick = { },
+                    onClick = {
+                        activity?.let {
+                            if (it.requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                            } else {
+                                it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                            }
+                        }
+                    },
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
                 ) {
