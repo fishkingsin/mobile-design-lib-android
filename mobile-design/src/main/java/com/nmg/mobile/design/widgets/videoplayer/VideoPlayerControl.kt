@@ -345,7 +345,7 @@ public fun VideoPlayerControl(
                     )
                 }
 
-                VideoPlayerControlPlayingView(
+                VideoPlayerControlProgressView(
                     boxScope = this,
                     progressValue = progressValue.toFloat()
                 )

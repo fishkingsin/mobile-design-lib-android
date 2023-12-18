@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-fun VideoPlayerControlPlayingView(boxScope: BoxScope, progressValue: Float) {
+fun VideoPlayerControlProgressView(boxScope: BoxScope, progressValue: Float) {
     Log.i("progress", "VideoPlayerControlPlayingView#sliderValue ${progressValue}")
     boxScope.apply {
         Slider(
