@@ -50,19 +50,19 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun TimerScreen(count: Int, onCountChange: () -> Unit) {
-    val elapsedTime = remember { mutableStateOf(0) }
+    var elapsedTime: Int by remember { mutableStateOf(0) }
 
     DisposableEffect(Unit) {
         val scope = CoroutineScope(Dispatchers.Default)
         val job = scope.launch {
             while (true) {
                 delay(1000)
-                elapsedTime.value += 1
-                if (elapsedTime.value == count) {
+                elapsedTime += 1
+                if (elapsedTime == count) {
                     onCountChange()
                     break
                 }
-                Log.d("TimerScreen","Timer is still working ${elapsedTime.value}")
+                Log.d("TimerScreen", "Timer is still working ${elapsedTime}")
             }
         }
 
@@ -78,7 +78,7 @@ fun TimerScreen(count: Int, onCountChange: () -> Unit) {
             color = NMGTheme.colors.commonNeutralGray50
         )
         Text(
-            text = "$count",
+            text = "${count - elapsedTime}",
             style = NMGTheme.typography.eleRegular14,
             color = NMGTheme.colors.commonNeutralGray2,
             modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
@@ -99,9 +99,10 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                                                    onCountdownCompleted: (() -> Unit)? = null,
                                                    secCountDown: Int = 10,
                                                    ) {
-    var isTimerVisible by remember {
+    var isVisible by remember {
         mutableStateOf(true)
     }
+
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -110,31 +111,13 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
             .background(color = Color.Black)
             .padding(NMGTheme.customSystem.padding)
     ) {
-        if (isTimerVisible) {
-            TimerScreen(count = secCountDown) {
-                onCountdownCompleted?.let { it() }
-                isTimerVisible = false
-            }
+        if (!isVisible) {
+            return
+        }
+        TimerScreen(count = secCountDown) {
+            onCountdownCompleted?.let { it() }
         }
 
-//        Row {
-//            Text(
-//                text = "將於",
-//                style = NMGTheme.typography.eleRegular14,
-//                color = NMGTheme.colors.commonNeutralGray50
-//            )
-//            Text(
-//                text = "$secCountDown",
-//                style = NMGTheme.typography.eleRegular14,
-//                color = NMGTheme.colors.commonNeutralGray2,
-//                modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
-//            )
-//            Text(
-//                text = "秒後播放",
-//                style = NMGTheme.typography.eleRegular14,
-//                color = NMGTheme.colors.commonNeutralGray50
-//            )
-//        }
         Row(modifier = Modifier.padding(top = 18.dp)) {
             Box(contentAlignment = Alignment.BottomEnd) {
                 val shape = RoundedCornerShape(4.dp)
@@ -192,7 +175,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                 modifier = Modifier
                     .weight(1f)
                     .clickable(true, onClick = {
-                        isTimerVisible = false
+                        isVisible = false
                         Log.i("UpcomingVideoView", "onClickCancel")
                         onClickCancel?.let { it() }
                     })
@@ -209,7 +192,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item,
                 modifier = Modifier
                     .weight(1f)
                     .clickable(true, onClick = {
-                        isTimerVisible = false
+                        isVisible = false
                         Log.i("UpcomingVideoView", "onClickPlay")
                         onClickPlay?.let {
                             Log.i("UpcomingVideoView", "onClickPlay let")

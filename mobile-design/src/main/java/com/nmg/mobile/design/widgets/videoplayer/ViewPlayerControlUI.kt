@@ -54,14 +54,14 @@ fun ViewPlayerControlUI(
             }
             Spacer(modifier = Modifier.width(32.dp))
 
-            val playableState = listOf(
-                VideoPlayerControlState.PLAYING(),
-                VideoPlayerControlState.PAUSED(),
-                VideoPlayerControlState.COMPLETED(),
-                VideoPlayerControlState.READY(),
+            val playableStates = listOf(
+                VideoPlayerControlState.PLAYING::class,
+                VideoPlayerControlState.PAUSED::class,
+                VideoPlayerControlState.COMPLETED::class,
+                VideoPlayerControlState.READY::class,
             )
             IconButton(
-                enabled = playableState.contains(state),
+                enabled = playableStates.any { it.isInstance(state) },
                 onClick = onClickPlay
             ) {
                 Icon(
