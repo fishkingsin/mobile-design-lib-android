@@ -69,7 +69,7 @@ public fun VideoPlayerControlYT(
     onClickPlayNext: (() -> Unit)? = null,
     secCountDown: Int = 10,
     autoPlayNext: (() -> Job)? = null,
-    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
+//    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
 ) {
     val tag = "[VideoPlayerControlYT]"
     val videoURL = currentItem.videoURL
@@ -144,7 +144,7 @@ public fun VideoPlayerControlYT(
                     val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
                             youTubePlayer.loadOrCueVideo(lifecycleOwner.lifecycle, videoURL, 0f)
-                            onStateChange(VideoPlayerControlState.READY)
+//                            onStateChange(VideoPlayerControlState.READY)
                             val uri = Uri.parse(videoURL)
                             val videoId = uri.getQueryParameter("v")
                             videoId?.let {
@@ -169,16 +169,16 @@ public fun VideoPlayerControlYT(
                                 PlayerConstants.PlayerState.PLAYING -> {
                                     isPlaying = true
                                     isLoading = false
-                                    onStateChange(VideoPlayerControlState.PLAYING)
+//                                    onStateChange(VideoPlayerControlState.PLAYING)
                                 }
                                 PlayerConstants.PlayerState.PAUSED -> {
                                     isPlaying = false
-                                    onStateChange(VideoPlayerControlState.PAUSED)
+//                                    onStateChange(VideoPlayerControlState.PAUSED)
                                 }
                                 PlayerConstants.PlayerState.ENDED -> {
                                     isPlaying = false
                                     isLoading = false
-                                    onStateChange(VideoPlayerControlState.COMPLETED)
+//                                    onStateChange(VideoPlayerControlState.COMPLETED)
                                 }
                                 else -> {
                                     // do nothing

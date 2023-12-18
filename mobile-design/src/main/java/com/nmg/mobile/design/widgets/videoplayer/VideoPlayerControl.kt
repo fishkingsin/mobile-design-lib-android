@@ -78,7 +78,7 @@ public fun VideoPlayerControl(
     onClickPlayNext: (() -> Unit) = { },
     secCountDown: Int = 10,
     autoPlayNext: (() -> Job)? = null,
-    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
+//    onStateChange: ((VideoPlayerControlState) -> Unit) = {}
 ) {
     val tag = "[VideoPlayerControl]"
     val videoURL = currentItem.videoURL
@@ -92,8 +92,30 @@ public fun VideoPlayerControl(
                 repeatMode = Player.REPEAT_MODE_OFF
             }
     }
+//    Log.i(tag, "videoURL=${videoURL}")
+//    Log.i(tag, "currentItem.videoURL=${currentItem.videoURL}")
+//    Log.i(
+//        tag,
+//        "currentItem.videoURL=${exoPlayer.currentMediaItem?.localConfiguration?.uri.toString()}"
+//    )
+
+    var shouldShowControls by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(true) }
+    var isPlaying by remember { mutableStateOf(exoPlayer.isPlaying) }
+    var totalDuration by remember { mutableStateOf(0L) }
+    var currentTime by remember { mutableStateOf(0L) }
+    var progressValue: Double by remember { mutableStateOf(0.0) }
+    var bufferedPercentage by remember { mutableStateOf(0) }
+    var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
+//    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
+    var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
+    var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
+    var isPlayToEnd by remember {
+        mutableStateOf(false)
+    }
 
     LaunchedEffect(videoURL) {
+        Log.i(tag, "update isLoading=${isLoading}")
         val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
         val source = when {
             videoURL.contains(".m3u8") -> {
@@ -113,27 +135,6 @@ public fun VideoPlayerControl(
         exoPlayer.prepare()
         Log.i(tag, "update videoURL=${videoURL}")
     }
-    Log.i(tag, "videoURL=${videoURL}")
-    Log.i(tag, "currentItem.videoURL=${currentItem.videoURL}")
-    Log.i(
-        tag,
-        "currentItem.videoURL=${exoPlayer.currentMediaItem?.localConfiguration?.uri.toString()}"
-    )
-
-    var shouldShowControls by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(exoPlayer.isLoading) }
-    var isPlaying by remember { mutableStateOf(exoPlayer.isPlaying) }
-    var totalDuration by remember { mutableStateOf(0L) }
-    var currentTime by remember { mutableStateOf(0L) }
-    var progressValue: Double by remember { mutableStateOf(0.0) }
-    var bufferedPercentage by remember { mutableStateOf(0) }
-    var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
-//    var playState by remember { mutableStateOf(VideoPlayerControlState.LOADING) }
-    var hasPreviousMediaItem by remember { mutableStateOf(preItem != null) }
-    var hasNextMediaItem by remember { mutableStateOf(nextItem != null) }
-    var isPlayToEnd by remember {
-        mutableStateOf(false)
-    }
 
     Box(
         modifier = Modifier
@@ -150,13 +151,10 @@ public fun VideoPlayerControl(
                     super.onPlayerError(error)
                     Log.i(tag, "${tag}onPlayerError")
                     error.printStackTrace()
-//                    playState = VideoPlayerControlState.ERROR
                     autoPlayNext?.let {
                         Log.i(tag, "${tag}error autoPlayNext")
                         it()
                     }
-                    onStateChange(VideoPlayerControlState.ERROR)
-//                    Log.i(tag, "playState= ${playState} error ${error}")
                 }
 
                 override fun onEvents(
@@ -178,14 +176,14 @@ public fun VideoPlayerControl(
                         ExoPlayer.STATE_IDLE -> {
                             // The player has been instantiated but is not ready yet.
                             Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
-                            onStateChange(VideoPlayerControlState.LOADING)
+//                            onStateChange(VideoPlayerControlState.LOADING)
                         }
 
                         ExoPlayer.STATE_BUFFERING -> {
                             // The player cannot start playback from the current position
                             // because there is insufficient data buffered
                             Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
-                            onStateChange(VideoPlayerControlState.LOADING)
+//                            onStateChange(VideoPlayerControlState.LOADING)
                         }
 
                         ExoPlayer.STATE_READY -> {
@@ -194,19 +192,21 @@ public fun VideoPlayerControl(
                             // if its playWhenReady property is true. If this property is false,
                             // the player will pause playback.
                             Log.i(tag, "${tag}ExoPlayer.STATE_READY")
+                            isLoading = false
 //                            playState = VideoPlayerControlState.PLAYING
-                            onStateChange(VideoPlayerControlState.READY)
+//                            onStateChange(VideoPlayerControlState.READY)
                         }
 
                         ExoPlayer.STATE_ENDED -> {
                             // The player has completed media playback
                             Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
+                            isPlayToEnd = true
 //                            playState = VideoPlayerControlState.COMPLETED
                             autoPlayNext?.let {
                                 Log.i(tag, "${tag}autoPlayNext")
                                 it()
                             }
-                            onStateChange(VideoPlayerControlState.COMPLETED)
+//                            onStateChange(VideoPlayerControlState.COMPLETED)
                         }
 
                         ExoPlayer.EVENT_PLAYER_ERROR -> {
@@ -216,7 +216,7 @@ public fun VideoPlayerControl(
                                 Log.i(tag, "${tag}autoPlayNext")
                                 it()
                             }
-                            onStateChange(VideoPlayerControlState.ERROR)
+//                            onStateChange(VideoPlayerControlState.ERROR)
                         }
 
                         else -> {
@@ -226,7 +226,10 @@ public fun VideoPlayerControl(
                 }
             }
             exoPlayer.addListener(listener)
-            onDispose { exoPlayer.release() }
+            onDispose {
+                exoPlayer.removeListener(listener)
+                exoPlayer.release()
+            }
         }
         AndroidView(factory = {
             PlayerView(context).apply {
@@ -245,7 +248,6 @@ public fun VideoPlayerControl(
             if (isLoading) {
                 VideoPlayerControlInitView(boxScope = this, data = currentItem)
             }
-
             if (shouldShowControls) {
                 Row(
                     modifier = Modifier.align(Alignment.Center),
@@ -278,10 +280,10 @@ public fun VideoPlayerControl(
                         }
                         if (isPlaying) {
                             exoPlayer.pause()
-                            onStateChange(VideoPlayerControlState.PAUSED)
+//                            onStateChange(VideoPlayerControlState.PAUSED)
                         } else {
                             exoPlayer.play()
-                            onStateChange(VideoPlayerControlState.PLAYING)
+//                            onStateChange(VideoPlayerControlState.PLAYING)
                         }
                     }) {
                         val painter = if (isLoading) {
