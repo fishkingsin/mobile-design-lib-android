@@ -43,9 +43,12 @@ fun VideoPlayerControlYT(
     ShouldShowUpComingView: @Composable () -> Unit = { }
 ) {
     val tag = "[VideoPlayerControlYT]"
-    val videoURL = currentItem.videoURL
+    var videoURL: String? by remember {
+        mutableStateOf(null)
+    }
 
     var youTubePlayerView by remember { mutableStateOf<YouTubePlayerView?>(null) }
+    var _youTubePlayer by remember { mutableStateOf<YouTubePlayer?>(null) }
     var lifecycleEvent by remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
 
     var playerControlState: VideoPlayerControlState by remember {
@@ -97,15 +100,13 @@ fun VideoPlayerControlYT(
 
                     val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
                         override fun onReady(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.loadOrCueVideo(lifecycleOwner.lifecycle, videoURL, 0f)
+                            Log.d(tag, "onReady videoURL=${currentItem.videoURL}")
+                            // fresh start
+                            videoURL = currentItem.videoURL
+                            _youTubePlayer = youTubePlayer
                             playerControlState = VideoPlayerControlState.READY()
                             onStateChange(playerControlState)
-                            val uri = Uri.parse(videoURL)
-                            val videoId = uri.getQueryParameter("v")
-                            videoId?.let {
-                                Log.i(tag, "videoId=${videoId}")
-                                youTubePlayer.loadOrCueVideo(lifecycleOwner.lifecycle, videoId, 0f)
-                            }
+                            loadYoutubeVideo(lifecycleOwner.lifecycle, _youTubePlayer, currentItem.videoURL)
                         }
 
                         override fun onPlaybackRateChange(
@@ -152,6 +153,13 @@ fun VideoPlayerControlYT(
                 }
             },
             update = { view ->
+                if (currentItem.videoURL != videoURL) {
+                    // continue on next 
+                    Log.d(tag, "update videoURL=${currentItem.videoURL}")
+                    videoURL = currentItem.videoURL
+                    loadYoutubeVideo(lifecycleOwner.lifecycle, _youTubePlayer, currentItem.videoURL)
+
+                }
                 // View's been inflated or state read in this block has been updated
                 // Add logic here if necessary
 
@@ -162,5 +170,21 @@ fun VideoPlayerControlYT(
         )
         VideoPlayerOverlayView(this, playerControlState, currentItem, ShouldShowUpComingView)
     }
+
+
+
 }
 
+
+
+private fun loadYoutubeVideo(lifecycle: Lifecycle,  youTubePlayer: YouTubePlayer?, videoURL: String) {
+    val uri = Uri.parse(videoURL)
+    val videoId = uri.getQueryParameter("v")
+    videoId?.let {
+        youTubePlayer?.loadOrCueVideo(
+            lifecycle = lifecycle,
+            videoId = it,
+            startSeconds = 0f
+        )
+    }
+}
