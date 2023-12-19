@@ -106,7 +106,11 @@ fun VideoPlayerControlYT(
                             _youTubePlayer = youTubePlayer
                             playerControlState = VideoPlayerControlState.READY()
                             onStateChange(playerControlState)
-                            loadYoutubeVideo(lifecycleOwner.lifecycle, _youTubePlayer, currentItem.videoURL)
+                            loadYoutubeVideo(
+                                lifecycleOwner.lifecycle,
+                                _youTubePlayer,
+                                currentItem.videoURL
+                            )
                         }
 
                         override fun onPlaybackRateChange(
@@ -175,9 +179,7 @@ fun VideoPlayerControlYT(
 
 }
 
-
-
-private fun loadYoutubeVideo(lifecycle: Lifecycle,  youTubePlayer: YouTubePlayer?, videoURL: String) {
+private fun loadYoutubeVideo(lifecycle: Lifecycle, youTubePlayer: YouTubePlayer?, videoURL: String) {
     val uri = Uri.parse(videoURL)
     val videoId = uri.getQueryParameter("v")
     videoId?.let {
