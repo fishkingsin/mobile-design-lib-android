@@ -1,14 +1,19 @@
 package com.nmg.mobile.design.widgets.card
 
+import androidx.compose.runtime.Immutable
+interface Item {
+    val id: Int
+}
+@Immutable
 public abstract class CardDataProtocol(
-    open val id: Int,
+    override val id: Int,
     override val imageURL: String,
     override val headline: String,
     override val leadingFootnote: String,
     override val secondFootnote: String,
     override val tag: String? = null,
     private val _timecode: String? = null
-) : CardDisplayable, TimecodeDisplayable {
+) : CardDisplayable, TimecodeDisplayable, Item {
     override val timecode: String
         get() = _timecode ?: "--:--"
 }
