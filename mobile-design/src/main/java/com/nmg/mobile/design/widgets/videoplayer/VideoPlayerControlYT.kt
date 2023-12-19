@@ -144,6 +144,7 @@ fun VideoPlayerControlYT(
                     val iFramePlayerOptions = IFramePlayerOptions.Builder()
                         .controls(1)
                         .fullscreen(0) // enable full screen button
+                        .autoplay(1)
                         .build()
 
                     this.enableAutomaticInitialization = false
