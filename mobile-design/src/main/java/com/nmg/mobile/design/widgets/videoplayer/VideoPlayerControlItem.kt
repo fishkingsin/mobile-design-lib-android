@@ -8,7 +8,8 @@ class VideoPlayerControlItem(
     override var videoURL: String = "",
     override var imageURL: String = "",
     override var totalTime: String = "",
-    override var sliderValue: Float = 0f
+    override var sliderValue: Float = 0f,
+    override var videoType: String
 ) : VideoPlayerControlData {
 }
 

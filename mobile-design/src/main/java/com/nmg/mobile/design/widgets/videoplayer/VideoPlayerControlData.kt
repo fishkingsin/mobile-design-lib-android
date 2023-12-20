@@ -6,6 +6,7 @@ interface VideoPlayerControlData {
     var imageURL: String
     var totalTime: String
     var sliderValue: Float
+    var videoType: String
 }
 
 
