@@ -32,11 +32,14 @@ fun VideoPlayerControlProgressView(
                 .fillMaxWidth()
                 .height(3.dp)
                 .align(Alignment.BottomCenter),
-            value = if (onValueChanging) { cachedProgressValue } else { progressValue },
+            value = when (onValueChanging) {
+                true -> cachedProgressValue
+                else -> progressValue
+            },
             onValueChange = { itValue ->
                 onValueChanging = true
                 cachedProgressValue = itValue
-                Log.i("progress", "onValueChange#itValue ${itValue}")
+                Log.i("progress", "onValueChange#itValue $itValue")
             },
             onValueChangeFinished = {
                 onValueChangeFinished(cachedProgressValue)
@@ -44,7 +47,6 @@ fun VideoPlayerControlProgressView(
                 // launch some business logic update with the state you hold
                 // viewModel.updateSelectedSliderValue(sliderPosition)
                 Log.i("progress", "onValueChangeFinished")
-
             },
             colors = SliderDefaults.colors(
                 thumbColor = NMGTheme.colors.primaryMain,

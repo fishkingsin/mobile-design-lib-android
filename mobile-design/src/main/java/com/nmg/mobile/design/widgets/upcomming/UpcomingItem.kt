@@ -12,4 +12,4 @@ data class UpcomingItemData(
     override var headline: String,
     override var timeCode: String,
     override var secCountDown: Int
-): UpcomingItem
+) : UpcomingItem

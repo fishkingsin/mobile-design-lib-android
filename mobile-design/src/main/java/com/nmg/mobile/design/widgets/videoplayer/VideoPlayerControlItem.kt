@@ -10,8 +10,7 @@ class VideoPlayerControlItem(
     override var totalTime: String = "",
     override var sliderValue: Float = 0f,
     override var videoType: String
-) : VideoPlayerControlData {
-}
+) : VideoPlayerControlData
 
 fun VideoPlayerControlItem.toUpComingItem(): UpcomingItem {
     return UpcomingItemData(

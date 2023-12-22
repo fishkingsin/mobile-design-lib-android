@@ -49,7 +49,7 @@ public fun VideoPlayerControl(
     onClickPlayNext: (() -> Unit) = { },
     onStateChange: ((VideoPlayerControlState) -> Unit) = {},
     onFullScreenClick: (() -> Unit) = {},
-    ShouldShowUpComingView: @Composable () -> Unit = { },
+    ShouldShowUpComingView: @Composable () -> Unit = { }
 ) {
     val tag = "[VideoPlayerControl]"
     val videoURL = playableItems.current?.videoURL ?: ""
@@ -70,9 +70,11 @@ public fun VideoPlayerControl(
     var progressValue: Double by remember { mutableStateOf(0.0) }
     var bufferedPercentage by remember { mutableStateOf(0) }
     var playbackState by remember { mutableStateOf(exoPlayer.playbackState) }
-    var playerControlState: VideoPlayerControlState by remember { mutableStateOf(
-        VideoPlayerControlState.LOADING()
-    ) }
+    var playerControlState: VideoPlayerControlState by remember {
+        mutableStateOf(
+            VideoPlayerControlState.LOADING()
+        )
+    }
 
     DisposableEffect(lifecycleOwner) {
         val lifecycleObserver = LifecycleEventObserver { _, event ->
@@ -85,10 +87,9 @@ public fun VideoPlayerControl(
             lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
             exoPlayer.release()
         }
-
     }
     LaunchedEffect(videoURL) {
-        Log.i(tag, "update isLoading=${playerControlState}")
+        Log.i(tag, "update isLoading=$playerControlState")
         val dataSourceFactory: DataSource.Factory = DefaultDataSource.Factory(context)
         val source = when {
             videoURL.contains(".m3u8") -> {
@@ -106,7 +107,7 @@ public fun VideoPlayerControl(
         }
         exoPlayer.setMediaSource(source)
         exoPlayer.prepare()
-        Log.i(tag, "update videoURL=${videoURL}")
+        Log.i(tag, "update videoURL=$videoURL")
     }
 
     Box(
@@ -128,10 +129,7 @@ public fun VideoPlayerControl(
                     onStateChange(playerControlState)
                 }
 
-                override fun onEvents(
-                    player: Player,
-                    events: Player.Events
-                ) {
+                override fun onEvents(player: Player, events: Player.Events) {
                     super.onEvents(player, events)
                     totalDuration = player.duration.coerceAtLeast(0L)
                     currentTime = player.currentPosition.coerceAtLeast(0L)
@@ -216,7 +214,7 @@ public fun VideoPlayerControl(
             }
         })
 
-        val current  = playableItems.current
+        val current = playableItems.current
         if (playerControlState is VideoPlayerControlState.LOADING && current != null) {
             VideoPlayerControlInitView(boxScope = this, data = current)
         }
@@ -242,10 +240,9 @@ public fun VideoPlayerControl(
                     }
                 },
                 onClickPlayNext = onClickPlayNext,
-                onFullScreenClick = onFullScreenClick,
+                onFullScreenClick = onFullScreenClick
 
             )
-
 
             VideoPlayerControlProgressView(
                 boxScope = this,

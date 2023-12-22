@@ -113,7 +113,6 @@ fun YTPlayerView(lifecycleOwner: LifecycleOwner, videoId: String, modifier: Modi
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun YTPlayerViewPreview() {

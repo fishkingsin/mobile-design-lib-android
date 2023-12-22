@@ -42,14 +42,13 @@ import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
-
 @Composable
 public fun <Item : UpcomingItem> UpcomingVideoView(
     item: Item,
     onClickCancel: (() -> Unit)? = null,
     onClickPlay: (() -> Unit)? = null,
     onCountdownCompleted: (() -> Unit)? = null,
-    secCountDown: Int = 10,
+    secCountDown: Int = 10
 ) {
     var isVisible by remember {
         mutableStateOf(true)
@@ -65,7 +64,6 @@ public fun <Item : UpcomingItem> UpcomingVideoView(
             .background(color = Color.Black)
             .padding(NMGTheme.customSystem.padding)
     ) {
-
         TimerScreen(count = secCountDown) {
             onCountdownCompleted?.let { it() }
         }
@@ -168,6 +166,6 @@ fun UpcomingVideoViewPreview() {
             override var headline: String = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
             override var timeCode: String = "22:22"
             override var secCountDown: Int = 10
-        },
+        }
     )
 }

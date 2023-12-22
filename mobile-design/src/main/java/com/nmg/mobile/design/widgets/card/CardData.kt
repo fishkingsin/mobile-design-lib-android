@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 interface Item {
     val id: Int
 }
+
 @Immutable
 public abstract class CardDataProtocol(
     override val id: Int,

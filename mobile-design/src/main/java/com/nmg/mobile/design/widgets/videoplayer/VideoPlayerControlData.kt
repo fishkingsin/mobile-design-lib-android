@@ -8,5 +8,3 @@ interface VideoPlayerControlData {
     var sliderValue: Float
     var videoType: String
 }
-
-

@@ -32,7 +32,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 @Composable
 fun VideoPlayerControlYT(
@@ -125,8 +124,8 @@ fun VideoPlayerControlYT(
                             state: PlayerConstants.PlayerState
                         ) {
                             super.onStateChange(youTubePlayer, state)
-                            Log.i(tag, "${tag} onStateChange $state")
-                            when(state) {
+                            Log.i(tag, "$tag onStateChange $state")
+                            when (state) {
                                 PlayerConstants.PlayerState.PLAYING -> {
                                     playerControlState = VideoPlayerControlState.PLAYING()
                                     onStateChange(playerControlState)
@@ -158,11 +157,10 @@ fun VideoPlayerControlYT(
             },
             update = { view ->
                 if (currentItem.videoURL != videoURL) {
-                    // continue on next 
+                    // continue on next
                     Log.d(tag, "update videoURL=${currentItem.videoURL}")
                     videoURL = currentItem.videoURL
                     loadYoutubeVideo(lifecycleOwner.lifecycle, _youTubePlayer, currentItem.videoURL)
-
                 }
                 // View's been inflated or state read in this block has been updated
                 // Add logic here if necessary
@@ -174,12 +172,13 @@ fun VideoPlayerControlYT(
         )
         VideoPlayerOverlayView(this, playerControlState, currentItem, ShouldShowUpComingView)
     }
-
-
-
 }
 
-private fun loadYoutubeVideo(lifecycle: Lifecycle, youTubePlayer: YouTubePlayer?, videoURL: String) {
+private fun loadYoutubeVideo(
+    lifecycle: Lifecycle,
+    youTubePlayer: YouTubePlayer?,
+    videoURL: String
+) {
     val uri = Uri.parse(videoURL)
     val videoId = uri.getQueryParameter("v")
     videoId?.let {

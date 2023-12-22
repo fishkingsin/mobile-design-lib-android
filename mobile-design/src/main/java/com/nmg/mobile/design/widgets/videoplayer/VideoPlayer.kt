@@ -33,9 +33,8 @@ public fun VideoPlayer(
     onStateChange: (playState: VideoPlayerControlState) -> Unit = { println("callBack") },
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
-
     val tag = "[VideoPlayer]"
     val exoPlayer = remember {
         ExoPlayer.Builder(context)
@@ -76,7 +75,7 @@ public fun VideoPlayer(
             Log.d(
                 tag,
                 "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex +
-                        ", currentPositionMs=" + currentPositionMs
+                    ", currentPositionMs=" + currentPositionMs
             )
         }
 
@@ -91,7 +90,7 @@ public fun VideoPlayer(
             Log.d(
                 tag,
                 "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex +
-                        ", currentPositionMs=" + currentPositionMs
+                    ", currentPositionMs=" + currentPositionMs
             )
         }
 

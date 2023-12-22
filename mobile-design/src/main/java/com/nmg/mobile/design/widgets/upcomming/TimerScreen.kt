@@ -33,7 +33,7 @@ fun TimerScreen(count: Int, onCountChange: () -> Unit) {
                     onCountChange()
                     break
                 }
-                Log.d("TimerScreen", "Timer is still working ${elapsedTime}")
+                Log.d("TimerScreen", "Timer is still working $elapsedTime")
             }
         }
 

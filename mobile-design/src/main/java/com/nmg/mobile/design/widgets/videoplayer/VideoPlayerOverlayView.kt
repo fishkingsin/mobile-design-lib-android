@@ -1,10 +1,7 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 
 @Composable
 fun VideoPlayerOverlayView(
@@ -26,5 +23,4 @@ fun VideoPlayerOverlayView(
             // empty
         }
     }
-
 }

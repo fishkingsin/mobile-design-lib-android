@@ -5,6 +5,10 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.theme.NMGTheme
+import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControl
+import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlData
+import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlItem
+import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlItems
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,127 +26,23 @@ class VideoPlayerControlTest : ScreenshotTest {
     }
 
     @Test
-    fun test_VideoPlayerControlTest_LOADING() {
+    fun test_VideoPlayerControlTest() {
         composeRule.setContent {
             NMGTheme {
-//                VideoPlayerControl(
-//                    object : VideoPlayerControlData {
-//                        override var playState: VideoPlayerControlState = VideoPlayerControlState.LOADING
-//                        override var imageURL: String = "https://placehold.co/390x219/png"
-//                        override var totalTime: String = "22:22"
-//                        override var sliderValue: Float = 0.5f
-//                    },
-//                    null,
-//                    null
-//                )
+                VideoPlayerControl(
+                    playableItems = VideoPlayerControlItems(
+                        current = VideoPlayerControlItem(
+                            "Title",
+                            "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+                            "https://placehold.co/390x219/png",
+                            videoType = "vimeo"
+                        ),
+                        null,
+                        null
+                    )
+                )
             }
         }
-        Thread.sleep(5000)
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_VideoPlayerControlTest_PLAYING() {
-        composeRule.setContent {
-            NMGTheme {
-//                VideoPlayerControl(
-//                    object : VideoPlayerControlData {
-//                        override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING
-//                        override var imageURL: String = "https://placehold.co/390x219/png"
-//                        override var totalTime: String = "22:22"
-//                        override var sliderValue: Float = 0.5f
-//                    },
-//                    null,
-//                    null,
-//                    null
-//                )
-            }
-        }
-        Thread.sleep(5000)
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_VideoPlayerControlTest_PLAYING_TAB() {
-        composeRule.setContent {
-            NMGTheme {
-//                VideoPlayerControl(
-//                    object : VideoPlayerControlData {
-//                        override var playState: VideoPlayerControlState = VideoPlayerControlState.PLAYING_TAB
-//                        override var imageURL: String = "https://placehold.co/390x219/png"
-//                        override var totalTime: String = "22:22"
-//                        override var sliderValue: Float = 0.5f
-//                    },
-//                    null,
-//                    null,
-//                    null
-//                )
-            }
-        }
-        Thread.sleep(5000)
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_VideoPlayerControlTest_PAUSED() {
-        composeRule.setContent {
-            NMGTheme {
-//                VideoPlayerControl(
-//                    object : VideoPlayerControlData {
-//                        override var playState: VideoPlayerControlState = VideoPlayerControlState.PAUSED
-//                        override var imageURL: String = "https://placehold.co/390x219/png"
-//                        override var totalTime: String = "22:22"
-//                        override var sliderValue: Float = 0.5f
-//                    },
-//                    null,
-//                    null,
-//                    null
-//                )
-            }
-        }
-        Thread.sleep(5000)
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_VideoPlayerControlTest_COMPLETED() {
-        composeRule.setContent {
-            NMGTheme {
-//                VideoPlayerControl(
-//                    object : VideoPlayerControlData {
-//                        override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED
-//                        override var imageURL: String = "https://placehold.co/390x219/png"
-//                        override var totalTime: String = "22:22"
-//                        override var sliderValue: Float = 0.5f
-//                    },
-//                    null,
-//                    null,
-//                    null
-//                )
-            }
-        }
-        Thread.sleep(5000)
-        compareScreenshot(composeRule)
-    }
-
-    @Test
-    fun test_VideoPlayerControlTest_COMPLETED_CANCEL_AUTOPLAY() {
-        composeRule.setContent {
-            NMGTheme {
-//                VideoPlayerControl(
-//                    object : VideoPlayerControlData {
-//                        override var playState: VideoPlayerControlState = VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
-//                        override var imageURL: String = "https://placehold.co/390x219/png"
-//                        override var totalTime: String = "22:22"
-//                        override var sliderValue: Float = 0.5f
-//                    },
-//                    null,
-//                    null,
-//                    null
-//                )
-            }
-        }
-        Thread.sleep(5000)
         compareScreenshot(composeRule)
     }
 }
