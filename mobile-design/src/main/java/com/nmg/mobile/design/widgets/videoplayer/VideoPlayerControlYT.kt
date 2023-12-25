@@ -1,14 +1,15 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
 import android.content.Context
+import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -17,9 +18,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -54,6 +55,17 @@ fun VideoPlayerControlYT(
         mutableStateOf(VideoPlayerControlState.LOADING())
     }
 
+    val configuration = LocalConfiguration.current
+    val orientation = configuration.orientation
+    youTubePlayerView?.layoutParams?.apply {
+        // Just refresh youTubePlayerView layout
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            youTubePlayerView?.matchParent()
+        } else {
+            youTubePlayerView?.matchParent()
+        }
+    }
+
     DisposableEffect(lifecycleOwner) {
         val lifecycleObserver = LifecycleEventObserver { _, event ->
             lifecycleEvent = event
@@ -68,10 +80,16 @@ fun VideoPlayerControlYT(
     }
 
     Box(
-        modifier = Modifier
-            .aspectRatio(390f / 219f)
-            .size(390.dp, 219.dp)
-            .background(Color.Black)
+        modifier = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        } else {
+            Modifier
+                .fillMaxWidth()
+                .aspectRatio(390f / 219f)
+                .background(Color.Black)
+        }
     ) {
         // Adds view to Compose
         AndroidView(
