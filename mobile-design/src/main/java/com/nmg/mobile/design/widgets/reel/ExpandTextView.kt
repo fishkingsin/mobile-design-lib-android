@@ -76,14 +76,12 @@ data class ExpandTextViewData(
 ): ExpandTextViewDataProtocol
 
 @Composable
-public fun<Data: ExpandTextViewDataProtocol> ExpandTextView(
+public fun <Data: ExpandTextViewDataProtocol> ExpandTextView(
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     style: TextStyle = LocalTextStyle.current,
-    fontStyle: FontStyle? = null,
     textColor: Color = Color.White,
     text: String,
-    textAlign: TextAlign? = null,
     data: Data,
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -146,7 +144,9 @@ public fun<Data: ExpandTextViewDataProtocol> ExpandTextView(
                         true -> data.expandActionable
                         else -> data.collapseActionable ?: data.expandActionable
                     }
-                    val lastCharacter =  rememberTextLayoutResult?.getLineEnd((rememberTextLayoutResult?.lineCount ?: data.collapsedMaxLine) - 1)
+                    val lastCharacter =  rememberTextLayoutResult?.getLineEnd(
+                        (rememberTextLayoutResult?.lineCount ?: data.collapsedMaxLine) - 1
+                    )
                     if (lastCharacter != null) {
                         if (it < (lastCharacter - actionable.text.length)) {
                             return@ClickableText
@@ -167,7 +167,8 @@ public fun<Data: ExpandTextViewDataProtocol> ExpandTextView(
                         true -> { data.expandActionable.action?.invoke() }
                         else -> { data.collapseActionable?.action?.invoke() }
                     }
-            })
+            }
+            )
 
         }
     }
@@ -179,7 +180,6 @@ public fun DefaultExpandTextView(
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     textStyle: TextStyle = LocalTextStyle.current,
-    fontStyle: FontStyle? = null,
     textColor: Color = Color.White,
     expandActionable: ExpandActionable = DefaultExpandActionable(
         text = "...展開",
@@ -204,7 +204,6 @@ public fun DefaultExpandTextView(
             modifier = modifier,
             textModifier = textModifier,
             style = textStyle,
-            fontStyle = fontStyle,
             textColor = textColor,
             text = content,
             data = ExpandTextViewData(
