@@ -1,6 +1,6 @@
 ext {
     sdkVersion = 33
-    composeVersion = '1.2.1'
+    composeVersion = '1.5.4'
     materialVersion = '1.7.0'
     okHttpVersion = '4.10.0'
     retrofitVersion = '2.9.0'
@@ -81,7 +81,6 @@ ext {
             navigationCompose: "androidx.navigation:navigation-compose:$navigationVersion",
             navigationFragmentKtx: "androidx.navigation:navigation-fragment-ktx:$navigationVersion",
             navigationUiKtx: "androidx.navigation:navigation-ui-ktx:$navigationVersion",
-
     ]
 
     composeTest = [

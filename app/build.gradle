@@ -10,13 +10,13 @@ def appId = "com.nmg.mobile.design.gallery"
 
 android {
     namespace appId
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId appId
         testApplicationId "com.nmg.mobile.design.gallery.test"
         minSdk 21
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 

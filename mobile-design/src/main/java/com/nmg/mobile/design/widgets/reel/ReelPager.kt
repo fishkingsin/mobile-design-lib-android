@@ -4,8 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.pager.VerticalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,12 +21,14 @@ public fun ReelPager(list: MutableList<ReelPlayerData>) {
 //        val nestedScrollConnection = object: NestedScrollConnection {
 //
 //        }
-
-        val pagerState = rememberPagerState(initialPage = 0)
-        VerticalPager(pageCount = 10, state = pagerState) {
-            ReelPlayer(item = list[it]) {
-            }
-        }
+/*
+e: file:///Users/james/Development/nmg/mobile-design-lib-android/mobile-design/src/main/java/com/nmg/mobile/design/widgets/reel/ReelPager.kt:27:26 Using 'rememberPagerState(Int = ..., Float = ...): PagerState' is an error. Please use the overload where you can provide a source of truth for the pageCount.
+* */
+//        val pagerState = rememberPagerState(initialPage = 0)
+//        VerticalPager(pageCount = 10, state = pagerState) {
+//            ReelPlayer(item = list[it]) {
+//            }
+//        }
     }
 }
 
