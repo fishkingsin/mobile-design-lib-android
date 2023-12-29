@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,12 +51,16 @@ public fun <Item : UpcomingItem> UpcomingVideoView(
     onCountdownCompleted: (() -> Unit)? = null,
     secCountDown: Int = 10
 ) {
+    var rememberItem by remember {
+        mutableStateOf(item)
+    }
     var isVisible by remember {
         mutableStateOf(true)
     }
     if (!isVisible) {
         return
     }
+    
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -73,7 +78,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(
                 val shape = RoundedCornerShape(4.dp)
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(item.imageURL)
+                        .data(rememberItem.imageURL)
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -87,7 +92,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(
                         .clip(shape)
                 )
                 Text(
-                    text = item.timeCode,
+                    text = rememberItem.timeCode,
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.White,
@@ -104,7 +109,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(
             }
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = item.headline,
+                text = rememberItem.headline,
                 style = NMGTheme.typography.cardTitle,
                 color = NMGTheme.colors.commonNeutralGray2,
                 maxLines = 3,
