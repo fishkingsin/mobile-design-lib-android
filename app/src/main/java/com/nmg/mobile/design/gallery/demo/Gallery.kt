@@ -75,6 +75,14 @@ fun Gallery(navigationController: NavController) {
                 Text(text = "VideoExampleView")
             }
         }
+
+        item {
+            Button(onClick = {
+                navigationController.navigate("ExpandTextView")
+            }, colors = ButtonDefaults.buttonColors(backgroundColor = NMGTheme.colors.primary)) {
+                Text(text = "ExpandTextView")
+            }
+        }
     }
 }
 
