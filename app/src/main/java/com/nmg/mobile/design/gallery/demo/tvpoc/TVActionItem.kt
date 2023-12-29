@@ -38,14 +38,14 @@ fun TVActionItem() {
         ) {
             Text(
                 text = "李小加獨家專訪 2小時足本回顧",
-                style = NMGTheme.typography.articleH1,
+                style = NMGTheme.typography.body,
                 color = NMGTheme.colors.primaryMain
             )
             Text(
                 text = """
                     滴灌通主席李小加就想到了破解方案，兼開發出複利生財的投資模式，有如太極生兩儀、兩儀生四象。薑是老的辣，61歲的他下海創業，把生意經的算盤敲得更為響噹噹。
                 """,
-                style = NMGTheme.typography.articleDescription,
+                style = NMGTheme.typography.body,
                 color = NMGTheme.colors.commonNeutralGray90
             )
         }

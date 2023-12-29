@@ -20,6 +20,5 @@ fun GalleryApp(navController: NavHostController) {
         composable("SimpleComposeLayout") { SimpleComposeLayout() }
         composable("YoutubeHelper") { YoutubeHelperExampleView() }
         composable("VideoExampleView") { VideoExampleView() }
-        composable("ExpandTextView") { ExpandTextViewDemo() }
     }
 }

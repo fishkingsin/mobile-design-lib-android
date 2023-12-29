@@ -18,7 +18,7 @@ import com.nmg.mobile.design.theme.NMGTheme
 fun TVBody() {
     Text(
         text = "飲飲食食的小生意，對於疊水的投資者，缺乏性感的想像空間，偏偏神州大地是14億人口的市場，若從每... 展開",
-        style = NMGTheme.typography.articleContent,
+        style = NMGTheme.typography.body,
         color = NMGTheme.colors.commonNeutralGray90
     )
     Column(

@@ -16,12 +16,12 @@ fun TVNote() {
     ) {
         Text(
             text = "2022/11/25",
-            style = NMGTheme.typography.eleRegular16,
+            style = NMGTheme.typography.caption,
             color = NMGTheme.colors.textSecondary
         )
         Text(
             text = "經人觀點",
-            style = NMGTheme.typography.eleRegular16,
+            style = NMGTheme.typography.caption,
             color = NMGTheme.colors.textSecondary
         )
     }

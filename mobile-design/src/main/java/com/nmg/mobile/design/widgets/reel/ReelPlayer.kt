@@ -86,9 +86,9 @@ public fun <Item : ReelPlayerData> ReelPlayer(
                         color = Color.White
                     )
                 )
-//                ExpandTextView(
-//                    text = item.desc,
-//                )
+                ExpandTextView(
+                    text = item.desc
+                )
             }
             ReelActionButtonGroup(
                 modifier = Modifier
