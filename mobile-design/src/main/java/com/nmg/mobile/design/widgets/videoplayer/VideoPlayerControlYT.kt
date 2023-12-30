@@ -38,7 +38,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 fun VideoPlayerControlYT(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
     context: Context = LocalContext.current,
-    currentItem: VideoPlayerControlData,
+    currentItem: VideoPlayerSourceProtocol,
     onStateChange: ((VideoPlayerControlState) -> Unit) = {},
     ShouldShowUpComingView: @Composable () -> Unit = { }
 ) {

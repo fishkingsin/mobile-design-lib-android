@@ -1,6 +1,6 @@
 package com.nmg.mobile.design.widgets.videoplayer
 
-interface VideoPlayerControlData {
+interface VideoPlayerSourceProtocol {
     var videoURL: String
     var title: String
     var imageURL: String

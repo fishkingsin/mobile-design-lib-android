@@ -6,8 +6,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.theme.NMGTheme
 import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControl
-import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlData
-import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlItem
+import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerSource
 import com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlItems
 import org.junit.Before
 import org.junit.Rule
@@ -31,7 +30,7 @@ class VideoPlayerControlTest : ScreenshotTest {
             NMGTheme {
                 VideoPlayerControl(
                     playableItems = VideoPlayerControlItems(
-                        current = VideoPlayerControlItem(
+                        current = VideoPlayerSource(
                             "Title",
                             "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
                             "https://placehold.co/390x219/png",

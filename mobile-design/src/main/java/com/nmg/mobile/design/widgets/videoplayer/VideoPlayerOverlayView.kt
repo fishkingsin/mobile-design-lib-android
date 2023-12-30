@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 fun VideoPlayerOverlayView(
     boxScope: BoxScope,
     playerControlState: VideoPlayerControlState,
-    currentItem: VideoPlayerControlData,
+    currentItem: VideoPlayerSourceProtocol,
     ShouldShowUpComingView: @Composable () -> Unit = { }
 ) {
     when (playerControlState) {

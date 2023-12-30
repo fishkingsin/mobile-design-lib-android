@@ -26,7 +26,7 @@ import coil.request.ImageRequest
 import com.nmg.mobile.design.R
 
 @Composable
-fun VideoPlayerControlInitViewYT(boxScope: BoxScope, data: VideoPlayerControlData) {
+fun VideoPlayerControlInitViewYT(boxScope: BoxScope, data: VideoPlayerSourceProtocol) {
     boxScope.apply {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current).data(data.imageURL)
