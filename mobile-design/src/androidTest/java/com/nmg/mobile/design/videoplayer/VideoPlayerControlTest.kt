@@ -42,6 +42,8 @@ class VideoPlayerControlTest : ScreenshotTest {
                 )
             }
         }
+        Thread.sleep(500)
         compareScreenshot(composeRule)
+
     }
 }
