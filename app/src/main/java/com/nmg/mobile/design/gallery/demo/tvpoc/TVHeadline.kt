@@ -13,6 +13,6 @@ fun TVHeadline() {
     Text(
         modifier = Modifier.padding(horizontal = 16.dp),
         text = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式 #1",
-        style = NMGTheme.typography.title2Emphasize
+        style = NMGTheme.typography.articleH1
     )
 }

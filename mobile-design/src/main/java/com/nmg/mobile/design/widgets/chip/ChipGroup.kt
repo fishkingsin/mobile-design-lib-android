@@ -36,7 +36,8 @@ public fun <Items : List<ChipData>> ChipGroup(
     }
 
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.spacing)
+        horizontalArrangement = Arrangement.spacedBy(NMGTheme.customSystem.padding),
+        contentPadding = contentPadding
     ) {
         items(items.size) { index ->
             Chip(

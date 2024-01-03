@@ -8,10 +8,7 @@ import android.widget.FrameLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
@@ -33,8 +30,7 @@ import kotlinx.coroutines.delay
 public fun VideoPlayer(
     uri: Uri,
     isAutoPlay: Boolean = true,
-    seekToPos: Long = -1L,
-    onStateChange: ((VideoPlayerControlState) -> Unit)? = null,
+    onStateChange: (playState: VideoPlayerControlState) -> Unit = { println("callBack") },
     onProgressChange: ((Long, Long) -> Unit)? = null,
     context: Context = LocalContext.current,
     modifier: Modifier = Modifier
@@ -72,8 +68,35 @@ public fun VideoPlayer(
     exoPlayer.videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
     exoPlayer.repeatMode = Player.REPEAT_MODE_ONE
     exoPlayer.addListener(object : Player.Listener {
+        override fun onPositionDiscontinuity(reason: Int) {
+            super.onPositionDiscontinuity(reason)
+            val currentWindowIndex: Int = exoPlayer.getCurrentWindowIndex()
+            val currentPositionMs: Long = exoPlayer.getCurrentPosition()
+            Log.d(
+                tag,
+                "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex +
+                    ", currentPositionMs=" + currentPositionMs
+            )
+        }
+
+        override fun onPositionDiscontinuity(
+            oldPosition: Player.PositionInfo,
+            newPosition: Player.PositionInfo,
+            reason: Int
+        ) {
+            super.onPositionDiscontinuity(oldPosition, newPosition, reason)
+            val currentWindowIndex: Int = exoPlayer.getCurrentWindowIndex()
+            val currentPositionMs: Long = exoPlayer.getCurrentPosition()
+            Log.d(
+                tag,
+                "onPositionDiscontinuity: currentWindowIndex=" + currentWindowIndex +
+                    ", currentPositionMs=" + currentPositionMs
+            )
+        }
+
         override fun onPlayerError(error: PlaybackException) {
             super.onPlayerError(error)
+            error.printStackTrace()
             Log.i(tag, "${tag}onPlayerError error=$error")
         }
         override fun onIsLoadingChanged(isLoading: Boolean) {
@@ -89,18 +112,15 @@ public fun VideoPlayer(
 
         override fun onPlaybackStateChanged(playbackState: Int) {
             super.onPlaybackStateChanged(playbackState)
-            var playerState = VideoPlayerControlState.PLAYER_IDLE
             when (playbackState) {
                 ExoPlayer.STATE_IDLE -> {
                     // The player has been instantiated but is not ready yet.
                     Log.i(tag, "${tag}ExoPlayer.STATE_IDLE")
-                    playerState = VideoPlayerControlState.PLAYER_IDLE
                 }
                 ExoPlayer.STATE_BUFFERING -> {
                     // The player cannot start playback from the current position
                     // because there is insufficient data buffered
                     Log.i(tag, "${tag}ExoPlayer.STATE_BUFFERING")
-//                    playerState =  VideoPlayerControlState.COMPLETED_CANCEL_AUTOPLAY
                 }
                 ExoPlayer.STATE_READY -> {
                     // The player can immediately start playing from the current position.
@@ -108,53 +128,35 @@ public fun VideoPlayer(
                     // if its playWhenReady property is true. If this property is false,
                     // the player will pause playback.
                     Log.i(tag, "${tag}ExoPlayer.STATE_READY")
-                    playerState = VideoPlayerControlState.PLAY_READY
                 }
                 ExoPlayer.STATE_ENDED -> {
                     // The player has completed media playback
                     Log.i(tag, "${tag}ExoPlayer.STATE_ENDED")
-                    playerState = VideoPlayerControlState.COMPLETED
                 }
                 else -> {
                     Log.i(tag, "${tag}UNKNOWN_STATE")
                 }
             }
-            onStateChange?.let {
-                Log.i(tag, "${tag}onStateChange playerState=$playerState")
-                it(playerState)
-            }
+            Log.i(tag, "${tag}playbackState=$playbackState")
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             super.onIsPlayingChanged(isPlaying)
-            onStateChange?.let {
-                it(
-                    if (isPlaying) {
-                        VideoPlayerControlState.PLAYING
-                    } else {
-                        VideoPlayerControlState.PAUSED
-                    }
-                )
-            }
         }
     })
-    var progressChange by remember {
-        mutableStateOf(0L)
-    }
-    LaunchedEffect(progressChange) {
-        delay(200)
-        onProgressChange?.let {
-            it(exoPlayer.currentPosition, exoPlayer.duration)
-        }
-        progressChange += 1
-    }
-//    LaunchedEffect(progressNeedToSeek) {
-//        if (seekToPos >= 0) {
-//            exoPlayer.seekTo(progressNeedToSeek)
-//        }
-//        Log.i(TAG, "progressNeedToSeek")
-//    }
 
+    LaunchedEffect(Unit) {
+        while (true) {
+            Log.i(
+                "VideoPlayer",
+                "currentPosition ${exoPlayer.currentPosition} exoPlayer.contentPosition=${exoPlayer.contentPosition} ${exoPlayer.duration}"
+            )
+            delay(1000)
+            onProgressChange?.let {
+                it(exoPlayer.currentPosition, exoPlayer.duration)
+            }
+        }
+    }
     DisposableEffect(
         AndroidView(factory = {
             PlayerView(context).apply {

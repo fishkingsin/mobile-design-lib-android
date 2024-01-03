@@ -25,6 +25,11 @@ private val eleRegular14 = fontStyle.copy(
     fontWeight = FontWeight.Normal
 )
 
+private val eleRegular16 = fontStyle.copy(
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Normal
+)
+
 private val articleH1 = fontStyle.copy(
     fontSize = 20.sp,
     lineHeight = 30.sp,
@@ -59,10 +64,7 @@ public val defaultTypography = Typography(
         fontSize = 18.sp,
         fontWeight = FontWeight.Normal
     ),
-    eleRegular16 = fontStyle.copy(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Normal
-    ),
+    eleRegular16 = eleRegular16,
     eleRegular14 = eleRegular14,
     eleRegular12 = fontStyle.copy(
         fontSize = 12.sp,
@@ -85,16 +87,12 @@ public val defaultTypography = Typography(
         fontWeight = FontWeight.SemiBold,
         letterSpacing = 0.32.sp
     ),
-    articleContent = fontStyle.copy(
-        fontSize = 16.sp,
+    articleContent = eleRegular16.copy(
         lineHeight = 27.2.sp,
-        fontWeight = FontWeight.Normal,
         letterSpacing = 0.32.sp
     ),
-    articleDescription = fontStyle.copy(
-        fontSize = 14.sp,
+    articleDescription = eleRegular14.copy(
         lineHeight = 21.sp,
-        fontWeight = FontWeight.Normal,
         letterSpacing = 0.28.sp
     ),
     // exceptional

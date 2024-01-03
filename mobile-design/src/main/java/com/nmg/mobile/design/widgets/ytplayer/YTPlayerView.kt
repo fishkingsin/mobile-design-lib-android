@@ -4,6 +4,8 @@ import android.view.View
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -108,5 +110,14 @@ fun YTPlayerView(lifecycleOwner: LifecycleOwner, videoId: String, modifier: Modi
             // whenever the state changes
             // Example of Compose -> View communication
         }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun YTPlayerViewPreview() {
+    YTPlayerView(
+        lifecycleOwner = LocalLifecycleOwner.current,
+        videoId = "y5QW38jqPCI"
     )
 }

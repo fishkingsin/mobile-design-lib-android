@@ -1,5 +1,6 @@
-package com.nmg.mobile.design.widgets.reel
+package com.nmg.mobile.design.widgets.upcomming
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -17,9 +19,11 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,8 +44,23 @@ import com.nmg.mobile.design.R
 import com.nmg.mobile.design.theme.NMGTheme
 
 @Composable
-public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVideoViewEvent?) {
-    val secCountDown by remember { mutableStateOf(10) }
+public fun <Item : UpcomingItem> UpcomingVideoView(
+    item: Item,
+    onClickCancel: (() -> Unit)? = null,
+    onClickPlay: (() -> Unit)? = null,
+    onCountdownCompleted: (() -> Unit)? = null,
+    secCountDown: Int = 10
+) {
+    var rememberItem by remember {
+        mutableStateOf(item)
+    }
+    var isVisible by remember {
+        mutableStateOf(true)
+    }
+    if (!isVisible) {
+        return
+    }
+    
     Column(
         modifier = Modifier
             .aspectRatio(390f / 219f)
@@ -50,30 +69,16 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             .background(color = Color.Black)
             .padding(NMGTheme.customSystem.padding)
     ) {
-        Row {
-            Text(
-                text = "將於",
-                style = NMGTheme.typography.eleRegular14,
-                color = NMGTheme.colors.commonNeutralGray50
-            )
-            Text(
-                text = "$secCountDown",
-                style = NMGTheme.typography.eleRegular14,
-                color = NMGTheme.colors.commonNeutralGray2,
-                modifier = Modifier.padding(top = 1.dp, start = 2.dp, end = 3.dp)
-            )
-            Text(
-                text = "秒後播放",
-                style = NMGTheme.typography.eleRegular14,
-                color = NMGTheme.colors.commonNeutralGray50
-            )
+        TimerScreen(count = secCountDown) {
+            onCountdownCompleted?.let { it() }
         }
+
         Row(modifier = Modifier.padding(top = 18.dp)) {
             Box(contentAlignment = Alignment.BottomEnd) {
                 val shape = RoundedCornerShape(4.dp)
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(item.imageURL)
+                        .data(rememberItem.imageURL)
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -87,7 +92,7 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                         .clip(shape)
                 )
                 Text(
-                    text = item.timeCode,
+                    text = rememberItem.timeCode,
                     style = TextStyle(
                         fontSize = 12.sp,
                         color = Color.White,
@@ -104,18 +109,18 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
             }
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = item.headline,
+                text = rememberItem.headline,
                 style = NMGTheme.typography.cardTitle,
                 color = NMGTheme.colors.commonNeutralGray2,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
         }
-        Spacer(modifier = Modifier.height(41.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
+                .fillMaxHeight()
         ) {
             Text(
                 text = "取消",
@@ -124,12 +129,14 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 color = NMGTheme.colors.commonNeutralGray2,
                 modifier = Modifier
                     .weight(1f)
+                    .clickable(true, onClick = {
+                        isVisible = false
+                        Log.i("UpcomingVideoView", "onClickCancel")
+                        onClickCancel?.let { it() }
+                    })
                     .border(width = 1.dp, color = NMGTheme.colors.commonNeutralGray2)
                     .background(color = Color.Transparent)
                     .padding(top = 9.dp, bottom = 9.dp)
-                    .clickable(true, onClick = {
-                        event?.onClickCancel()
-                    })
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -139,12 +146,17 @@ public fun <Item : UpcomingItem> UpcomingVideoView(item: Item, event: UpcomingVi
                 color = NMGTheme.colors.commonNeutralGray90,
                 modifier = Modifier
                     .weight(1f)
+                    .clickable(true, onClick = {
+                        isVisible = false
+                        Log.i("UpcomingVideoView", "onClickPlay")
+                        onClickPlay?.let {
+                            Log.i("UpcomingVideoView", "onClickPlay let")
+                            it()
+                        }
+                    })
                     .border(width = 1.dp, color = NMGTheme.colors.commonNeutralGray2)
                     .background(color = Color.White)
                     .padding(top = 9.dp, bottom = 9.dp)
-                    .clickable(true, onClick = {
-                        event?.onClickPlay()
-                    })
             )
         }
     }
@@ -159,7 +171,6 @@ fun UpcomingVideoViewPreview() {
             override var headline: String = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式"
             override var timeCode: String = "22:22"
             override var secCountDown: Int = 10
-        },
-        null
+        }
     )
 }

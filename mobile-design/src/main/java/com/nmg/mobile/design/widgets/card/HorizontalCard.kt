@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -72,7 +73,7 @@ public fun <Data : CardDataProtocol> HorizontalCard(
             }
 
             Text(
-                modifier = Modifier.padding(start = 12.dp),
+                modifier = Modifier.padding(start = 12.dp).fillMaxWidth(),
                 text = data.headline,
                 color = NMGTheme.colors.commonNeutralGray90,
                 style = NMGTheme.typography.cardTitle,
@@ -91,6 +92,7 @@ fun horizontalCardView_Preview() {
         items(10) {
             HorizontalCard(
                 data = CardData(
+                    id = 1,
                     imageURL = "https://placehold.co/133x75/png",
                     headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式獨家專訪" +
                         "｜用科技顛覆金融 李小加革新小店投資模式獨家專訪" +

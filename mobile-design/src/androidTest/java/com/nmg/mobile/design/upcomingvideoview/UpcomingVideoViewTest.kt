@@ -5,8 +5,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import com.karumi.shot.ScreenshotTest
 import com.nmg.mobile.design.theme.NMGTheme
-import com.nmg.mobile.design.widgets.reel.UpcomingItem
-import com.nmg.mobile.design.widgets.reel.UpcomingVideoView
+import com.nmg.mobile.design.widgets.upcomming.UpcomingItem
+import com.nmg.mobile.design.widgets.upcomming.UpcomingVideoView
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -59,17 +59,19 @@ fun <Data : TabData> SwitchTabRow(
         selectedTabIndex = tabIndex,
         backgroundColor = Color.Transparent,
         indicator = { tabPositions ->
-            Box(
-                modifier = Modifier
-                    .tabIndicatorOffset(tabPositions[tabIndex]),
-                contentAlignment = Alignment.Center
-            ) {
-                Divider(
+            if (tabPositions.isNotEmpty()) {
+                Box(
                     modifier = Modifier
-                        .width(22.dp)
-                        .background(NMGTheme.colors.primaryMain, RoundedCornerShape(3.dp)),
-                    thickness = 4.dp
-                )
+                        .tabIndicatorOffset(tabPositions[tabIndex]),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Divider(
+                        modifier = Modifier
+                            .width(22.dp)
+                            .background(NMGTheme.colors.primaryMain, RoundedCornerShape(3.dp)),
+                        thickness = 4.dp
+                    )
+                }
             }
         },
         divider = { }

@@ -2,4 +2,5 @@
 <resources>
     <string name="description">description</string>
     <string name="playing_now">正在播放</string>
+    <string name="load_more">加載更多</string>
 </resources>

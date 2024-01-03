@@ -66,6 +66,7 @@ fun VerticalCardViewPreview() {
     ) {
         VerticalCard(
             data = CardData(
+                id = 1,
                 imageURL = "https://placehold.co/126x224/png",
                 headline = "獨家專訪｜用科技顛覆金融 李小加革新小店投資模式",
                 leadingFootnote = "4小時前",

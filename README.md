@@ -75,7 +75,12 @@ read more: [Installing and creating Emulators with AVDMANAGER (For Continuous In
 
 ### record your snapshot test case
 
-`./gradlew mobile-design:debugExecuteScreenshotTests -Precord`
+- All Test
+  - `./gradlew mobile-design:debugExecuteScreenshotTests -Precord`
+
+- Single Test 
+  - `./gradlew mobile-design:debugExecuteScreenshotTests -Precord -Pandroid.testInstrumentationRunnerArguments.class=com.nmg.mobile.design.widgets.videoplayer.VideoPlayerControlTest`
+
 
 # Snapshot testing
 | | | | | | | |
