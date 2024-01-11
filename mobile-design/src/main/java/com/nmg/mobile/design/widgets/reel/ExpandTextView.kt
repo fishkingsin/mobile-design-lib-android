@@ -45,9 +45,14 @@ data class DefaultExpandActionable(
     override val text: String,
     override val style: SpanStyle,
     override val adjust: @Composable (String, Int) -> String = { content, lastCharIndex ->
-        content.substring(startIndex = 0, endIndex = lastCharIndex)
-            .dropLast(text.length)
-            .dropLastWhile { charactor ->  Character.isWhitespace(charactor) || charactor == '.' }
+        when(content.isNotEmpty() && content.length > lastCharIndex) {
+            true -> content.substring(startIndex = 0, endIndex = lastCharIndex)
+                .dropLast(text.length)
+                .dropLastWhile { charactor ->  Character.isWhitespace(charactor) || charactor == '.' }
+            else -> {
+                ""
+            }
+        }
     },
     override val apply: @Composable (AnnotatedString.Builder) -> Unit = {
         it.withStyle(style = style) { it.append(text) }
@@ -219,6 +224,15 @@ public fun DefaultExpandTextView(
 @Composable
 public fun ExpandTextViewPreview() {
     val content = "若從每人身上賺1元大餅，已是14個億的大茶飯，難度在於中間化零為整的手段。滴灌通主席李小加就想到了破解方案，兼開發出複利生財的投資模式，有如太極生兩儀、兩儀生四象。薑是老的辣，61歲的他下海創業，把生意經的算盤敲得響噹噹。"
+    NMGTheme {
+        DefaultExpandTextView(content = content)
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+public fun ExpandTextViewPreview2() {
+    val content = ""
     NMGTheme {
         DefaultExpandTextView(content = content)
     }
